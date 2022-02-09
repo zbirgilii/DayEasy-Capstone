@@ -7,6 +7,7 @@ https://docs.expo.dev/get-started/installation/
 
 Expo fundementals:
 1. https://docs.expo.dev/versions/latest/react-native/text/
+2. Uploaded PDF's on Teams
 
 API Search:
 1. https://docs.expo.dev/versions/latest/sdk/webbrowser/
