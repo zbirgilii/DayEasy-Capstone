@@ -11,6 +11,7 @@ https://docs.expo.dev/get-started/installation/
 https://classic.yarnpkg.com/en/docs/install#windows-stable
 3. Download React Navigation:
 "yarn add react-navigation"
+(Navigation allows the user to go back and forth between screens.)
 4. Download Node.js LTS (Do not download "Current")
 https://nodejs.org/en/download/
 
@@ -20,6 +21,8 @@ Expo fundementals:
 2. Uploaded PDF's on Teams
 3. Templates on Teams
 
+Screen layput designs:
+1. Flexbox: https://reactnative.dev/docs/flexbox
 
 API Search:
 1. https://docs.expo.dev/versions/latest/sdk/webbrowser/
