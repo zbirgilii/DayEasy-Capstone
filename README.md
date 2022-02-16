@@ -9,13 +9,16 @@ https://docs.expo.dev/get-started/installation/
 "npm install --global expo-cli"
 2. Download Yarn:
 https://classic.yarnpkg.com/en/docs/install#windows-stable
-3. Download Node.js LTS (Do not download "Current")
+3. Download React Navigation:
+"yarn add react-navigation"
+4. Download Node.js LTS (Do not download "Current")
 https://nodejs.org/en/download/
 
 
 Expo fundementals:
 1. https://docs.expo.dev/versions/latest/react-native/text/
 2. Uploaded PDF's on Teams
+3. Templates on Teams
 
 
 API Search:
