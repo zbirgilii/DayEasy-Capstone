@@ -1,14 +1,12 @@
 {
   "expo": {
-    "name": "DayEasy",
-    "slug": "Day-Easy",
+    "name": "DayEasy-Fresh",
+    "slug": "DayEasy-Fresh",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/images/SplashTest.PNG",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,22 +16,17 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-
-    "android": {
-      "package": "com.bycedric.helloworld",
-      "versionCode": 1,
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-
     "ios": {
       "supportsTablet": true
     },
-
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
     "web": {
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/favicon.png"
     }
   }
 }
