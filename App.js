@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { Button } from 'react-native';
@@ -6,9 +6,7 @@ import {StyleSheet, Text, View } from 'react-native';
 
 WebBrowser.maybeCompleteAuthSession();
 
-export default function App() {
-  
-  
+export default function App(){
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
     iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
@@ -21,7 +19,7 @@ export default function App() {
       const { authentication } = response;
       }
   }, [response]);
-
+  Temp = UserProfile(username,password)
   return (
     <>
     <><View style={styles.mainView}>
@@ -41,15 +39,49 @@ export default function App() {
         <Text>Login with</Text>
       </View>
     </View></>
+    <TextInput
+          value={this.state.username}
+          onChangeText={(username) => Temp.setState({ username })}
+          placeholder={'Username'}
+          style={styles.input}
+        />
+    <TextInput
+          value={this.state.username}
+          onChangeText={(username) => Temp.setState({ username })}
+          placeholder={'Username'}
+          style={styles.input}
+        />
     <>
         <Button
           disabled={!request}
           title="Login"
           onPress={() => {
-            promptAsync();
+            promptAsync()
+            this.onLogin.bind(this);
           } } /></>
-          </>  
-  )}
+    </>  
+  )
+  
+}
+
+class UserProfile extends Component {;
+  super(props){
+    state = {
+      username: '',
+      password: '',
+    }
+  };
+
+  onLogin(){ 
+    const { username, password } = this.state;
+
+    // Alert.alert('Credentials', `${username} + ${password}`);
+  };
+  // constructor(props) {
+  //   this.username= '',
+  //   this.password= '';
+  // }
+}
 
 const styles = StyleSheet.create({
   mainView:{
@@ -71,4 +103,3 @@ const styles = StyleSheet.create({
     padding:20
   }
 })
-// export default App;
