@@ -3,6 +3,7 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { Button } from 'react-native';
 import {StyleSheet, Text, View } from 'react-native';
+import MainMenu from "./pages/MainMenu";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -22,34 +23,38 @@ export default function App() {
       }
   }, [response]);
 
-  return (
+  return (<>
     <>
-    <><View style={styles.mainView}>
-      <View style={styles.basicview}>
-        <Text style={styles.basicText}>DayEasy Login Page</Text>
+      <View style={styles.mainView}>
+        <View style={styles.basicview}>
+          <Text style={styles.basicText}>DayEasy Login Page</Text>
+        </View>
+        <View>
+          <Text>Username</Text>
+        </View>
+        <View>
+          <Text>Password</Text>
+        </View>
+        <View>
+          <Text>Forgot My Password</Text>
+        </View>
+        <View>
+          <Text>Login with</Text>
+        </View>
       </View>
-      <View>
-        <Text>Username</Text>
-      </View>
-      <View>
-        <Text>Password</Text>
-      </View>
-      <View>
-        <Text>Forgot My Password</Text>
-      </View>
-      <View>
-        <Text>Login with</Text>
-      </View>
-    </View></>
+    </>
     <>
-        <Button
-          disabled={!request}
-          title="Login"
-          onPress={() => {
+      <Button
+        disabled={!request}
+        title="Login"
+        onPress={() => {
             promptAsync();
-          } } /></>
-          </>  
-  )}
+          } 
+        } 
+      />
+    </>
+  </>)
+}
 
 const styles = StyleSheet.create({
   mainView:{
