@@ -1,7 +1,8 @@
 import React from "react";
 
 import styles from "./style";
-import { Alert, Image, Keyboard, KeyboardAvoidingView, Text, TextInput, TouchableWithoutFeedback, Pressable, View } from "react-native";
+import { Alert, Image, Keyboard, KeyboardAvoidingView, 
+  Text, TextInput, TouchableWithoutFeedback, Pressable, View } from "react-native";
 import { Button, SocialIcon } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
@@ -47,7 +48,7 @@ export default function Register() {
         <View style={styles.mainView}>
           <View style={styles.basicview}>
             <Text style={styles.basicText}>DayEasy Regstration Page</Text></View>
-          <TextInput placeholder="Username" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
+          <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Button buttonStyle={styles.loginButton} onPress={() => handleSignUp()} title="Register" />
           <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />
