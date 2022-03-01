@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DayEasy-Fresh",
-    "slug": "DayEasy-Fresh",
+    "name": "DayEasy-Application",
+    "slug": "DayEasy-Application",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
