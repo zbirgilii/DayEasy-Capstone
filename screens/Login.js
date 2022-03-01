@@ -81,7 +81,7 @@ export default function LoginScreen() {
         <View style={styles.mainView}>
           <View style={styles.basicview}>
             <Text style={styles.basicText}>DayEasy Login Page</Text></View>
-          <TextInput placeholder="Username" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
+          <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Button buttonStyle={styles.loginButton} onPress={() => handleLogin()} title="Login" />
         </View>
