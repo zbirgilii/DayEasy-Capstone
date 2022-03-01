@@ -10,11 +10,15 @@ import { getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,  } from "firebase/auth";
-// import * as Facebook from "expo-facebook";
+import { useNavigation } from '@react-navigation/native';
+
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
+  const navigation = useNavigation();
+
+  
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
     iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
@@ -47,18 +51,7 @@ export default function LoginScreen() {
   const [password, setPassword] = React.useState('')
 
   const handleSignUp = () => {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
+    navigation.push("Register");
   }
 
   const handleLogin = () => {
@@ -67,6 +60,7 @@ export default function LoginScreen() {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
+        GetUserData();
         // ...
   })
     .catch((error) => {
@@ -90,7 +84,6 @@ export default function LoginScreen() {
           <TextInput placeholder="Username" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Button buttonStyle={styles.loginButton} onPress={() => handleLogin()} title="Login" />
-          
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

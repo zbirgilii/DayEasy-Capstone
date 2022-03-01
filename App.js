@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './screens/Home.js';
+import RegisterScreen from './screens/Register.js';
 import LoginScreen from "./screens/Login.js";
 
 const Stack = createNativeStackNavigator();
@@ -9,9 +9,9 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}}/>
-        {/* <Stack.Screen nane="Home" conponent={HomeScreen} /> */}
+      <Stack.Navigator screenOptions={{ headerShown: false}}>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,13 +10,17 @@ import { getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,  } from "firebase/auth";
+import { useNavigation } from '@react-navigation/native';
+
 // import * as Facebook from "expo-facebook";
 
 WebBrowser.maybeCompleteAuthSession();
 
-export default function LoginScreen() {
+export default function Register() {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
+  
+  const navigation = useNavigation();
 
   const handleSignUp = () => {
     const auth = getAuth();
@@ -34,7 +38,7 @@ export default function LoginScreen() {
   }
 
   const Goback = () => {
-    navigation.Goback();
+    navigation.goBack();
   }
 
   return (
