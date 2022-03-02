@@ -2,6 +2,11 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { useEffect, useState } from "react";
+import { getAuth, 
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,  } from "firebase/auth";
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,6 +34,29 @@ if (firebase.apps.length === 0) {
 // const analytics = getAnalytics(app);
 const auth = firebase.auth()
 
-
 export { auth };
+export function signup(email, password) {
+  return createUserWithEmailAndPassword(auth, email, password);
+}
+
+export function login(email, password) {
+  return signInWithEmailAndPassword(auth, email, password);
+}
+
+export function logout() {
+  return signOut(auth);
+}
+
+// Custom Hook
+export function useAuth() {
+  const [ currentUser, setCurrentUser ] = useState();
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsub = onAuthStateChanged(auth, user => setCurrentUser(user));
+    return unsub;
+  }, [])
+
+  return currentUser;
+}
 // const app = initializeApp(firebaseConfig);

@@ -5,10 +5,18 @@ import { Alert, Image, Keyboard, KeyboardAvoidingView, Text, TextInput, Touchabl
 import { Button, SocialIcon } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-// import * as Facebook from "expo-facebook";
+import { getAuth, signOut } from "firebase/auth";
 
 export default function HomeScreen() {
+  const LogOut = () => {
+    const auth = getAuth();
+      signOut(auth).then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+      });
 
+  }
 return (
   
   <KeyboardAvoidingView style={styles.containerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -16,6 +24,7 @@ return (
     <View style={styles.mainView}>
       <View style={styles.basicview}>
         <Text style={styles.basicText}>DayEasy Home Page</Text></View>
+        <Button buttonStyle={styles.loginButton} onPress={() => LogOut()} title="Log Out" />
     </View>
   </TouchableWithoutFeedback>
   </KeyboardAvoidingView>
