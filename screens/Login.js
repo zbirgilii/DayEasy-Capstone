@@ -59,8 +59,9 @@ export default function LoginScreen() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
+        GetUserData()
         const user = userCredential.user;
-        GetUserData();
+        
         // ...
   })
     .catch((error) => {
@@ -69,11 +70,6 @@ export default function LoginScreen() {
     });
   }
 
-  // firebase.auth().signOut().then(() => {
-  //   // Sign-out successful.
-  // }).catch((error) => {
-  //   // An error happened.
-  // });
 
   return (
     <><KeyboardAvoidingView style={styles.containerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
