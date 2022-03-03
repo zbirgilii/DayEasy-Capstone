@@ -48,15 +48,15 @@ export function logout() {
 }
 
 // Custom Hook
-export function useAuth() {
-  const [ currentUser, setCurrentUser ] = useState();
+// export function useAuth() {
+//   const [ currentUser, setCurrentUser ] = useState();
 
-  useEffect(() => {
-    const auth = getAuth();
-    const unsub = onAuthStateChanged(auth, user => setCurrentUser(user));
-    return unsub;
-  }, [])
+//   useEffect(() => {
+//     const auth = getAuth();
+//     const unsub = onAuthStateChanged(auth, user => setCurrentUser(user));
+//     return unsub;
+//   }, [])
 
-  return currentUser;
-}
+//   return currentUser;
+// }
 // const app = initializeApp(firebaseConfig);

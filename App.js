@@ -6,13 +6,16 @@ import RegisterScreen from './screens/Register.js';
 import LoginScreen from "./screens/Login.js";
 import HomeScreen from "./screens/Home.js";
 import styles from "./screens/style";
-import { signup, login, logout, useAuth } from "./firebase.js";
+import { signup, login, logout } from "./firebase.js";
+import AuthContextProvider from './contexts/AuthContext.js';
+import { useAuth } from './contexts/AuthContext.js';
+// import { useAuth } from './firebase.js';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [isLoading, setIsLoading] = React.useState(true);
-  const currentUser = useAuth();
+  const currentUser  = useAuth();
 
   React.useEffect(() => {
     setTimeout(()=> {
@@ -29,13 +32,14 @@ export default function App() {
   }
   
   return (
-    
+  <AuthContextProvider>
   <NavigationContainer>
-    <Stack.Navigator screenOptions={{ headerShown: false}}>
-      {currentUser == null ?(
+    <Stack.Navigator>
+      {currentUser == null ?
+      (
         <>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} />
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false}}/>
         </>
       ) : (
         <>
@@ -44,11 +48,11 @@ export default function App() {
       )}
     </Stack.Navigator>
   </NavigationContainer>
-    
+  </AuthContextProvider>
   );
 }
 // export default App;
-
+// screenOptions={{ headerShown: false}}
 /* <Stack.Navigator>
           {currentUser == null ? (
             // No token found, user isn't signed in
