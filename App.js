@@ -1,74 +1,72 @@
 import * as React from 'react';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
-import { Button } from 'react-native';
-import {StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, View } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import RegisterScreen from './screens/Register.js';
+import LoginScreen from "./screens/Login.js";
+import MainMenuScreen from "./screens/MainMenu.js";
+import styles from "./screens/style";
+import { signup, login, logout } from "./firebase.js";
+import AuthContextProvider from './contexts/AuthContext.js';
+import { useAuth } from './contexts/AuthContext.js';
+// import { useAuth } from './firebase.js';
 
-WebBrowser.maybeCompleteAuthSession();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  
-  
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-  });
+  const [isLoading, setIsLoading] = React.useState(true);
+  const currentUser  = useAuth();
 
   React.useEffect(() => {
-    if (response?.type === 'success') {
-      const { authentication } = response;
-      }
-  }, [response]);
+    setTimeout(()=> {
+      setIsLoading(false);
+    }, 1000);
 
-  return (
-    <>
-    <><View style={styles.mainView}>
-      <View style={styles.basicview}>
-        <Text style={styles.basicText}>DayEasy Login Page</Text>
-      </View>
-      <View>
-        <Text>Username</Text>
-      </View>
-      <View>
-        <Text>Password</Text>
-      </View>
-      <View>
-        <Text>Forgot My Password</Text>
-      </View>
-      <View>
-        <Text>Login with</Text>
-      </View>
-    </View></>
-    <>
-        <Button
-          disabled={!request}
-          title="Login"
-          onPress={() => {
-            promptAsync();
-          } } /></>
-          </>  
-  )}
+  }, []);
 
-const styles = StyleSheet.create({
-  mainView:{
-    flex:1,
-    paddingTop:50,
-    backgroundColor: '#81B29A',
-    alignItems:'center', //center x axis
-    justifyContent:'center', //center y axis
-  },
-  basicview:{
-    backgroundColor:'#3D405B',
-    width:'100%',
-    marginBottom:5
-  },
-  basicText:{
-    fontSize:20,
-    color:'#F4F1DE',
-    textAlign:'center',
-    padding:20
+  if (isLoading) {
+    return ( <View style={styles.mainView}>
+      <ActivityIndicator size="large" />
+    </View>
+    )
   }
-})
+  
+  return (
+  <AuthContextProvider>
+  <NavigationContainer>
+    <Stack.Navigator>
+      {currentUser == null ?
+      (
+        <>
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} />
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false}}/>
+        </>
+      ) : (
+        <>
+        <Stack.Screen name="Main Menu" component={MainMenuScreen} />
+        </>
+      )}
+    </Stack.Navigator>
+  </NavigationContainer>
+  </AuthContextProvider>
+  );
+}
 // export default App;
+// screenOptions={{ headerShown: false}}
+/* <Stack.Navigator>
+          {currentUser == null ? (
+            // No token found, user isn't signed in
+            
+            <Stack.Screen name="Register" component={RegisterScreen}/>
+          ) : (
+            // User is signed in
+            <Stack.Screen name="Home" component={HomeScreen} />
+          )}
+        </Stack.Navigator> */
+
+// import React, { Component } from 'react';
+// import * as WebBrowser from 'expo-web-browser';
+// import * as Google from 'expo-auth-session/providers/google';
+// import {StyleSheet, Text, View,Button, Alert, TextInput} from 'react-native';
+// WebBrowser.maybeCompleteAuthSession();
+

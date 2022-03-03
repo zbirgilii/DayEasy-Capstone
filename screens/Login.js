@@ -10,11 +10,15 @@ import { getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,  } from "firebase/auth";
-// import * as Facebook from "expo-facebook";
+import { useNavigation } from '@react-navigation/native';
+
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
+  const navigation = useNavigation();
+
+  
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
     iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
@@ -47,18 +51,7 @@ export default function LoginScreen() {
   const [password, setPassword] = React.useState('')
 
   const handleSignUp = () => {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
+    navigation.push("Register");
   }
 
   const handleLogin = () => {
@@ -66,7 +59,9 @@ export default function LoginScreen() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
+        GetUserData()
         const user = userCredential.user;
+        
         // ...
   })
     .catch((error) => {
@@ -75,11 +70,6 @@ export default function LoginScreen() {
     });
   }
 
-  // firebase.auth().signOut().then(() => {
-  //   // Sign-out successful.
-  // }).catch((error) => {
-  //   // An error happened.
-  // });
 
   return (
     <><KeyboardAvoidingView style={styles.containerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -87,10 +77,9 @@ export default function LoginScreen() {
         <View style={styles.mainView}>
           <View style={styles.basicview}>
             <Text style={styles.basicText}>DayEasy Login Page</Text></View>
-          <TextInput placeholder="Username" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
+          <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Button buttonStyle={styles.loginButton} onPress={() => handleLogin()} title="Login" />
-          
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
