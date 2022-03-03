@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RegisterScreen from './screens/Register.js';
 import LoginScreen from "./screens/Login.js";
-import HomeScreen from "./screens/Home.js";
+import MainMenuScreen from "./screens/MainMenu.js";
 import styles from "./screens/style";
 import { signup, login, logout } from "./firebase.js";
 import AuthContextProvider from './contexts/AuthContext.js';
@@ -43,7 +43,7 @@ export default function App() {
         </>
       ) : (
         <>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Main Menu" component={MainMenuScreen} />
         </>
       )}
     </Stack.Navigator>
