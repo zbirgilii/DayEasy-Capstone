@@ -6,12 +6,11 @@ import { Button, SocialIcon } from "react-native";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { auth } from '../firebase.js';
-import { getAuth, 
-  createUserWithEmailAndPassword,
+import { getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
-
+import logo from '../assets/logo.png'; 
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -72,19 +71,24 @@ export default function LoginScreen() {
 
 
   return (
-    <><KeyboardAvoidingView style={styles.containerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <>
+    <KeyboardAvoidingView style={styles.containerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.mainView}>
-          <View style={styles.basicview}>
-            <Text style={styles.basicText}>DayEasy Login Page</Text></View>
+        <Image source={logo} style={{ width: "90%", height: "30%" }} /> 
+          {/* <View style={styles.basicview}>
+            <Text style={styles.basicText}>DayEasy Login Page</Text></View> */}
+          <View style={styles.basicContainer}>
           <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Button buttonStyle={styles.loginButton} onPress={() => handleLogin()} title="Login" />
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
     <Button buttonStyle={styles.loginButton} onPress={() => handleSignUp()} title="Register" />
-    <Button containerStyle={styles.fbLoginButton} disabled={!request} type='clear' onPress={() => { promptAsync(); } } title="Login With Google" /></>
+    <Button containerStyle={styles.fbLoginButton} disabled={!request} type='clear' onPress={() => { promptAsync(); } } title="Login With Google" />
+    </>
 
   );
 

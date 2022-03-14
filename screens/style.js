@@ -5,6 +5,7 @@ const { StyleSheet } = React;
 const styles = StyleSheet.create({
     mainView:{
         flex:1,
+        // paddingTop: 0,
         width:'100%',
         backgroundColor: '#81B29A',
         alignItems:'center', //center x axis
@@ -13,8 +14,17 @@ const styles = StyleSheet.create({
     basicview:{
       backgroundColor:'#3D405B',
       width:'100%',
-      marginBottom:50,
+      marginBottom: 15,
     },
+    basicContainer:{
+        flex: .9,
+        marginTop: 1,
+        width:'100%',
+        height: '40%',
+        backgroundColor: '#81B29A',
+        alignItems:'center', //center x axis
+        justifyContent:'center', //center y axis
+      },
     basicText:{
       fontSize: 35,
       color:'#F4F1DE',
@@ -35,7 +45,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#eaeaea",
         backgroundColor: "#fafafa",
-        width:'80  %',
+        width:'80%',
         paddingLeft: 10,
         marginTop: 5,
         marginBottom: 5,
@@ -44,7 +54,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#3897f1",
         borderRadius: 5,
         height: 45,
-        width: 350,
+        width: 400,
         alignItems: "center",
         paddingBottom: 100,
     },
