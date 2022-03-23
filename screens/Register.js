@@ -20,7 +20,7 @@ WebBrowser.maybeCompleteAuthSession();
 export default function Register() {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
-  
+  const [confirmpassword, setconfirmpassword] = React.useState('')
   const navigation = useNavigation();
 
   const handleSignUp = () => {
@@ -50,6 +50,7 @@ export default function Register() {
             <Text style={styles.basicText}>DayEasy Regstration Page</Text></View>
           <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
+          <TextInput placeholder="Confirm Password" placeholderColor="#c4c3cb" onChangeText={text => setconfirmpassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Button buttonStyle={styles.loginButton} onPress={() => handleSignUp()} title="Register" />
           <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />
         </View>
