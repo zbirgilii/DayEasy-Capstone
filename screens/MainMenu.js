@@ -3,12 +3,10 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import {StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigation } from '@react-navigation/native';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-  const navigation = useNavigation();
   const LogOut = () => {
     const auth = getAuth();
       signOut(auth).then(() => {
@@ -21,8 +19,22 @@ export default function App() {
   const sayHello = () => {
       Alert('create me');
     }
+  
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+    iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+    androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+    webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+  });
 
-  return ( 
+  React.useEffect(() => {
+    if (response?.type === 'success') {
+      const { authentication } = response;
+      }
+  }, [response]);
+
+  return (
+    <>
     <>
       <View style={styles.mainView}>
         <View style={styles.basicView}>
@@ -30,9 +42,10 @@ export default function App() {
         </View>
         <Button onClick={sayHello} title="Calendar">
           <Text style={styles.basicText}>
-             The calendar</Text>
+             The  calendar
+          </Text>        
         </Button>
-        <Button onPress={() => navigation.push("Workout")} title="Workout Plan">
+        <Button onClick={sayHello} title="Workout Plan">
           <Text style={styles.basicText}>
             workout plan
           </Text>        
@@ -69,6 +82,7 @@ export default function App() {
         </Button>
         <Button buttonStyle={styles.loginButton} onPress={() => LogOut()} title="Log Out" />        
       </View>
+    </>
     </>  
   )}
 
@@ -96,7 +110,7 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingTop: 50,
     paddingBottom: 10,
-    fontWeight: '400',
+    fontWeight: "400",
     textAlign:'center',
     alignItems:'center' //center x axis
     //justifyContent:'flex-start' //center y axis
@@ -108,5 +122,4 @@ const styles = StyleSheet.create({
   }
 })
 
-  
 // export default App;
