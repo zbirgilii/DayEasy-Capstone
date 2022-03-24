@@ -3,10 +3,12 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import {StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
+import { useNavigation } from '@react-navigation/native';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
+  const navigation = useNavigation();
   const LogOut = () => {
     const auth = getAuth();
       signOut(auth).then(() => {
@@ -19,31 +21,16 @@ export default function App() {
   const sayHello = () => {
       Alert('create me');
     }
-  
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-  });
 
-  React.useEffect(() => {
-    if (response?.type === 'success') {
-      const { authentication } = response;
-      }
-  }, [response]);
-
-  return (
-    <>
+  return ( 
     <>
       <View style={styles.mainView}>
         <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
         </View>
-        <Button onClick={sayHello} title="Calendar">
+        <Button onPress={() => navigation.push("Calender")} title="Calendar">
           <Text style={styles.basicText}>
-             The  calendar
-          </Text>        
+             The calendar</Text>
         </Button>
         <Button onClick={sayHello} title="Workout Plan">
           <Text style={styles.basicText}>
@@ -82,7 +69,6 @@ export default function App() {
         </Button>
         <Button buttonStyle={styles.loginButton} onPress={() => LogOut()} title="Log Out" />        
       </View>
-    </>
     </>  
   )}
 
