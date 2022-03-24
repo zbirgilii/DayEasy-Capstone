@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import {StyleSheet, Text, View, Button, Alert } from 'react-native';
+import {StyleSheet, Text, View, Button } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
-
+   
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -17,12 +17,21 @@ export default function App() {
         // Sign-out successful.
       }).catch((error) => {
         // An error happened.
+          });
+      }
+    
+      const [request, response, promptAsync] = Google.useAuthRequest({
+        expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+        iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+        androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+        webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
       });
-  }
-  
-  const sayHello = () => {
-      Alert('create me');
-    }
+    
+      React.useEffect(() => {
+        if (response?.type === 'success') {
+          const { authentication } = response;
+          }
+      }, [response]);
 
   return ( 
     <>
@@ -49,7 +58,7 @@ export default function App() {
             Meal plan
           </Text>        
         </Button>
-        <Button onClick={sayHello} title="Water Intake">
+        <Button onPress={() => navigation.push("WaterIntake")} title="WaterIntake">
           <Text style={styles.basicText}>
              Water Intake
           </Text>        
@@ -59,7 +68,7 @@ export default function App() {
             Fasting timer
           </Text>        
         </Button>
-        <Button onClick={sayHello} title="Calorie Intake">
+        <Button onPress={() => navigation.push("CalorieIntake")} title="CalorieIntake">
           <Text style={styles.basicText}>
             Calorie Intake
           </Text>        
@@ -108,4 +117,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   }
 })
+function sayHello() {
+  alert('create me');
+}
 // export default App;

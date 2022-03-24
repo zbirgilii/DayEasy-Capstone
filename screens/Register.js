@@ -47,7 +47,7 @@ export default function Register() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.mainView}>
           <View style={styles.basicview}>
-            <Text style={styles.basicText}>DayEasy Regstration Page</Text></View>
+            <Text style={styles.basicText}>DayEasy Registration Page</Text></View>
           <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <TextInput placeholder="Confirm Password" placeholderColor="#c4c3cb" onChangeText={text => setconfirmpassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
