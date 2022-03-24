@@ -2,13 +2,14 @@ import * as React from 'react';
 import { ActivityIndicator, View } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import RegisterScreen from './screens/Register.js';
-import LoginScreen from "./screens/Login.js";
-import MainMenuScreen from "./screens/MainMenu.js";
 import styles from "./screens/style";
 import { signup, login, logout } from "./firebase.js";
 import AuthContextProvider from './contexts/AuthContext.js';
 import { useAuth } from './contexts/AuthContext.js';
+import RegisterScreen from './screens/Register.js';
+import LoginScreen from "./screens/Login.js";
+import MainMenuScreen from "./screens/MainMenu.js";
+import WorkoutScreen from "./screens/WorkOutScreen.js";
 // import { useAuth } from './firebase.js';
 
 const Stack = createNativeStackNavigator();
@@ -44,6 +45,7 @@ export default function App() {
       ) : (
         <>
         <Stack.Screen name="Main Menu" component={MainMenuScreen} />
+        <Stack.Screen name="Workout" component={WorkoutScreen} />
         </>
       )}
     </Stack.Navigator>

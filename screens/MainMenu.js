@@ -1,29 +1,28 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import {StyleSheet, Text, View, Button } from 'react-native';
-
+import {StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigation } from '@react-navigation/native';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-  
-  
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-  });
+  const navigation = useNavigation();
+  const LogOut = () => {
+    const auth = getAuth();
+      signOut(auth).then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+      });
 
-  React.useEffect(() => {
-    if (response?.type === 'success') {
-      const { authentication } = response;
-      }
-  }, [response]);
+  }
+  const sayHello = () => {
+      Alert('create me');
+    }
 
-  return (
-    <>
+  return ( 
     <>
       <View style={styles.mainView}>
         <View style={styles.basicView}>
@@ -31,10 +30,9 @@ export default function App() {
         </View>
         <Button onClick={sayHello} title="Calendar">
           <Text style={styles.basicText}>
-             The  calendar
-          </Text>        
+             The calendar</Text>
         </Button>
-        <Button onClick={sayHello} title="Workout Plan">
+        <Button onPress={() => navigation.push("Workout")} title="Workout Plan">
           <Text style={styles.basicText}>
             workout plan
           </Text>        
@@ -46,7 +44,7 @@ export default function App() {
         </Button>
         <Button onClick={sayHello} title="Meal Plan">
           <Text style={styles.basicText}>
-            Th Meal plan
+            Meal plan
           </Text>        
         </Button>
         <Button onClick={sayHello} title="Water Intake">
@@ -68,10 +66,9 @@ export default function App() {
           <Text style={styles.basicText}>
             Pedomter
           </Text>        
-        </Button>         
-      </View></>
-    <>
-    </>
+        </Button>
+        <Button buttonStyle={styles.loginButton} onPress={() => LogOut()} title="Log Out" />        
+      </View>
     </>  
   )}
 
@@ -99,7 +96,7 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingTop: 50,
     paddingBottom: 10,
-    fontWeight: "400",
+    fontWeight: '400',
     textAlign:'center',
     alignItems:'center' //center x axis
     //justifyContent:'flex-start' //center y axis
@@ -110,7 +107,6 @@ const styles = StyleSheet.create({
     alignItems:'center'
   }
 })
-function sayHello() {
-  alert('create me');
-}
+
+  
 // export default App;
