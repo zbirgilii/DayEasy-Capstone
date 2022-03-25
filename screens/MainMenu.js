@@ -49,7 +49,11 @@ export default function App() {
             Th Meal plan
           </Text>        
         </Button>
+<<<<<<< Updated upstream
         <Button onClick={sayHello} title="Water Intake">
+=======
+        <Button onPress={() => navigation.push("WaterIntake")} title="Water Intake">
+>>>>>>> Stashed changes
           <Text style={styles.basicText}>
              Water Intake
           </Text>        
@@ -59,7 +63,11 @@ export default function App() {
             Fasting timer
           </Text>        
         </Button>
+<<<<<<< Updated upstream
         <Button onClick={sayHello} title="Calorie Intake">
+=======
+        <Button onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
+>>>>>>> Stashed changes
           <Text style={styles.basicText}>
             Calorie Intake
           </Text>        
