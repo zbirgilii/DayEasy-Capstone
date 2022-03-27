@@ -38,7 +38,20 @@ export default function WaterIntakeScreen() {
           <Text style={styles.PageTitle}>Water Intake</Text>
         </View>
           <Text style={styles.Title2}>Previous Week at a glance</Text>
+<<<<<<< Updated upstream
           <Text style={styles.Title2}>Daily</Text>
+=======
+          <Text style={styles.Title3}>Sunday</Text>
+          <Text style={styles.Title3}>Monday</Text>
+          <Text style={styles.Title3}>Tuesday</Text>
+          <Text style={styles.Title3}>Wednesday</Text>
+          <Text style={styles.Title3}>Thursday</Text>
+          <Text style={styles.Title3}>Friday</Text>
+          <Text style={styles.Title3}>Saturday</Text>
+          <Text style={styles.Title2}>Daily</Text>
+          <Text style={styles.Title3}>1pm</Text>
+          <Text style={styles.Title3}>2pm</Text>
+>>>>>>> Stashed changes
         </View>
     </TouchableWithoutFeedback>
     <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />
@@ -69,7 +82,11 @@ const styles = StyleSheet.create({
   PageTitle:{
     fontSize: 40,
     color: 'white',
+<<<<<<< Updated upstream
     paddingTop: 50,
+=======
+    paddingTop: 20,
+>>>>>>> Stashed changes
     paddingBottom: 10,
     fontWeight: '400',
     textAlign:'center',
@@ -80,14 +97,34 @@ const styles = StyleSheet.create({
   Title2:{
     fontSize: 20,
     color: 'white',
+<<<<<<< Updated upstream
     paddingTop: 50,
+=======
+    paddingTop: 20,
+>>>>>>> Stashed changes
     paddingBottom: 10,
     fontWeight: '400',
     textAlign:'center',
     alignItems:'center' //center x axis
     //justifyContent:'flex-start' //center y axis
+<<<<<<< Updated upstream
 
   },
+=======
+  },
+
+  Title3:{
+    fontSize: 20,
+    color: '#3D405B',
+    paddingTop: 20,
+    paddingBottom: 10,
+    fontWeight: '400',
+    textAlign:'center',
+    alignItems:'center' //center x axis
+    //justifyContent:'flex-start' //center y axis
+  },
+
+>>>>>>> Stashed changes
   buttonStyle:{
     textAlign:'center',
     alignItems:'center'

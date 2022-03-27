@@ -36,7 +36,20 @@ export default function CalorieIntakeScreen() {
           <Text style={styles.PageTitle}>Calorie Intake</Text>
         </View>
         <Text style={styles.Title2}>Previous Week at a glance</Text>
+<<<<<<< Updated upstream
         <Text style={styles.Title2}>Daily Calorie Counter</Text>
+=======
+        <Text style={styles.Title3}>Sunday</Text>
+        <Text style={styles.Title3}>Monday</Text>
+        <Text style={styles.Title3}>Tuesday</Text>
+        <Text style={styles.Title3}>Wednesday</Text>
+        <Text style={styles.Title3}>Thursday</Text>
+        <Text style={styles.Title3}>Friday</Text>
+        <Text style={styles.Title3}>Saturday</Text>
+        <Text style={styles.Title2}>Daily Calorie Counter</Text>
+          <Text style={styles.Title3}>1pm</Text>
+          <Text style={styles.Title3}>2pm</Text>
+>>>>>>> Stashed changes
         </View>
     <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />
      </>
@@ -67,7 +80,11 @@ const styles = StyleSheet.create({
   PageTitle:{
     fontSize: 40,
     color: 'white',
+<<<<<<< Updated upstream
     paddingTop: 50,
+=======
+    paddingTop: 20,
+>>>>>>> Stashed changes
     paddingBottom: 10,
     fontWeight: '400',
     textAlign:'center',
@@ -78,8 +95,24 @@ const styles = StyleSheet.create({
   Title2:{
     fontSize: 20,
     color: 'white',
+<<<<<<< Updated upstream
     paddingTop: 50,
     paddingBottom: 10,
+=======
+    paddingTop: 10,
+    paddingBottom: 20,
+    fontWeight: '400',
+    textAlign:'center',
+    alignItems:'center' //center x axis
+    //justifyContent:'flex-start' //center y axis
+
+  },
+  Title3:{
+    fontSize: 20,
+    color: '#3D405B',
+    paddingTop: 10,
+    paddingBottom: 20,
+>>>>>>> Stashed changes
     fontWeight: '400',
     textAlign:'center',
     alignItems:'center' //center x axis
@@ -95,4 +128,8 @@ const styles = StyleSheet.create({
 function sayHello() {
   alert('create me');
 }
+<<<<<<< Updated upstream
 // export default App;
+=======
+// export default App;
+>>>>>>> Stashed changes
