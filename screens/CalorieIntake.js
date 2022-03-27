@@ -35,7 +35,7 @@ import React from "react";
      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
        <View style={styles.mainView}>
          <View style={styles.basicView}>
-           <Text style={styles.PageTitle}>Water Intake</Text>
+           <Text style={styles.PageTitle}>Calorie Intake</Text>
          </View>
            <Text style={styles.Title2}>Previous Week at a glance</Text>
            <Text style={styles.Title2}>Daily</Text>
