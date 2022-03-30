@@ -1,9 +1,13 @@
 import * as React from 'react';
 import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
-
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigation } from '@react-navigation/native';
 
 export default function WorkoutScreen() {
-  
+  const navigation = useNavigation();
+
     const sayHello = () => {
         Alert('create me');
       }
@@ -14,7 +18,7 @@ export default function WorkoutScreen() {
         <View style={styles.basicView}>
           <TouchableOpacity
             style={styles.backButton} 
-            onPress={sayHello}>
+            onPress={() => navigation.push("Main Menu")}>
             <Text style={styles.basicText}>
               Back 
             </Text>        
