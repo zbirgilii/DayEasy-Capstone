@@ -5,7 +5,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 
-export default function WorkoutScreen() {
+export default function BackWorkoutScreen() {
   const navigation = useNavigation();
 
     const sayHello = () => {
@@ -23,7 +23,7 @@ export default function WorkoutScreen() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}>Workout Plan</Text>
+          <Text style={styles.PageTitle}>Suggested Workout:</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
@@ -31,56 +31,7 @@ export default function WorkoutScreen() {
           <Text style={styles.basicText}>
              Chest
           </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={() => navigation.push("BackWorkoutScreen")}>
-          <Text style={styles.basicText}>
-             Back
-          </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={sayHello}>
-          <Text style={styles.basicText}>
-             Bicep
-          </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={sayHello}>
-          <Text style={styles.basicText}>
-             Tricep 
-          </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={sayHello}>
-          <Text style={styles.basicText}>
-             Abs 
-          </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={sayHello}>
-          <Text style={styles.basicText}>
-             Shoulder
-          </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={sayHello}>
-          <Text style={styles.basicText}>
-             Legs
-          </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={sayHello}>
-          <Text style={styles.basicText}>
-             Archived Workouts 
-          </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity>       
                  
       </View></>
        

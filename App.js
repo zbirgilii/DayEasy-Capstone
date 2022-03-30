@@ -6,6 +6,7 @@ import RegisterScreen from './screens/Register.js';
 import LoginScreen from "./screens/Login.js";
 import MainMenuScreen from "./screens/MainMenu.js";
 import WorkoutScreen from "./screens/WorkOutScreen.js";
+import BackWorkoutScreen from "./screens/allWorkouts/BackWorkoutScreen.js";
 import WaterIntakeScreen from "./screens/WaterIntake.js";
 import CalorieIntakeScreen from "./screens/CalorieIntake.js";
 import styles from "./screens/style";
@@ -49,7 +50,10 @@ export default function App() {
         <Stack.Screen name="Main Menu" component={MainMenuScreen} />
         <Stack.Screen name="WaterIntake" component={WaterIntakeScreen} />
         <Stack.Screen name="CalorieIntake" component={CalorieIntakeScreen} />
-        <Stack.Screen name="Workout" component={WorkoutScreen} />
+        <Stack.Screen name="Workout" component=
+        {WorkoutScreen} />
+        <Stack.Screen name="BackWorkoutScreen" component=
+        {BackWorkoutScreen} />
         </>
       )}
     </Stack.Navigator>
