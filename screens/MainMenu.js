@@ -19,7 +19,7 @@ export default function App() {
 
   }
   const sayHello = () => {
-      Alert('create me');
+      navigation.push('Login');
     }
 
   return ( 
@@ -28,11 +28,11 @@ export default function App() {
         <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
         </View>
-        <Button onPress={() => navigation.push("Calender")} title="Calendar">
+        <Button onPress={() => navigation.push("Login")} title="Login">
           <Text style={styles.basicText}>
              The calendar</Text>
         </Button>
-        <Button onClick={sayHello} title="Workout Plan">
+        <Button onClick={() => sayHello()} title="Workout Plan">
           <Text style={styles.basicText}>
             workout plan
           </Text>        

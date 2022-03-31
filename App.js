@@ -10,7 +10,6 @@ import { useAuth } from './contexts/AuthContext.js';
 import RegisterScreen from './screens/Register.js';
 import LoginScreen from "./screens/Login.js";
 import MainMenuScreen from "./screens/MainMenu.js";
-import CalendarScreen from "./screens/Agenda.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,11 +40,15 @@ export default function App() {
         <>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} />
         <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false}}/>
+        
+        
+        
+        
         </>
       ) : (
         <>
         <Stack.Screen name="Main Menu" component={MainMenuScreen} />
-        <Stack.Screen name="Calender" component={CalendarScreen} />
+        {/* <Stack.Screen name="Calender" component={CalendarScreen} /> */}
         </>
       )}
     </Stack.Navigator>
