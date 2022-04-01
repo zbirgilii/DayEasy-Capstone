@@ -14,17 +14,6 @@ export default function App() {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
-
-  const LogOut = () => {
-    const auth = getAuth();
-      signOut(auth).then(() => {
-        // Sign-out successful.
-      }).catch((error) => {
-        // An error happened.
-      });
-
-  }
-
   const handleLogin = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
@@ -51,36 +40,27 @@ export default function App() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.mainView}>
         <View style={styles.basicView}>
-          <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
+          <Text style={styles.PageTitle}>DayEasy Login</Text>
         </View>
-        <View style={styles.basicContainer}>
-          <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
-          <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
-          <Pressable
-            style={({pressed}) => [
-              {
-                backgroundColor: pressed ? 'red' : 'blue',
-              },
-              styles.loginButton,
-            ]}
-            onPress={() => handleLogin()}>
-            <Text style={styles.loginText}>Login</Text>
-          </Pressable>
+        <View style={styles.menuContainer}>
+            <TextInput placeholder="Email" placeholderColor = "#c4c3cb" defaultValue = {email}
+            onChangeText={(text) => setEmail(text)} style={styles.loginFormTextInput} />
+            <TextInput placeholder="Password" placeholderColor = "#c4c3cb" defaultValue = {password}
+            onChangeText={(text) => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
+            <Pressable
+              style={styles.loginButton}
+              onPress={() => handleLogin()}>
+              <Text style={styles.buttonText}>Login</Text>
+            </Pressable>
         </View>
+        <Pressable
+          style={styles.registerButton}
+          onPress={() => handleSignUp()}>
+          <Text style={styles.buttonText}>Register</Text>
+        </Pressable>
       </View>
     </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
-      <Pressable
-            style={({pressed}) => [
-              {
-                backgroundColor: pressed ? 'red' : 'blue',
-              },
-              styles.registerButton,
-            ]}
-            onPress={() => handleSignUp()}>
-            <Text style={styles.loginText}>Register</Text>
-      </Pressable>
-   
+    </KeyboardAvoidingView>   
     </>  
   )}
 
@@ -93,18 +73,15 @@ const styles = StyleSheet.create({
     //justifyContent:'center', //center y axis
   },
   containerView:{
-    flex: 1
+    flex: 1,
   },
   basicView:{
     backgroundColor:'#3D405B',
     width:'100%',
     marginBottom:5
   },
-  basicText:{
-    fontSize:20,
-    //color:'#F4F1DE',
-    textAlign:'center',
-    padding:20
+  menuContainer:{
+    flex: 1,
   },
   PageTitle:{
     fontSize: 40,
@@ -113,15 +90,20 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontWeight: "400",
     textAlign:'center',
-    alignItems:'center' //center x axis
+    alignItems:'center', //center x axis
     //justifyContent:'flex-start' //center y axis
-
+  },
+  buttonText:{
+    color:'#F4F1DE',
+    textAlign:'center',
+    padding:10,
+    color: 'white',
   },
   loginButton: {
     backgroundColor: "#3897f1",
-    borderRadius: 5,
+    borderRadius: 3,
     height: 45,
-    width: '80%',
+    width: 200,
     alignItems: 'center',
     paddingBottom: 5,
   },
@@ -133,20 +115,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 5,
   },
-  loginText:{
-    color:'#F4F1DE',
-    textAlign:'center',
-    padding:20,
-    color: 'white'
-  },
   loginFormTextInput: {
     height: 43,
     fontSize: 14,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#eaeaea",
-    backgroundColor: "#fafafa",
-    width:'80%',
+    borderColor: "#3897f1",
+    backgroundColor: "white",
+    width: 200,
     paddingLeft: 10,
     marginTop: 5,
     marginBottom: 5,
