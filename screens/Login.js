@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
-import {StyleSheet, Text, View, Button, Alert,TextInput,  Pressable  } from 'react-native';
+import {StyleSheet, Text, View, Button, Alert,TextInput,  Pressable, 
+  Platform, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import { getAuth,
   signInWithEmailAndPassword } from "firebase/auth";
@@ -46,6 +47,8 @@ export default function App() {
 
   return ( 
     <>
+    <KeyboardAvoidingView style={styles.containerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.mainView}>
         <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
@@ -67,6 +70,19 @@ export default function App() {
           </Pressable>
         </View>
       </View>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+      <Pressable
+            style={({pressed}) => [
+              {
+                backgroundColor: pressed ? 'red' : 'blue',
+              },
+              styles.registerButton,
+            ]}
+            onPress={() => handleSignUp()}>
+            <Text style={styles.loginText}>Register</Text>
+      </Pressable>
+   
     </>  
   )}
 
@@ -77,6 +93,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#81B29A',
     alignItems:'center', //center x axis
     //justifyContent:'center', //center y axis
+  },
+  containerView:{
+    flex: 1
   },
   basicView:{
     backgroundColor:'#3D405B',
@@ -110,6 +129,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 45,
     width: '80%',
+    alignItems: 'center',
+    paddingBottom: 5,
+  },
+  registerButton: {
+    backgroundColor: "#3897f1",
+    borderRadius: 5,
+    height: 45,
+    width: '100%',
     alignItems: 'center',
     paddingBottom: 5,
   },
