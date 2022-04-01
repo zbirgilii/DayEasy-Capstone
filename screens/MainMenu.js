@@ -19,19 +19,6 @@ export default function App() {
         // An error happened.
           });
       }
-    
-      const [request, response, promptAsync] = Google.useAuthRequest({
-        expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-        iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-        androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-        webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-      });
-    
-      React.useEffect(() => {
-        if (response?.type === 'success') {
-          const { authentication } = response;
-          }
-      }, [response]);
 
   return ( 
     <>
@@ -39,9 +26,7 @@ export default function App() {
         <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
         </View>
-        <Button onClick={sayHello} title="Calendar">
-          <Text style={styles.basicText}>
-             The calendar</Text>
+        <Button onPress={() => navigation.push("Calendar")} title="Calendar">
         </Button>
         <Button onPress={() => navigation.push("Workout")} title="Workout Plan">
           <Text style={styles.basicText}>
