@@ -50,9 +50,11 @@ export default function App() {
         <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
         </View>
-        <View style={styles.basicContainer}>
-          <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
-          <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
+        <View style={styles.containerView}>
+          <TextInput placeholder="Email" placeholderColor="#c4c3cb" 
+            onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
+          <TextInput placeholder="Password" placeholderColor="#c4c3cb" 
+            onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Pressable
             style={({pressed}) => [
               {
@@ -80,6 +82,11 @@ const styles = StyleSheet.create({
     backgroundColor:'#3D405B',
     width:'100%',
     marginBottom:5
+  },
+  containerView: {
+    flex: 2,
+    width:'100%',
+    alignItems: "center"
   },
   basicText:{
     fontSize:20,
