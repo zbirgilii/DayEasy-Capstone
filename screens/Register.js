@@ -3,7 +3,7 @@ import * as WebBrowser from 'expo-web-browser';
 import {StyleSheet, Text, View, Button, Alert,TextInput,  Pressable  } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import { getAuth,
-  signInWithEmailAndPassword } from "firebase/auth";
+  createUserWithEmailAndPassword } from "firebase/auth";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -12,36 +12,49 @@ export default function App() {
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
+  const [password2, setPassword2] = React.useState('')
 
-
-  const LogOut = () => {
-    const auth = getAuth();
-      signOut(auth).then(() => {
-        // Sign-out successful.
-      }).catch((error) => {
-        // An error happened.
-      });
-
+  const goBack = () => {
+    navigation.goBack();
   }
 
-  const handleLogin = () => {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        GetUserData()
-        const user = userCredential.user;
-        
-        // ...
-  })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
+  const Confirmpassword = () => {
+    if (password != password2)
+    {
+      return false 
+    }
+    else 
+    {
+      return true
+    }
   }
 
   const handleSignUp = () => {
-    navigation.push("Register");
+    const temp = Confirmpassword()
+    if (temp == true)
+    {
+      CreateUser();
+      return;
+    }
+    else 
+    {
+      return 
+    }
+  }
+
+  const CreateUser = () => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
   }
 
   return ( 
@@ -53,18 +66,29 @@ export default function App() {
         <View style={styles.basicContainer}>
           <TextInput placeholder="Email" placeholderColor="#c4c3cb" onChangeText={text => setEmail(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
+          <TextInput placeholder="Confirm Password" placeholderColor="#c4c3cb" onChangeText={text => setPassword2(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Pressable
             style={({pressed}) => [
               {
-                backgroundColor: pressed ? 'red' : 'blue',
+                backgroundColor: pressed ? 'red' : '3897f1',
               },
               styles.loginButton,
             ]}
-            onPress={() => handleLogin()}>
-            <Text style={styles.loginText}>Login</Text>
+            onPress={() => handleSignUp()}>
+            <Text style={styles.loginText}>Sign Up</Text>
           </Pressable>
         </View>
       </View>
+      <Pressable
+        style={({pressed}) => [
+          {
+            backgroundColor: pressed ? 'red' : '3897f1',
+          },
+          styles.registerButton,
+        ]}
+        onPress={() => goBack()}>
+        <Text style={styles.loginText}>Back To Login</Text>
+        </Pressable>
     </>  
   )}
 
@@ -103,6 +127,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 45,
     width: '80%',
+    alignItems: 'center',
+    paddingBottom: 5,
+  },
+  registerButton: {
+    backgroundColor: "#3897f1",
+    borderRadius: 5,
+    height: 45,
+    width: '100%',
     alignItems: 'center',
     paddingBottom: 5,
   },
