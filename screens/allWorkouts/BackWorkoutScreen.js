@@ -18,7 +18,7 @@ export default function BackWorkoutScreen() {
         <View style={styles.basicView}>
           <TouchableOpacity
             style={styles.backButton} 
-            onPress={() => navigation.push("Main Menu")}>
+            onPress={() => navigation.push("Workout")}>
             <Text style={styles.basicText}>
              &lt;Back 
             </Text>        
