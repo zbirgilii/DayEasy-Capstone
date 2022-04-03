@@ -18,6 +18,7 @@ import { useAuth } from './contexts/AuthContext.js';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  
   const [isLoading, setIsLoading] = React.useState(true);
   const currentUser  = useAuth();
 
