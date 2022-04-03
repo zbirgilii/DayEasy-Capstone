@@ -6,12 +6,19 @@ import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 
+
 export default function weekDayMenu() {
+
+    
   const navigation = useNavigation();
 
     const sayHello = () => {
         Alert('create me');
       }
+    const changeStyle = () => {
+        Alert('create me');
+        //style={styles.AddedToWorkout};
+    }
 
   return (
     <>
@@ -28,35 +35,80 @@ export default function weekDayMenu() {
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
-          <Text style={styles.basicText}>
-             Chest
+          onPress={changeStyle}>
+          <Text style={styles.buttonText}>
+             Sunday
           </Text>        
-        </TouchableOpacity>       
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonStyle} 
+          onPress={changeStyle}>
+          <Text style={styles.buttonText}>
+             Monday
+          </Text>        
+        </TouchableOpacity> 
+        <TouchableOpacity
+          style={styles.buttonStyle} 
+          onPress={changeStyle}>
+          <Text style={styles.buttonText}>
+             Tuesday
+          </Text>        
+        </TouchableOpacity> 
+        <TouchableOpacity
+          style={styles.buttonStyle} 
+          onPress={changeStyle}>
+          <Text style={styles.buttonText}>
+             Wednesday
+          </Text>        
+        </TouchableOpacity> 
+        <TouchableOpacity
+          style={styles.buttonStyle} 
+          onPress={changeStyle}>
+          <Text style={styles.buttonText}>
+             Thursday
+          </Text>        
+        </TouchableOpacity> 
+        <TouchableOpacity
+          style={styles.buttonStyle} 
+          onPress={changeStyle}>
+          <Text style={styles.buttonText}>
+             Friday
+          </Text>        
+        </TouchableOpacity> 
+        <TouchableOpacity
+          style={styles.buttonStyle} 
+          onPress={changeStyle}>
+          <Text style={styles.buttonText}>
+             Saturday
+          </Text>        
+        </TouchableOpacity>        
                  
       </View></>
        
   )}
 
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
     mainView:{
-        flex:1,
+        //flex:1,
         //paddingTop:50,
         backgroundColor: '#81B29A',
+        //height: '100%',
+        //height: '100vh',
+        //alignSelf: 'stretch',
         alignItems:'center', //center x axis
-        //justifyContent:'center', //center y axis
+        //justifyContent:'center', //center y axis 
       },
       basicView:{
-        backgroundColor:'#3D405B',        
-        width:'100%',
+        backgroundColor:'#3D405B',
+        width:'100%',        
         marginBottom:5
       },
       basicText:{
         fontSize:20,
-        //color:'#F4F1DE',
+        color: 'white',
         textAlign:'center',
         padding:20
-      },
+      },      
       PageTitle:{
         fontSize: 40,
         color: 'white',
@@ -65,18 +117,53 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         textAlign:'center',
         alignItems:'center' //center x axis
-        //justifyContent:'flex-start' //center y axis
-    
+        //justifyContent:'flex-start' //center y axis    
+      },
+      buttonText:{
+        fontSize: '300%',
+        fontWeight: 700,
+        marginTop: 10,
+        marginBottom: 10,
+        //borderColor: 'black',
+        //textShadowColor: 'red',
+        color: 'white'
       },
       buttonStyle:{
         textAlign:'center',
         alignItems:'center',
-        borderRadius: 100,
+        borderRadius: 1000,
         borderWidth: 1,
+        width: '70%',
+        //marginBottom: 10,
+        //padding: '100, 7px 10px 7px',
+        //paddingRight: '50%',
+        //paddingLeft: 70,
+        //flex: 1,
+        alignSelf: 'center',
         marginTop: 10,
-        backgroundColor: 'white',
-        color: 'black'
+        marginBottom: 10,
+        marginRight: 10,
+        marginLeft: 5,
+        backgroundColor:'#3D405B',
+        color: 'white'
+      },
+      AddedToWorkout:{
+        textAlign:'center',
+        alignItems:'center',
+        borderRadius: 1000,
+        borderWidth: 1,
+        width: '70%',
+        //marginBottom: 10,
+        //padding: '100, 7px 10px 7px',
+        //paddingRight: '50%',
+        //paddingLeft: 70,
+        //flex: 1,
+        alignSelf: 'center',
+        marginTop: 10,
+        marginBottom: 10,
+        marginRight: 10,
+        marginLeft: 5,
+        backgroundColor:'red',
+        color: 'red'
       }
 })
-
-// export default App;

@@ -7,8 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function WorkoutScreen() {
   const navigation = useNavigation();
-   
-  //titleOfPage = "";
 
   const toWeekDayMenu = () => {
     const i = 1;
