@@ -8,8 +8,9 @@ import { useNavigation } from '@react-navigation/native';
 export default function WorkoutScreen() {
   const navigation = useNavigation();
 
-    const sayHello = () => {
-        Alert('create me');
+    const toWeekDayMenu = () => {
+        //Alert('create me');
+        navigation.push("weekDayMenu");
       }
 
   return (
@@ -27,56 +28,56 @@ export default function WorkoutScreen() {
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
+          onPress={toWeekDayMenu}>
           <Text style={styles.buttonText}>
              Chest
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => navigation.push("BackWorkoutScreen")}>
+          onPress={toWeekDayMenu}>
           <Text style={styles.buttonText}>
              Back
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
+          onPress={toWeekDayMenu}>
           <Text style={styles.buttonText}>
              Bicep
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
+          onPress={toWeekDayMenu}>
           <Text style={styles.buttonText}>
              Tricep 
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
+          onPress={toWeekDayMenu}>
           <Text style={styles.buttonText}>
              Abs 
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
+          onPress={toWeekDayMenu}>
           <Text style={styles.buttonText}>
              Shoulder
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
+          onPress={toWeekDayMenu}>
           <Text style={styles.buttonText}>
              Legs
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
+          onPress={toWeekDayMenu}>
           <Text style={styles.buttonText}>
              Archived Workouts 
           </Text>        
