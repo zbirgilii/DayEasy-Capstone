@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Modal,Pressable } from 'react-native';
 import { Agenda, LocaleConfig } from 'react-native-calendars';
 import { TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
+
+
 
 // LocaleConfig.locales['pt-br'] = {
 //   monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
@@ -14,17 +16,45 @@ import { Dimensions } from 'react-native';
 // LocaleConfig.defaultLocale = 'pt-br';
 
 const App = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  
   const [calendarOpened, setCalendarOpened] = useState(false);
   const [items, setitems] = useState({
     '2022-04-04': [{text: 'any js object', marked: true}],
     '2022-04-02': [{text: 'item 1 - any js object'}],
     '2022-04-03': [{text: 'item 2 - any js object'}, {text: 'item 3 - any js object'}],
   });
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
+  const CreateDate = () => {
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={{ flex: 1 }}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
         <Agenda
             loadItemsForMonth={(month) => {console.log('trigger items loading')}}
             items = {items}
@@ -36,7 +66,7 @@ const App = () => {
             firstDay={1}
             onDayPress={(day)=>{console.log('day pressed')}}
             onDayChange={(day)=>{console.log('day changed')}}
-            onDayLongPress={day => {console.log('selected day', day)}}
+            onDayLongPress={day => {console.log('selected day', ), setModalVisible(true)}}
             selected={new Date()}
             minDate={'2021-01-01'}
             maxDate={'2030-12-31'}          
@@ -51,7 +81,7 @@ const App = () => {
                   <Text>{item.text}</Text>
                   <TouchableOpacity
                   style={styles.button}
-                  onPress={(item) => {console.log('selected day')}}
+                  onPress={(item) => {console.log('selected item')}}
                   >
                   <Text>Touch for Activity</Text>
                   </TouchableOpacity>
@@ -75,8 +105,7 @@ const App = () => {
             theme={{
             knobContainer: {
                 backgroundColor: 'red'
-            }
-            }}
+            }}}
         />
       </View>
     </SafeAreaView>
@@ -84,6 +113,31 @@ const App = () => {
 }
 
 const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView:{
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
