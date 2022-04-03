@@ -5,6 +5,10 @@ import {StyleSheet, Text, View, Button, Alert,TextInput,  Pressable,
 import { useNavigation } from '@react-navigation/native'; 
 import { getAuth,
   createUserWithEmailAndPassword } from "firebase/auth";
+import {db} from '../firebase.js'
+import { collection, addDoc } from 'firebase/firestore'; 
+import { doc, setDoc } from "firebase/firestore"; 
+
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -12,6 +16,8 @@ export default function App() {
   const navigation = useNavigation();
 
   const [email, setEmail] = React.useState('')
+  const [Fname, setFname] = React.useState('')
+  const [Lname, setLname] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [password2, setPassword2] = React.useState('')
 
@@ -31,24 +37,47 @@ export default function App() {
   }
 
   const handleSignUp = () => {
-    const temp = Confirmpassword()
-    if (temp == true)
-    {
-      CreateUser();
-      return;
-    }
-    else 
-    {
-      Alert("Passwords do not match!")
-      return 
-    }
+    const docRef = addDoc(collection(db, "cities"), {
+      name: "Tokyo",
+      country: "Japan"
+    })
+    // setDoc(doc(db, "Workout", "Arms"), {
+    //   Workout: "Test2",
+    //   country: "USA"
+    // });
+    // const temp = Confirmpassword()
+    // if (temp == true)
+    // {
+    //   console.log('Sign up user created')
+    //   CreateUser();
+    //   return;
+    // }
+    // else 
+    // {
+    //   Alert("Passwords do not match!")
+    //   return 
+    // }
   }
 
   const CreateUser = () => {
+    console.log('Create Users user created')
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-    // Signed in 
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
+          console.log(uid)
+          
+          // ...
+        } else {
+          // User is signed out
+          // ...
+        }
+      });
+      // Signed in 
     const user = userCredential.user;
     // ...
     })
@@ -70,14 +99,18 @@ export default function App() {
         <View style={styles.menuContainer}>
           <TextInput placeholder="Email" placeholderColor = "#c4c3cb" defaultValue = {email}
            onChangeText={(text) => setEmail(text)} style={styles.loginFormTextInput} />
+          <TextInput placeholder="Fname" placeholderColor = "#c4c3cb" defaultValue = {Fname}
+           onChangeText={(text) => setFname(text)} style={styles.loginFormTextInput} />
+          <TextInput placeholder="Lname" placeholderColor = "#c4c3cb" defaultValue = {Lname}
+           onChangeText={(text) => setLname(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor = "#c4c3cb" defaultValue = {password}
            onChangeText={(text) => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
-          <TextInput placeholder="Confirm Password" placeholderColor = "#c4c3cb" defaultValue = {password}
+          <TextInput placeholder="Confirm Password" placeholderColor = "#c4c3cb" defaultValue = {password2}
            onChangeText={(text) => setPassword2(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Pressable
               style={styles.  menuButton}
               onPress={() => handleSignUp()}>
-              <Text style={styles.buttonText}>Register</Text>
+              <Text style={styles.buttonText}>Submit Regisstration</Text>
             </Pressable>
         </View>
         <Pressable

@@ -40,7 +40,7 @@ export default function App() {
   <AuthContextProvider>
   <NavigationContainer>
     <Stack.Navigator>
-      {currentUser == null ?
+      {currentUser == null || "" ?
       (
         <>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} />

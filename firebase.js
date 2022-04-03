@@ -3,6 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { useEffect, useState } from "react";
+import {getFirestore} from "firebase/firestore"
 import { getAuth, 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -26,15 +27,17 @@ const firebaseConfig = {
 // Initialize Firebase
 let app;
 if (firebase.apps.length === 0) {
-  app = firebase.initializeApp(firebaseConfig);
+  const app = firebase.initializeApp(firebaseConfig);
+  
 } else {
-  app = firebase.app()
+  const app = firebase.app()
 }
-const db = getFirestore(app);
+//const db = app.firestore();
+
 // const db = app.firestore();
 // const analytics = getAnalytics(app);
 const auth = firebase.auth()
-
+export const db = getFirestore(app);
 export { auth };
 export function signup(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);

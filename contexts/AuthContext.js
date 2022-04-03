@@ -24,7 +24,8 @@ import { getAuth,
         
         useEffect(() => {
             const auth = getAuth();
-            const unsub = onAuthStateChanged(auth, user => setCurrentUser(user));
+            console.log('Auth Context user created')
+            const unsub = onAuthStateChanged(auth, user => setCurrentUser(user), console.log('Auth Context user created'));
             return unsub;
         }, []);
         return currentUser;
