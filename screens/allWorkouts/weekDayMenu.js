@@ -1,4 +1,5 @@
 import * as React from 'react';
+//import pageTitle from './screens/WorkOutScreen';
 import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
@@ -23,7 +24,7 @@ export default function weekDayMenu() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}>Suggested Workout:</Text>
+          <Text style={styles.PageTitle}>_nameHere</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 

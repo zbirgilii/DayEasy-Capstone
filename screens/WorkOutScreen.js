@@ -7,14 +7,21 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function WorkoutScreen() {
   const navigation = useNavigation();
+   
+  //titleOfPage = "";
 
-    const toWeekDayMenu = () => {
-        //Alert('create me');
-        navigation.push("weekDayMenu");
-      }
+  const toWeekDayMenu = () => {
+    const i = 1;
+    if(i == 1){
+      navigation.push("weekDayMenu");
+    }
+    //export pageTitle;
+    //navigation.push("weekDayMenu");
+  }
+    
 
   return (
-    <>
+    <>    
       <View style={styles.mainView}>        
         <View style={styles.basicView}>
           <TouchableOpacity
