@@ -4,6 +4,8 @@ import { Agenda, LocaleConfig } from 'react-native-calendars';
 import { TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 
+import {db} from '../firebase.js'
+import { doc, setDoc } from "firebase/firestore"; 
 
 
 // LocaleConfig.locales['pt-br'] = {
@@ -19,16 +21,24 @@ const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
   
   const [calendarOpened, setCalendarOpened] = useState(false);
+  const [selectedday, setSelectedday] = useState('')
   const [items, setitems] = useState({
-    '2022-04-04': [{text: 'any js object', marked: true}],
-    '2022-04-02': [{text: 'item 1 - any js object'}],
-    '2022-04-03': [{text: 'item 2 - any js object'}, {text: 'item 3 - any js object'}],
+    '2022-04-10': [{text: 'any js object', marked: true}],
+    '2022-04-12': [{text: 'item 1 - any js object'}],
+    '2022-04-13': [{text: 'item 2 - any js object'}, {text: 'item 3 - any js object'}],
   });
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const CreateDate = () => {
+  const CreateDate = (day) => {
+    console.log("Date Created");
+    setDoc(doc(db, "agenda", selectedday), {
+      Description: "Test",
+      Time: "Run",
+      Location: 'blank',
+    });
+    setModalVisible(!modalVisible);
   }
 
   return (
@@ -48,6 +58,12 @@ const App = () => {
             <Text style={styles.modalText}>Hello World!</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
+              onPress={() => CreateDate(Date)}
+            >
+              <Text style={styles.textStyle}>Date</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
               <Text style={styles.textStyle}>Hide Modal</Text>
@@ -56,7 +72,7 @@ const App = () => {
         </View>
       </Modal>
         <Agenda
-            loadItemsForMonth={(month) => {console.log('trigger items loading')}}
+            loadItemsForMonth={(month) => {console.log('trigger items loading'), month}}
             items = {items}
             markedDates={{
             '2022-04-16': {marked: true},
@@ -66,7 +82,8 @@ const App = () => {
             firstDay={1}
             onDayPress={(day)=>{console.log('day pressed')}}
             onDayChange={(day)=>{console.log('day changed')}}
-            onDayLongPress={day => {console.log('selected day', ), setModalVisible(true)}}
+            onDayLongPress={day => {console.log("long press " + day.dateString),
+              setSelectedday(day.dateString), setModalVisible(true)}}
             selected={new Date()}
             minDate={'2021-01-01'}
             maxDate={'2030-12-31'}          

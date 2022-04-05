@@ -59,13 +59,12 @@ export default function App() {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = auth.currentUser;
+      const user = auth.currentUser; auth.currentUser.email
       console.log("User ID: " + user.uid)
-      setDoc(doc(db, "Users", email), {
+      setDoc(doc(db, "users", user.email), {
         Fname: Fname,
         Lname: Lname,
         userID: user.uid,
-        email: user.email,
       });
       console.log("after creation")
     })
