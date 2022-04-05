@@ -37,49 +37,37 @@ export default function App() {
   }
 
   const handleSignUp = () => {
-    const docRef = addDoc(collection(db, "cities"), {
-      name: "Tokyo",
-      country: "Japan"
-    })
     // setDoc(doc(db, "Workout", "Arms"), {
     //   Workout: "Test2",
     //   country: "USA"
     // });
-    // const temp = Confirmpassword()
-    // if (temp == true)
-    // {
-    //   console.log('Sign up user created')
-    //   CreateUser();
-    //   return;
-    // }
-    // else 
-    // {
-    //   Alert("Passwords do not match!")
-    //   return 
-    // }
+    const temp = Confirmpassword()
+    if (temp == true)
+    {
+      console.log('Sign up called')
+      CreateUser();
+      return;
+    }
+    else 
+    {
+      Alert("Passwords do not match!")
+      return 
+    }
   }
 
   const CreateUser = () => {
-    console.log('Create Users user created')
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          const uid = user.uid;
-          console.log(uid)
-          
-          // ...
-        } else {
-          // User is signed out
-          // ...
-        }
+      const user = auth.currentUser;
+      console.log("User ID: " + user.uid)
+      setDoc(doc(db, "Users", email), {
+        Fname: Fname,
+        Lname: Lname,
+        userID: user.uid,
+        email: user.email,
       });
-      // Signed in 
-    const user = userCredential.user;
-    // ...
+      console.log("after creation")
     })
     .catch((error) => {
       const errorCode = error.code;
