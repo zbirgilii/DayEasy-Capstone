@@ -1,5 +1,6 @@
 
-
+/*add the app state for background use, style, store the time of status change date time has passed.
+*/
 
 
 
@@ -7,13 +8,13 @@ import React, { Component } from 'react';
 //import React in our project
 
 import { View } from 'react-native';
-//import all the component we need in our project
+
 
 import CountDown from 'react-native-countdown-component';
-//import CountDown to show the timer
+
 
 import moment from 'moment';
-//import moment to help you play with date and time
+
 
 export default class App extends Component {
   constructor(props) {
@@ -32,8 +33,8 @@ export default class App extends Component {
       .format('YYYY-MM-DD hh:mm:ss');
     //Getting the current date-time with required formate and UTC   
     
-    var expirydate = '2020-06-25 18:27:45';//You can set your own date-time
-    //Let suppose we have to show the countdown for above date-time 
+    var expirydate = '2022-06-25 18:27:45';//You can set your own date-time
+    
 
     var diffr = moment.duration(moment(expirydate).diff(moment(date)));
     //difference of the expiry date-time given and current date-time
