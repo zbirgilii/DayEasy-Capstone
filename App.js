@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ActivityIndicator, View } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CalendarScreen from './screens/Calendar.js';
 import RegisterScreen from './screens/Register.js';
 import LoginScreen from "./screens/Login.js";
 import MainMenuScreen from "./screens/MainMenu.js";
@@ -41,7 +42,7 @@ export default function App() {
   <AuthContextProvider>
   <NavigationContainer>
     <Stack.Navigator>
-      {currentUser == null ?
+      {currentUser == null || "" ?
       (
         <>
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} />
@@ -53,6 +54,7 @@ export default function App() {
         <Stack.Screen name="WaterIntake" component={WaterIntakeScreen} />
         <Stack.Screen name="CalorieIntake" component={CalorieIntakeScreen} />
         <Stack.Screen name="Workout" component={WorkoutScreen} />
+        <Stack.Screen name="Calendar" component={CalendarScreen} />
         <Stack.Screen name="BackWorkoutScreen" component={BackWorkoutScreen} /> 
         <Stack.Screen name="weekDayMenu" component={weekDayMenu} />
         </>
