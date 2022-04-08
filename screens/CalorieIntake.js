@@ -38,17 +38,8 @@ import React from "react";
            <Text style={styles.PageTitle}>Water Intake</Text>
          </View>
            <Text style={styles.Title2}>Previous Week at a glance</Text>
-           <Text style={styles.Title2}>Daily</Text>
-           <Text style={styles.Title3}>Sunday</Text>
-           <Text style={styles.Title3}>Monday</Text>
-           <Text style={styles.Title3}>Tuesday</Text>
-           <Text style={styles.Title3}>Wednesday</Text>
-           <Text style={styles.Title3}>Thursday</Text>
-           <Text style={styles.Title3}>Friday</Text>
-           <Text style={styles.Title3}>Saturday</Text>
-           <Text style={styles.Title2}>Daily</Text>
-           <Text style={styles.Title3}>1pm</Text>
-           <Text style={styles.Title3}>2pm</Text>
+           <Text style={styles.Title3}>Set a Daily Goal</Text>
+
          </View>
      </TouchableWithoutFeedback>
      <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />

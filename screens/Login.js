@@ -11,7 +11,11 @@ import { getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,  } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< Updated upstream
 
+=======
+import logo from '../assets/logo.png'; w
+>>>>>>> Stashed changes
 
 WebBrowser.maybeCompleteAuthSession();
 

@@ -50,7 +50,11 @@ export default function App() {
           </Text>        
         </Button>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <Button onClick={sayHello} title="Water Intake">
+=======
+        <Button onPress={() => navigation.push("WaterIntake")} title="Water Intake">
+>>>>>>> Stashed changes
 =======
         <Button onPress={() => navigation.push("WaterIntake")} title="Water Intake">
 >>>>>>> Stashed changes
@@ -64,7 +68,11 @@ export default function App() {
           </Text>        
         </Button>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <Button onClick={sayHello} title="Calorie Intake">
+=======
+        <Button onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
+>>>>>>> Stashed changes
 =======
         <Button onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
 >>>>>>> Stashed changes

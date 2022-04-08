@@ -9,6 +9,7 @@ import styles from "./screens/style";
 import { signup, login, logout } from "./firebase.js";
 import AuthContextProvider from './contexts/AuthContext.js';
 import { useAuth } from './contexts/AuthContext.js';
+import * as WebBrowser from 'expo-web-browser';
 // import { useAuth } from './firebase.js';
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +39,7 @@ export default function App() {
       {currentUser == null ?
       (
         <>
+        
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false}} />
         <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false}}/>
         </>
