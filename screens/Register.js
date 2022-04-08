@@ -5,6 +5,10 @@ import {StyleSheet, Text, View, Button, Alert,TextInput,  Pressable,
 import { useNavigation } from '@react-navigation/native'; 
 import { getAuth,
   createUserWithEmailAndPassword } from "firebase/auth";
+import {db} from '../firebase.js'
+import { collection, addDoc } from 'firebase/firestore'; 
+import { doc, setDoc } from "firebase/firestore"; 
+
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -12,6 +16,8 @@ export default function App() {
   const navigation = useNavigation();
 
   const [email, setEmail] = React.useState('')
+  const [Fname, setFname] = React.useState('')
+  const [Lname, setLname] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [password2, setPassword2] = React.useState('')
 
@@ -20,20 +26,25 @@ export default function App() {
   }
 
   const Confirmpassword = () => {
-    if (password != password2)
+    if (password == password2)
     {
-      return false 
+      return true 
     }
     else 
     {
-      return true
+      return false
     }
   }
 
   const handleSignUp = () => {
+    // setDoc(doc(db, "Workout", "Arms"), {
+    //   Workout: "Test2",
+    //   country: "USA"
+    // });
     const temp = Confirmpassword()
     if (temp == true)
     {
+      console.log('Sign up called')
       CreateUser();
       return;
     }
@@ -47,15 +58,20 @@ export default function App() {
   const CreateUser = () => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-    })
-    .catch((error) => {
+    const user = auth.currentUser;
+    if (user != null){
+      console.log("User ID: " + user.uid)
+      setDoc(doc(db, "users", user.email), {
+        Fname: Fname,
+        Lname: Lname,
+        userID: user.uid,
+      });
+      console.log("after creation")
+    }
+    else((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+      console.log("No  user created ")
     });
   }
 
@@ -70,14 +86,18 @@ export default function App() {
         <View style={styles.menuContainer}>
           <TextInput placeholder="Email" placeholderColor = "#c4c3cb" defaultValue = {email}
            onChangeText={(text) => setEmail(text)} style={styles.loginFormTextInput} />
+          <TextInput placeholder="Fname" placeholderColor = "#c4c3cb" defaultValue = {Fname}
+           onChangeText={(text) => setFname(text)} style={styles.loginFormTextInput} />
+          <TextInput placeholder="Lname" placeholderColor = "#c4c3cb" defaultValue = {Lname}
+           onChangeText={(text) => setLname(text)} style={styles.loginFormTextInput} />
           <TextInput placeholder="Password" placeholderColor = "#c4c3cb" defaultValue = {password}
            onChangeText={(text) => setPassword(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
-          <TextInput placeholder="Confirm Password" placeholderColor = "#c4c3cb" defaultValue = {password}
+          <TextInput placeholder="Confirm Password" placeholderColor = "#c4c3cb" defaultValue = {password2}
            onChangeText={(text) => setPassword2(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Pressable
               style={styles.  menuButton}
               onPress={() => handleSignUp()}>
-              <Text style={styles.buttonText}>Register</Text>
+              <Text style={styles.buttonText}>Submit Regisstration</Text>
             </Pressable>
         </View>
         <Pressable
