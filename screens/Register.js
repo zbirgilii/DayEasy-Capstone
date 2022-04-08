@@ -26,13 +26,13 @@ export default function App() {
   }
 
   const Confirmpassword = () => {
-    if (password != password2)
+    if (password == password2)
     {
-      return false 
+      return true 
     }
     else 
     {
-      return true
+      return false
     }
   }
 
@@ -58,8 +58,8 @@ export default function App() {
   const CreateUser = () => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = auth.currentUser; auth.currentUser.email
+    const user = auth.currentUser;
+    if (user != null){
       console.log("User ID: " + user.uid)
       setDoc(doc(db, "users", user.email), {
         Fname: Fname,
@@ -67,11 +67,11 @@ export default function App() {
         userID: user.uid,
       });
       console.log("after creation")
-    })
-    .catch((error) => {
+    }
+    else((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
+      console.log("No  user created ")
     });
   }
 
