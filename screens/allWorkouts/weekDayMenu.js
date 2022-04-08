@@ -1,20 +1,31 @@
-import * as React from 'react';
+//import * as React from 'react';
 //import pageTitle from './screens/WorkOutScreen';
 import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
-
+import { addDoc, collection } from 'firebase/firestore';
+import { auth } from '../../firebase';
+import React, { useState, useEffect } from "react";
 
 export default function weekDayMenu() {
 
-    
   const navigation = useNavigation();
-
-    const sayHello = () => {
-        Alert('create me');
-      }
+  //const [userName, setUserName ] = useState();
+  //const [dayOfWeek, setDayOfWeek ] = useState('');
+  let dayOfWeek = '';
+  //const [bodyPart, setBodyPart ] = useState();
+  //const workoutCollectionRef = collection(db, 'UserWorkPlan');
+  
+  const addToDatabase = async (dayOfWeek) => {
+    await addDoc(workoutCollectionRef, {
+       dayOfWeek,
+       userName: {name: auth.currentUser.displayName, id: auth.currentUser.uid} 
+    });
+    navigation.push('Workout');
+  };
+  
     const changeStyle = () => {
         Alert('create me');
         //style={styles.AddedToWorkout};
@@ -35,7 +46,9 @@ export default function weekDayMenu() {
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={changeStyle}>
+          //onPress={(dayOfWeek = 'Sunday')}
+          onPress={(addToDatabase('Sunday'))}
+          >          
           <Text style={styles.buttonText}>
              Sunday
           </Text>        

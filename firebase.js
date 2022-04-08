@@ -30,7 +30,7 @@ if (firebase.apps.length === 0) {
 } else {
   app = firebase.app()
 }
-// const db = app.firestore();
+//const db = app.firestore();
 // const analytics = getAnalytics(app);
 const auth = firebase.auth()
 
