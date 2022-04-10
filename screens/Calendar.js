@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Modal,Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Modal,Pressable, Alert,
+  TextInput,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Agenda, LocaleConfig } from 'react-native-calendars';
 import { TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 import { getAuth } from "firebase/auth";
 import {db} from '../firebase.js'
 import { setDoc} from "firebase/firestore"; 
-import { collection,collectionGroup, query, where, getDocs, getDoc, doc } from "firebase/firestore";
+import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc} from "firebase/firestore";
 
 // LocaleConfig.locales['pt-br'] = {
 //   monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
@@ -23,12 +24,17 @@ const App = () => {
   const [calendarOpened, setCalendarOpened] = useState(false);
   const [selectedday, setSelectedday] = useState('')
   const [usertime, setUsertime] = useState('Test Time')
-  const [items, setitems] = useState({
+  var stringsofdatesobjects = { 
     '2022-04-06': [{text: 'any js object', time: "6:30",marked: true}],
-    '2022-04-10': [{text: 'any js object', marked: true}],
-    '2022-04-12': [{text: 'item 1 - any js object'}],
-    '2022-04-13': [{text: 'item 2 - any js object'}, {text: 'item 3 - any js object'}],
-  });
+  }
+  const [useritems, setuseritems] = useState({}
+    // {
+    // '2022-04-06': [{text: 'any js object', time: "6:30",marked: true}],
+    // '2022-04-10': [{text: 'any js object', marked: true}],
+    // '2022-04-12': [{text: 'item 1 - any js object'}],
+    // '2022-04-13': [{text: 'item 2 - any js object'}, {text: 'item 3 - any js object'}],
+    // }
+  );
 
 
   const toggleModal = () => {
@@ -36,38 +42,131 @@ const App = () => {
   };
 
   const getItems = () => {
-    console.log("Date Created");
+    console.log("Get Items");
     const auth = getAuth();
     const user = auth.currentUser;
-    const iterator = 0
-    getDocs(collection(db, "agenda",user.email, 'dates')).then((querySnapshot) => {
+    var temp = 0
+    getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
       querySnapshot.forEach((doc) => {
-          console.log(doc.id)
-          console.log("Doc time:" + doc.get("time"))
-          console.log("Doc description:" +doc.get("description"))
-          console.log("Doc location:" +doc.get("location"))
-          items[iterator];
+          console.log("Doc id: " + doc.id + " item count:" + doc.data().itemcount)
+          temp = doc.data().itemcount
+          for(let i = 0; i <= temp; i++){
+            console.log(doc.data(i))
+            // const usertime = {
+            //   ...objectValue,
+            //   [doc.id]: [],
+            // };
+            // setObjectValue(objectvalue);
+          };
       });
-    });
-    // setDoc(doc(db, "agenda", user.email, "dates", selectedday), {
-    //   time: usertime,
-    //   description: "Test",
-    //   location: 'blank',
-    // });
+      return;
+    })
+    // const iterator = 0
+    // const icrement = 0
+    // getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
+    //   querySnapshot.forEach((doc) => {
+    //       items[selectedday,doc.id]=doc.data();
+    //       console.log("Doc id " + doc.id)
+    //       console.log(items[selectedday,doc.id])
+    //   });
+    //   return;
+    // getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
+    //   querySnapshot.forEach((doc) => {
+    //       console.log("Doc id " + doc.id)
+    //       console.log(doc)
+    //   });
+    //   return;
+    // })
 
     setModalVisible(!modalVisible);
   }
 
+
   const CreateDate = (day) => {
-    getItems();
     console.log("Date Created");
     const auth = getAuth();
     const user = auth.currentUser;
-    setDoc(doc(db, "agenda", user.email, "dates", selectedday), {
-      time: usertime,
-      description: "Test",
-      location: 'blank',
+    var count = 1;
+    const docSnap  = getDoc(doc(db, "agenda", user.email, "dates",selectedday))
+    docSnap.then(doc => {
+      if (doc.exists) {
+        console.log('Document retrieved successfully. ' + doc.id);
+        if (doc.data() == null ){
+          setDoc(doc.ref,{
+            itemcount: count,
+            [count]: {
+              time: usertime,
+              description: "Test description",
+              location: "location",
+            },
+          })
+        }
+        else{
+          count = doc.get("itemcount")
+          count = count + 1;
+          updateDoc(doc.ref,{
+            itemcount: count,
+            [count]: {
+              time: usertime,
+              description: "Test description",
+              location: "location",
+            },
+          })
+        }
+      
+        // count = doc.data(itemcount);
+        // count = ++count;
+        // console.log(count)
+        // updateDoc(doc.ref,{
+        //   itemcount: count,
+        //   [count]: {
+        //     time: usertime,
+        //     description: "Test description",
+        //     location: "location",
+        //   },
+        // })
+      }
+      else{
+        setDoc(doc(db, "agenda", user.email, "dates", selectedday), {
+          itemcount: count,
+          [count]: {
+            time: usertime,
+            description: "Test description",
+            location: "location",
+          }
+        });
+      }
+      return;
     });
+    // const docSnap  = getDoc(doc(db, "agenda", user.email, "dates",selectedday))
+    // docSnap.then(doc => {
+    //   if (doc.exists) {
+    //     console.log('Document retrieved successfully.' + doc.get("count"));
+    //     console.log(doc.data().count)
+    //     count = doc.data().count
+    //     count = ++count
+    //     console.log("lets see " + count)
+    //     var temp = "item"+count
+    //     console.log("lets see " + temp)
+    //     updateDoc(doc.ref,{
+    //       item: {
+    //         time: usertime,
+    //         description: "Test",
+    //         location: 'blank',
+    //       },
+    //     });
+    //   }
+    //   else{
+    //     setDoc(doc(db, "agenda", user.email, "dates", selectedday, "items",), {
+    //       count: count,
+    //       item1: {
+    //         time: usertime,
+    //         description: "Test",
+    //         location: 'blank',
+    //      },  
+    //     });
+    //   }
+    // });
 
     setModalVisible(!modalVisible);
   }
@@ -75,47 +174,62 @@ const App = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={{ flex: 1 }}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => CreateDate(Date)}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModalVisible(!modalVisible);
+              }}
             >
-              <Text style={styles.textStyle}>Date</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+              <View style={styles.centeredView}>
+                <View>
+                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+                  <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Hello World!</Text>
+                    <TextInput placeholder="Set Time"
+                  onChangeText={(text) => setUsertime(text)} />
+                    <Pressable
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => {CreateDate()}}
+                    >
+                      <Text style={styles.textStyle}>Date</Text>
+                    </Pressable>
+                    <Pressable
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => {getItems()}}
+                    >
+                      <Text style={styles.textStyle}>items</Text>
+                    </Pressable>
+                    <Pressable
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => setModalVisible(!modalVisible)}
+                    >
+                      <Text style={styles.textStyle}>Hide Modal</Text>
+                    </Pressable>
+                  </View>
+                  </TouchableWithoutFeedback>
+                  </KeyboardAvoidingView> 
+                </View>
+                  
+              </View>
+            </Modal>
       <Agenda
-          loadItemsForMonth={(month) => {console.log('trigger items loading'), month}}
-          items = {items}
+          displayLoadingIndicator = {true}
+          loadItemsForMonth={(month) => {console.log('trigger items loading'),month}}
+          items = {useritems}
           markedDates={{
           '2022-04-16': {marked: true},
           '2022-04-17': {marked: true},
           '2022-04-18': {marked: true}
           }}
-          firstDay={1}
+          firstDay={7}
           onDayPress={(day)=>{console.log('day pressed')}}
           onDayChange={(day)=>{console.log('day changed')}}
           onDayLongPress={day => {console.log("long press " + day.dateString),
             setSelectedday(day.dateString), setModalVisible(true)}}
-          selected={new Date()}
           minDate={'2021-01-01'}
           maxDate={'2030-12-31'}          
           renderEmptyData = {() => {
