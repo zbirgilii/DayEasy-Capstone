@@ -44,6 +44,7 @@ export default function App() {
           </Text>        
         </Button>
         <Button onPress={() => navigation.push("WaterIntake")} title="Water Intake">
+        <Button onPress={() => navigation.push("WaterIntake")} title="WaterIntake">
           <Text style={styles.basicText}>
              Water Intake
           </Text>        
@@ -54,6 +55,7 @@ export default function App() {
           </Text>        
         </Button>
         <Button onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
+        <Button onPress={() => navigation.push("CalorieIntake")} title="CalorieIntake">
           <Text style={styles.basicText}>
             Calorie Intake
           </Text>        
