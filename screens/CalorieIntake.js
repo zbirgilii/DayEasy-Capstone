@@ -35,6 +35,10 @@ import React from "react";
      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
        <View style={styles.mainView}>
          <View style={styles.basicView}>
+           <Text style={styles.PageTitle}>Calorie Journal</Text>
+         </View>
+         <Button buttonStyle={styles.loginButton} onPress={() => Goal()} title="Set a Daily Goal" />
+           <Text style={styles.Title2}>Previous Week at a glance</Text>
            <Text style={styles.PageTitle}>Calorie Intake</Text>
          </View>
            <Text style={styles.Title2}>Previous Week at a glance</Text>
@@ -118,4 +122,7 @@ import React from "react";
  })
  function sayHello() {
    alert('create me');
+
+ }
+
  }

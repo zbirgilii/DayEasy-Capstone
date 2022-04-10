@@ -43,24 +43,26 @@ export default function App() {
             Meal plan
           </Text>        
         </Button>
+        <Button onPress={() => navigation.push("WaterIntake")} title="Water Intake">
         <Button onPress={() => navigation.push("WaterIntake")} title="WaterIntake">
           <Text style={styles.basicText}>
              Water Intake
           </Text>        
         </Button>
-        <Button onClick={sayHello} title="Fasting Timer">
+        <Button onPress={() => navigation.push("FastingTimer")} title="Fasting Timer">
           <Text style={styles.basicText}>
             Fasting timer
           </Text>        
         </Button>
+        <Button onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
         <Button onPress={() => navigation.push("CalorieIntake")} title="CalorieIntake">
           <Text style={styles.basicText}>
             Calorie Intake
           </Text>        
         </Button>
-        <Button onClick={sayHello} title="Pedometer">
+        <Button onPress={() => navigation.push("Pedometer")} title="Pedometer">
           <Text style={styles.basicText}>
-            Pedomter
+            Step Counter
           </Text>        
         </Button>
         <Button buttonStyle={styles.loginButton} onPress={() => LogOut()} title="Log Out" />        
