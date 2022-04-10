@@ -35,20 +35,11 @@ import React from "react";
      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
        <View style={styles.mainView}>
          <View style={styles.basicView}>
-           <Text style={styles.PageTitle}>Calorie Intake</Text>
+           <Text style={styles.PageTitle}>Calorie Journal</Text>
          </View>
+         <Button buttonStyle={styles.loginButton} onPress={() => Goal()} title="Set a Daily Goal" />
            <Text style={styles.Title2}>Previous Week at a glance</Text>
-           <Text style={styles.Title2}>Daily</Text>
-           <Text style={styles.Title3}>Sunday</Text>
-           <Text style={styles.Title3}>Monday</Text>
-           <Text style={styles.Title3}>Tuesday</Text>
-           <Text style={styles.Title3}>Wednesday</Text>
-           <Text style={styles.Title3}>Thursday</Text>
-           <Text style={styles.Title3}>Friday</Text>
-           <Text style={styles.Title3}>Saturday</Text>
-           <Text style={styles.Title2}>Daily</Text>
-           <Text style={styles.Title3}>1pm</Text>
-           <Text style={styles.Title3}>2pm</Text>
+
          </View>
      </TouchableWithoutFeedback>
      <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />

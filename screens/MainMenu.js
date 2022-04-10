@@ -19,19 +19,6 @@ export default function App() {
         // An error happened.
           });
       }
-    
-      const [request, response, promptAsync] = Google.useAuthRequest({
-        expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-        iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-        androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-        webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-      });
-    
-      React.useEffect(() => {
-        if (response?.type === 'success') {
-          const { authentication } = response;
-          }
-      }, [response]);
 
   return ( 
     <>
@@ -39,9 +26,7 @@ export default function App() {
         <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
         </View>
-        <Button onClick={sayHello} title="Calendar">
-          <Text style={styles.basicText}>
-             The calendar</Text>
+        <Button onPress={() => navigation.push("Calendar")} title="Calendar">
         </Button>
         <Button onPress={() => navigation.push("Workout")} title="Workout Plan">
           <Text style={styles.basicText}>
@@ -58,24 +43,24 @@ export default function App() {
             Meal plan
           </Text>        
         </Button>
-        <Button onPress={() => navigation.push("WaterIntake")} title="WaterIntake">
+        <Button onPress={() => navigation.push("WaterIntake")} title="Water Intake">
           <Text style={styles.basicText}>
              Water Intake
           </Text>        
         </Button>
-        <Button onClick={sayHello} title="Fasting Timer">
+        <Button onPress={() => navigation.push("FastingTimer")} title="Fasting Timer">
           <Text style={styles.basicText}>
             Fasting timer
           </Text>        
         </Button>
-        <Button onPress={() => navigation.push("CalorieIntake")} title="CalorieIntake">
+        <Button onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
           <Text style={styles.basicText}>
             Calorie Intake
           </Text>        
         </Button>
-        <Button onClick={sayHello} title="Pedometer">
+        <Button onPress={() => navigation.push("Pedometer")} title="Pedometer">
           <Text style={styles.basicText}>
-            Pedomter
+            Step Counter
           </Text>        
         </Button>
         <Button buttonStyle={styles.loginButton} onPress={() => LogOut()} title="Log Out" />        

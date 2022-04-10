@@ -1,98 +1,106 @@
-import * as React from 'react';
+//import * as React from 'react';
+//import pageTitle from './screens/WorkOutScreen';
 import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
+import { addDoc, collection } from 'firebase/firestore';
+import { auth } from '../../firebase';
+import React, { useState, useEffect } from "react";
 
-export default function WorkoutScreen() {
+export default function weekDayMenu() {
+
   const navigation = useNavigation();
-
-  const toWeekDayMenu = () => {
-    const i = 1;
-    if(i == 1){
-      navigation.push("weekDayMenu");
+  //const [userName, setUserName ] = useState();
+  //const [dayOfWeek, setDayOfWeek ] = useState('');
+  let dayOfWeek = '';
+  //const [bodyPart, setBodyPart ] = useState();
+  //const workoutCollectionRef = collection(db, 'UserWorkPlan');
+  
+  const addToDatabase = async (dayOfWeek) => {
+    await addDoc(workoutCollectionRef, {
+       dayOfWeek,
+       userName: {name: auth.currentUser.displayName, id: auth.currentUser.uid} 
+    });
+    navigation.push('Workout');
+  };
+  
+    const changeStyle = () => {
+        Alert('create me');
+        //style={styles.AddedToWorkout};
     }
-    //export pageTitle;
-    //navigation.push("weekDayMenu");
-  }
-    
 
   return (
-    <>    
+    <>
       <View style={styles.mainView}>        
         <View style={styles.basicView}>
           <TouchableOpacity
             style={styles.backButton} 
-            onPress={() => navigation.push("Main Menu")}>
+            onPress={() => navigation.push("Workout")}>
             <Text style={styles.basicText}>
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}>Workout Plan</Text>
+          <Text style={styles.PageTitle}>_nameHere</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          //onPress={(dayOfWeek = 'Sunday')}
+          onPress={(addToDatabase('Sunday'))}
+          >          
           <Text style={styles.buttonText}>
-             Chest
+             Sunday
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={changeStyle}>
           <Text style={styles.buttonText}>
-             Back
+             Monday
           </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity> 
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={changeStyle}>
           <Text style={styles.buttonText}>
-             Bicep
+             Tuesday
           </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity> 
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={changeStyle}>
           <Text style={styles.buttonText}>
-             Tricep 
+             Wednesday
           </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity> 
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={changeStyle}>
           <Text style={styles.buttonText}>
-             Abs 
+             Thursday
           </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity> 
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={changeStyle}>
           <Text style={styles.buttonText}>
-             Shoulder
+             Friday
           </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity> 
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={changeStyle}>
           <Text style={styles.buttonText}>
-             Legs
+             Saturday
           </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
-          <Text style={styles.buttonText}>
-             Archived Workouts 
-          </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity>        
                  
       </View></>
        
   )}
 
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
     mainView:{
         //flex:1,
         //paddingTop:50,
@@ -101,7 +109,7 @@ const styles = StyleSheet.create({
         //height: '100vh',
         //alignSelf: 'stretch',
         alignItems:'center', //center x axis
-        //justifyContent:'center', //center y axis
+        //justifyContent:'center', //center y axis 
       },
       basicView:{
         backgroundColor:'#3D405B',
@@ -122,8 +130,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         textAlign:'center',
         alignItems:'center' //center x axis
-        //justifyContent:'flex-start' //center y axis
-    
+        //justifyContent:'flex-start' //center y axis    
       },
       buttonText:{
         fontSize: '300%',
@@ -149,10 +156,27 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
         marginRight: 10,
-        marginLeft: 10,
+        marginLeft: 5,
         backgroundColor:'#3D405B',
         color: 'white'
+      },
+      AddedToWorkout:{
+        textAlign:'center',
+        alignItems:'center',
+        borderRadius: 1000,
+        borderWidth: 1,
+        width: '70%',
+        //marginBottom: 10,
+        //padding: '100, 7px 10px 7px',
+        //paddingRight: '50%',
+        //paddingLeft: 70,
+        //flex: 1,
+        alignSelf: 'center',
+        marginTop: 10,
+        marginBottom: 10,
+        marginRight: 10,
+        marginLeft: 5,
+        backgroundColor:'red',
+        color: 'red'
       }
 })
-
-// export default App;
