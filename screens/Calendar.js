@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Modal,Pressable, Alert,
   TextInput,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Agenda, LocaleConfig } from 'react-native-calendars';
+import { Agenda, Calendar, AgendaList, LocaleConfig } from 'react-native-calendars';
 import { TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 import { getAuth } from "firebase/auth";
@@ -24,9 +24,6 @@ const App = () => {
   const [calendarOpened, setCalendarOpened] = useState(false);
   const [selectedday, setSelectedday] = useState('')
   const [usertime, setUsertime] = useState('Test Time')
-  var stringsofdatesobjects = { 
-    '2022-04-06': [{text: 'any js object', time: "6:30",marked: true}],
-  }
   const [useritems, setuseritems] = useState({}
     // {
     // '2022-04-06': [{text: 'any js object', time: "6:30",marked: true}],
@@ -41,44 +38,36 @@ const App = () => {
     setModalVisible(!isModalVisible);
   };
 
+
   const getItems = () => {
     console.log("Get Items");
     const auth = getAuth();
     const user = auth.currentUser;
-    var temp = 0
+    var docdata;
     getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
       querySnapshot.forEach((doc) => {
-          console.log("Doc id: " + doc.id + " data:" + doc.data())
-          // temp = doc.data().itemcount
-          // for(let i = 0; i <= temp; i++){
-          //   console.log(i + "  " + doc.data(i))
-            // const usertime = {
-            //   ...objectValue,
-            //   [doc.id]: [],
-            // };
-            // setObjectValue(objectvalue);
-          // };
+          console.log("Doc id: " + doc.id + " data:" + doc.data().itemcount + "\n")
+          var temparray = []
+          if (doc.data().itemcount != null){
+            docdata = doc.data()
+            for(let i = 1; i <= doc.data().itemcount; i++){
+              var tempobj= {time: null, description: null, location: null, marked: null};
+              tempobj.time = docdata[i].time
+              tempobj.description = docdata[i].description
+              tempobj.location = docdata[i].location
+
+              temparray.push(tempobj)
+            }
+            temparray.sort((a, b) => {
+              return a.time > b.time ? 1:-1
+            })
+            useritems[doc.id.toString()] = temparray;
+          }
       });
       return;
     })
-    // const iterator = 0
-    // const icrement = 0
-    // getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
-    //   querySnapshot.forEach((doc) => {
-    //       items[selectedday,doc.id]=doc.data();
-    //       console.log("Doc id " + doc.id)
-    //       console.log(items[selectedday,doc.id])
-    //   });
-    //   return;
-    // getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
-    //   querySnapshot.forEach((doc) => {
-    //       console.log("Doc id " + doc.id)
-    //       console.log(doc)
-    //   });
-    //   return;
-    // })
 
-    setModalVisible(!modalVisible);
+    setModalVisible(false);
   }
 
 
@@ -113,18 +102,6 @@ const App = () => {
             },
           })
         }
-      
-        // count = doc.data(itemcount);
-        // count = ++count;
-        // console.log(count)
-        // updateDoc(doc.ref,{
-        //   itemcount: count,
-        //   [count]: {
-        //     time: usertime,
-        //     description: "Test description",
-        //     location: "location",
-        //   },
-        // })
       }
       else{
         setDoc(doc(db, "agenda", user.email, "dates", selectedday), {
@@ -138,36 +115,7 @@ const App = () => {
       }
       return;
     });
-    // const docSnap  = getDoc(doc(db, "agenda", user.email, "dates",selectedday))
-    // docSnap.then(doc => {
-    //   if (doc.exists) {
-    //     console.log('Document retrieved successfully.' + doc.get("count"));
-    //     console.log(doc.data().count)
-    //     count = doc.data().count
-    //     count = ++count
-    //     console.log("lets see " + count)
-    //     var temp = "item"+count
-    //     console.log("lets see " + temp)
-    //     updateDoc(doc.ref,{
-    //       item: {
-    //         time: usertime,
-    //         description: "Test",
-    //         location: 'blank',
-    //       },
-    //     });
-    //   }
-    //   else{
-    //     setDoc(doc(db, "agenda", user.email, "dates", selectedday, "items",), {
-    //       count: count,
-    //       item1: {
-    //         time: usertime,
-    //         description: "Test",
-    //         location: 'blank',
-    //      },  
-    //     });
-    //   }
-    // });
-
+    setCalendarOpened(false)
     setModalVisible(!modalVisible);
   }
 
@@ -190,21 +138,21 @@ const App = () => {
                   <View style={styles.modalView}>
                     <Text style={styles.modalText}>Hello World!</Text>
                     <TextInput placeholder="Set Time"
-                  onChangeText={(text) => setUsertime(text)} />
+                      onChangeText={(text) => setUsertime(text)} />
                     <Pressable
-                      style={[styles.button, styles.buttonClose]}
+                      style={[styles.button]}
                       onPress={() => {CreateDate()}}
                     >
                       <Text style={styles.textStyle}>Date</Text>
                     </Pressable>
                     <Pressable
-                      style={[styles.button, styles.buttonClose]}
+                      style={[styles.button]}
                       onPress={() => {getItems()}}
                     >
                       <Text style={styles.textStyle}>items</Text>
                     </Pressable>
                     <Pressable
-                      style={[styles.button, styles.buttonClose]}
+                      style={[styles.button]}
                       onPress={() => setModalVisible(!modalVisible)}
                     >
                       <Text style={styles.textStyle}>Hide Modal</Text>
@@ -218,64 +166,76 @@ const App = () => {
             </Modal>
       <Agenda
           displayLoadingIndicator = {true}
-          loadItemsForMonth={(month) => {console.log('trigger items loading'),month}}
+          directionalLockEnabled = {true}
+          loadItemsForMonth={(month) => {getItems(), console.log('trigger items loading'),month}}
           items = {useritems}
-          markedDates={{
-          '2022-04-16': {marked: true},
-          '2022-04-17': {marked: true},
-          '2022-04-18': {marked: true}
-          }}
+
+          markedDates={useritems}
+          
           firstDay={7}
           onDayPress={(day)=>{console.log('day pressed')}}
           onDayChange={(day)=>{console.log('day changed')}}
           onDayLongPress={day => {console.log("long press " + day.dateString),
             setSelectedday(day.dateString), setModalVisible(true)}}
+            
           minDate={'2021-01-01'}
-          maxDate={'2030-12-31'}          
-          renderEmptyData = {() => {
-              return (<View><Text>empty data</Text></View>);
-          }}
-          // renderDay={(day, item) => {
-          //   return (<View><Text>Where the day items go</Text></View>);
-          // }}
-          renderItem={(item, firstItemInDay) => (
-            <View style={[styles.item, { height: item.height }]}>
-                  <View style={styles.contentContainerStyle}>
-                  <TouchableOpacity
-                    style={styles.itembuttons}
-                    onPress={(item) => {console.log('selected item')}}
-                    >
-                    <Text>Touch for Activity</Text>
-                    </TouchableOpacity>
-                  </View>
-                <Text>{item.text}</Text>
-                {item.time != null ? (
-                  <Text>{item.time}</Text>
-                ) : (
-                  <Text>No date!</Text>
-                )}
-            </View>
-          )}
-          renderEmptyDate={() => (
-          <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
-          )}
+          maxDate={'2030-12-31'}
+          current={new Date().toISOString()}          
+          
+          disableAllTouchEventsForDisabledDays={true}
+          // Do not show days of other months in month page. Default = false
+          hideExtraDays={true}
+          // If hideArrows = false and hideExtraDays = false do not switch month when tapping on greyed out
+          // day from another month that is visible in calendar page. Default = false
+          disableMonthChange={false}
+          hideArrows={false}
           onCalendarToggled={(calendarOpened) => setCalendarOpened(calendarOpened)}
-          rowHasChanged={(r1, r2) => {return r1.text !== r2.text}}
-          onRefresh={() => console.log('refreshing...')}
+          rowHasChanged={(r1, r2) => {return r1.time != r2.time}}
+          
+          pagingEnabled={false}
+
+          onRefresh={() => {console.log('refreshing...'), getItems()}}
           refreshing={false}
-          refreshControl={null}
-          hideArrows={true}
-          enableSwipeMonths={true}
+          refreshControl={null}          
+          enableSwipeMonths={false}
           calendarWidth={Dimensions.get('window').width}
           // Hide knob button. Default = false
           hideKnob={false}
           // When `true` and `hideKnob` prop is `false`, the knob will always be visible and the user will be able to drag the knob up and close the calendar. Default = false
           showClosingKnob={true}
           theme={{
-          knobContainer: {
-              backgroundColor: 'red'
-          }
+            
           }}
+          
+          renderEmptyData = {() => {
+              return (
+                <View style={{ height: "10%", backgroundColor: 'white', borderRadius: 5, 
+                  width: "95%", alignItems: 'center', margin: 10}}>
+                <Text>This day has no appointment data</Text>
+                </View>
+            );
+          }}
+          // renderDay={(day, item) => {
+          //   return (<View><Text>Where the day items go</Text></View>);
+          // }}
+          renderItem={(item, firstItemInDay) => (
+            <View style={[styles.item]}>
+              <View style={styles.contentContainerStyle}>
+                <TouchableOpacity
+                  style={styles.itembuttons}
+                  onPress={(item) => {console.log('selected item')}}
+                >
+                  <Text>Press Here</Text>
+                </TouchableOpacity>
+            </View>
+              <Text>{item.time}</Text>
+              <Text>{item.location}</Text>
+              <Text>{item.description}</Text>
+            </View>
+          )}
+          renderEmptyDate={() => (
+          <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+          )}
       />
       </View>
     </SafeAreaView>
@@ -309,23 +269,22 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   contentContainerStyle:{
-     flex: 1, 
-      flexDirection: "row",
-      padding: 5,
+    flex: 1, 
+    flexDirection: "row",
+    padding: 5,
   },
   itembuttons:{
     // flexDirection: row,
     backgroundColor: '#DDDDDD',
-    // height: '90%',
-    width: '20%',
-    alignSelf: "flex-end" , 
     position:'absolute' , 
-    right:0,   
+    right:-10,
+    top: -10,
+    padding: 4,
   },
   button: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
-    padding: 10
+    padding: 5,
   },
   container: {
     flex: 1,
@@ -339,7 +298,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginRight: 10,
-    marginTop: 17,
+    marginTop: 10,
+    marginBottom: 10,
   },
   emptyDate: {
     height: 15,

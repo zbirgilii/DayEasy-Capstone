@@ -125,15 +125,15 @@ const styles = StyleSheet.create({
         //justifyContent:'flex-start' //center y axis
     
       },
-      buttonText:{
-        fontSize: '300%',
-        fontWeight: 700,
-        marginTop: 10,
-        marginBottom: 10,
-        //borderColor: 'black',
-        //textShadowColor: 'red',
-        color: 'white'
-      },
+      // buttonText:{
+      //   // fontSize: '300%',
+      //   // fontWeight: 700,
+      //   // marginTop: 10,
+      //   // marginBottom: 10,
+      //   //borderColor: 'black',
+      //   //textShadowColor: 'red',
+      //   // color: 'white'
+      // },
       buttonStyle:{
         textAlign:'center',
         alignItems:'center',
