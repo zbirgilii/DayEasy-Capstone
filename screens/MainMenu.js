@@ -32,8 +32,8 @@ export default function App() {
           <Text style={styles.basicText}>
             workout plan
           </Text>        
-        </Button>
-        <Button onClick={sayHello} title="Muscle Index">
+        </Button> 
+        <Button onPress={() => navigation.push("MuscleIndexMain")} title="Muscle Index">
           <Text style={styles.basicText}>
             Muscle index
           </Text>        
