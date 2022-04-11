@@ -48,16 +48,16 @@ const App = () => {
     var temp = 0
     getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
       querySnapshot.forEach((doc) => {
-          console.log("Doc id: " + doc.id + " item count:" + doc.data().itemcount)
-          temp = doc.data().itemcount
-          for(let i = 0; i <= temp; i++){
-            console.log(doc.data(i))
+          console.log("Doc id: " + doc.id + " data:" + doc.data())
+          // temp = doc.data().itemcount
+          // for(let i = 0; i <= temp; i++){
+          //   console.log(i + "  " + doc.data(i))
             // const usertime = {
             //   ...objectValue,
             //   [doc.id]: [],
             // };
             // setObjectValue(objectvalue);
-          };
+          // };
       });
       return;
     })
