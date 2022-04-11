@@ -7,8 +7,14 @@ import RegisterScreen from './screens/Register.js';
 import LoginScreen from "./screens/Login.js";
 import MainMenuScreen from "./screens/MainMenu.js";
 import WorkoutScreen from "./screens/WorkOutScreen.js";
+import BackWorkoutScreen from "./screens/allWorkouts/BackWorkoutScreen.js";
+import weekDayMenu from "./screens/allWorkouts/weekDayMenu.js";
 import WaterIntakeScreen from "./screens/WaterIntake.js";
 import CalorieIntakeScreen from "./screens/CalorieIntake.js";
+import PedometerScreen from "./screens/Pedometer.js";
+import FastingScreen from "./screens/FastingTimer.js";
+
+
 import styles from "./screens/style";
 import { signup, login, logout } from "./firebase.js";
 import AuthContextProvider from './contexts/AuthContext.js';
@@ -52,7 +58,11 @@ export default function App() {
         <Stack.Screen name="WaterIntake" component={WaterIntakeScreen} />
         <Stack.Screen name="CalorieIntake" component={CalorieIntakeScreen} />
         <Stack.Screen name="Workout" component={WorkoutScreen} />
+        <Stack.Screen name="Pedometer" component={PedometerScreen} />
+        <Stack.Screen name="Fasting Timer" component={FastingScreen}/>
         <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name="BackWorkoutScreen" component={BackWorkoutScreen} /> 
+        <Stack.Screen name="weekDayMenu" component={weekDayMenu} />
         </>
       )}
     </Stack.Navigator>
