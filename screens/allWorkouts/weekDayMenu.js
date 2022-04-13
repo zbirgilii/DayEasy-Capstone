@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth } from '../../firebase';
 import React, { useState, useEffect } from "react";
+//import chestIcon from 'assets/muscleIcons/chestIcon.png'
 
 export default function weekDayMenu() {
 
@@ -31,58 +32,10 @@ export default function weekDayMenu() {
           </TouchableOpacity>
           <Text style={styles.PageTitle}>_nameHere</Text>
         </View>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={changeStyle} 
-          //onPress={(dayOfWeek = 'Sunday')}
-          //onPress={(workoutData('Sunday'))}
-          >          
-          <Text style={styles.buttonText}>
-             Sunday
-          </Text>        
+        <TouchableOpacity>
+          
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Monday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Tuesday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Wednesday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Thursday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Friday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Saturday
-          </Text>        
-        </TouchableOpacity>        
+               
                  
       </View></>
        
