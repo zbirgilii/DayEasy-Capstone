@@ -9,15 +9,11 @@ import { addDoc, collection } from 'firebase/firestore';
 import { auth } from '../../firebase';
 import React, { useState, useEffect } from "react";
 //import chestIcon from 'assets/muscleIcons/chestIcon.png'
+import chestIcon from '../../assets/muscleIcons/chestIcon.png';
 
 export default function weekDayMenu() {
 
   const navigation = useNavigation();
-  
-    const changeStyle = () => {
-        Alert('create me');
-        //style={styles.AddedToWorkout};
-    }
 
   return (
     <>
@@ -30,12 +26,13 @@ export default function weekDayMenu() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}>_nameHere</Text>
+          <Text style={styles.PageTitle}>weekDayTitle</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
           
-        </TouchableOpacity>
-               
+        >
+          <img scr={chestIcon} />
+        </TouchableOpacity>              
                  
       </View></>
        
@@ -119,5 +116,8 @@ export default function weekDayMenu() {
         marginLeft: 5,
         backgroundColor:'red',
         color: 'red'
+      },
+      iconStyle:{
+        zIndex: 1
       }
 })

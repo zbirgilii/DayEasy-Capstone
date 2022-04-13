@@ -12,7 +12,7 @@ export default function WorkoutScreen() {
   const navigation = useNavigation();
   //const [selectDay, setSelectDay] = useState('');
   const [selectGroup, setSelectGroup] = useState('');
-
+  let weekDayTitle = '';
   const toWeekDayMenu = () => {
     navigation.push("weekDayMenu");    
   }
@@ -143,7 +143,7 @@ export default function WorkoutScreen() {
         <TouchableOpacity
           style={styles.buttonStyle} 
           onPress={ 
-            () => { workoutData(); }
+            () => { weekDayTitle = 'Sunday'; workoutData(); }
             //() =>  workoutData('Chest')
             //() => {(text) => setSelectGroup(text); workoutData();}
           }
