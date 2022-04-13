@@ -4,14 +4,14 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
+import {db} from '../firebase.js'
 import weekDayMenu from './allWorkouts/weekDayMenu';
 import { collection,collectionGroup, query,setDoc, where, getDocs, getDoc, doc ,updateDoc} from "firebase/firestore";
 
 export default function WorkoutScreen() {
   const navigation = useNavigation();
-  const [selectDay, setSelectDay] = useState('');
-
-  let weekDay = '';
+  //const [selectDay, setSelectDay] = useState('');
+  const [selectGroup, setSelectGroup] = useState('');
 
   const toWeekDayMenu = () => {
     const i = 1;
@@ -21,36 +21,32 @@ export default function WorkoutScreen() {
     //export pageTitle;
     //navigation.push("weekDayMenu");
   }
-
-  //const [selectDay, setSelectDay] = useState('');
   
   const workoutData = () => {
     const auth = getAuth();
     const user = auth.currentUser;
-    var docData;
-    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email,'Weekday', selectDay))
+    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup.toString()))
     docSnap.then(doc => {
       if(doc.exists){
         console.log('Document exists, id: '+doc.id);
         if(doc.data() == null){
           setDoc(doc.ref,{
-            selectDay: selectDay
+            selectGroup: selectGroup
           })
         }
         else{
           updateDoc(doc.ref,{
-            selectDay: selectDay
+            selectGroup: selectGroup
           })
         }
       }
       else{
-        setDoc(doc(db, 'userWorkoutSet', user.email,'Weekday', selectDay));
+        setDoc(doc(db, 'userWorkoutSet', user.email, selectGroup.toString()));
       }
-      navigation.push("weekDayMenu");
-      return;
+      navigation.push("weekDayMenu");      
     })    
   }
-
+  
   return (
     <>    
       <View style={styles.mainView}>        
@@ -67,7 +63,8 @@ export default function WorkoutScreen() {
         <TouchableOpacity
           style={styles.buttonStyle} 
           onPress={ 
-            () => { this.setSelectDay('Chest'); this.workoutData(); }
+            () => { setSelectGroup('Chest'); workoutData(); }
+            //() =>  workoutData('Chest')
           }
           >
           <Text style={styles.buttonText}>
