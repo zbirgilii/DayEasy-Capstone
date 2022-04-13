@@ -138,68 +138,62 @@ export default function WorkoutScreen() {
             </Text>        
           </TouchableOpacity>
           <Text style={styles.PageTitle}>Workout Plan</Text>
+          <Text style={styles.PageTitle}>Select weekday:</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
           onPress={ 
-            () => { setSelectGroup('Chest'); workoutData(); }
+            () => { workoutData(); }
             //() =>  workoutData('Chest')
             //() => {(text) => setSelectGroup(text); workoutData();}
           }
           >
           <Text style={styles.buttonText}>
-             Chest
+             Sunday
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={() => { workoutData(); }}>
           <Text style={styles.buttonText}>
-             Back
+             Monday
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={() => { workoutData(); }}>
           <Text style={styles.buttonText}>
-             Bicep
+             Tuesday
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={() => { workoutData(); }}>
           <Text style={styles.buttonText}>
-             Tricep 
+             Wednesday 
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={() => { workoutData(); }}>
           <Text style={styles.buttonText}>
-             Abs 
+             Thursday 
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={() => { workoutData(); }}>
           <Text style={styles.buttonText}>
-             Shoulder
+             Friday
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={() => { workoutData(); }}>
           <Text style={styles.buttonText}>
-             Legs
+             Saturday
           </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
-          <Text style={styles.buttonText}>
-             Archived Workouts 
-          </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity>       
                  
       </View></>
        

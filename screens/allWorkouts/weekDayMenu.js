@@ -12,20 +12,6 @@ import React, { useState, useEffect } from "react";
 export default function weekDayMenu() {
 
   const navigation = useNavigation();
-  //const [userName, setUserName ] = useState();
-  //const [dayOfWeek, setDayOfWeek ] = useState('');
-  //let dayOfWeek = '';
-  //const [bodyPart, setBodyPart ] = useState();
-  //const workoutCollectionRef = collection(db, 'UserWorkPlan');
-  /*
-  const workoutData = (dayOfWeek) => {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    var docData;
-    getDocs(collection(db, 'userWorkoutSet', user.email, weekDay))
-    return;
-  }
-  */
   
     const changeStyle = () => {
         Alert('create me');
