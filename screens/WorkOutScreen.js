@@ -14,34 +14,113 @@ export default function WorkoutScreen() {
   const [selectGroup, setSelectGroup] = useState('');
 
   const toWeekDayMenu = () => {
-    const i = 1;
-    if(i == 1){
-      navigation.push("weekDayMenu");
-    }
-    //export pageTitle;
-    //navigation.push("weekDayMenu");
+    navigation.push("weekDayMenu");    
   }
   
   const workoutData = () => {
     const auth = getAuth();
     const user = auth.currentUser;
-    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup.toString()))
+    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup))
     docSnap.then(doc => {
       if(doc.exists){
         console.log('Document exists, id: '+doc.id);
         if(doc.data() == null){
           setDoc(doc.ref,{
-            selectGroup: selectGroup
+            Monday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Tuesday:{
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Wednesday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Thursday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Friday:{
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Saturday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Sunday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
           })
         }
         else{
           updateDoc(doc.ref,{
-            selectGroup: selectGroup
+            Monday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Tuesday:{
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Wednesday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Thursday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Friday:{
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Saturday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
+            Sunday: {
+              workout1: 'workout1',
+              workout2: 'workout2',            
+            },
           })
         }
       }
       else{
-        setDoc(doc(db, 'userWorkoutSet', user.email, selectGroup.toString()));
+        setDoc(doc(db, 'userWorkoutSet', user.email, selectGroup), {
+          Monday: {
+            workout1: 'workout1',
+            workout2: 'workout2',            
+          },
+          Tuesday:{
+            workout1: 'workout1',
+            workout2: 'workout2',            
+          },
+          Wednesday: {
+            workout1: 'workout1',
+            workout2: 'workout2',            
+          },
+          Thursday: {
+            workout1: 'workout1',
+            workout2: 'workout2',            
+          },
+          Friday:{
+            workout1: 'workout1',
+            workout2: 'workout2',            
+          },
+          Saturday: {
+            workout1: 'workout1',
+            workout2: 'workout2',            
+          },
+          Sunday: {
+            workout1: 'workout1',
+            workout2: 'workout2',            
+          },
+
+        });
       }
       navigation.push("weekDayMenu");      
     })    
@@ -65,6 +144,7 @@ export default function WorkoutScreen() {
           onPress={ 
             () => { setSelectGroup('Chest'); workoutData(); }
             //() =>  workoutData('Chest')
+            //() => {(text) => setSelectGroup(text); workoutData();}
           }
           >
           <Text style={styles.buttonText}>
