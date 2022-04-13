@@ -14,17 +14,18 @@ export default function weekDayMenu() {
   const navigation = useNavigation();
   //const [userName, setUserName ] = useState();
   //const [dayOfWeek, setDayOfWeek ] = useState('');
-  let dayOfWeek = '';
+  //let dayOfWeek = '';
   //const [bodyPart, setBodyPart ] = useState();
   //const workoutCollectionRef = collection(db, 'UserWorkPlan');
-  
-  const addToDatabase = async (dayOfWeek) => {
-    await addDoc(workoutCollectionRef, {
-       dayOfWeek,
-       userName: {name: auth.currentUser.displayName, id: auth.currentUser.uid} 
-    });
-    navigation.push('Workout');
-  };
+  /*
+  const workoutData = (dayOfWeek) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var docData;
+    getDocs(collection(db, 'userWorkoutSet', user.email, weekDay))
+    return;
+  }
+  */
   
     const changeStyle = () => {
         Alert('create me');
@@ -45,9 +46,10 @@ export default function weekDayMenu() {
           <Text style={styles.PageTitle}>_nameHere</Text>
         </View>
         <TouchableOpacity
-          style={styles.buttonStyle} 
+          style={styles.buttonStyle}
+          onPress={changeStyle} 
           //onPress={(dayOfWeek = 'Sunday')}
-          onPress={(addToDatabase('Sunday'))}
+          //onPress={(workoutData('Sunday'))}
           >          
           <Text style={styles.buttonText}>
              Sunday

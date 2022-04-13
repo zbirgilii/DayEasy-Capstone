@@ -1,12 +1,17 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
+import weekDayMenu from './allWorkouts/weekDayMenu';
+import { collection,collectionGroup, query,setDoc, where, getDocs, getDoc, doc ,updateDoc} from "firebase/firestore";
 
 export default function WorkoutScreen() {
   const navigation = useNavigation();
+  const [selectDay, setSelectDay] = useState('');
+
+  let weekDay = '';
 
   const toWeekDayMenu = () => {
     const i = 1;
@@ -16,7 +21,35 @@ export default function WorkoutScreen() {
     //export pageTitle;
     //navigation.push("weekDayMenu");
   }
-    
+
+  //const [selectDay, setSelectDay] = useState('');
+  
+  const workoutData = () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var docData;
+    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email,'Weekday', selectDay))
+    docSnap.then(doc => {
+      if(doc.exists){
+        console.log('Document exists, id: '+doc.id);
+        if(doc.data() == null){
+          setDoc(doc.ref,{
+            selectDay: selectDay
+          })
+        }
+        else{
+          updateDoc(doc.ref,{
+            selectDay: selectDay
+          })
+        }
+      }
+      else{
+        setDoc(doc(db, 'userWorkoutSet', user.email,'Weekday', selectDay));
+      }
+      navigation.push("weekDayMenu");
+      return;
+    })    
+  }
 
   return (
     <>    
@@ -33,7 +66,10 @@ export default function WorkoutScreen() {
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={toWeekDayMenu}>
+          onPress={ 
+            () => { this.setSelectDay('Chest'); this.workoutData(); }
+          }
+          >
           <Text style={styles.buttonText}>
              Chest
           </Text>        
