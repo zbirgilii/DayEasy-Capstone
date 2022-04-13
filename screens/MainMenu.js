@@ -28,7 +28,7 @@ export default function App() {
         </View>
         <Button onPress={() => navigation.push("Calendar")} title="Calendar">
         </Button>
-        <Button onPress={() => navigation.push("Workout")} title="Workout Plan">
+        <Button onPress={() => navigation.push("WorkoutPlanMain")} title="Workout Plan">
           <Text style={styles.basicText}>
             workout plan
           </Text>        

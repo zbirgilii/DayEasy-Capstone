@@ -6,7 +6,7 @@ import CalendarScreen from './screens/Calendar.js';
 import RegisterScreen from './screens/Register.js';
 import LoginScreen from "./screens/Login.js";
 import MainMenuScreen from "./screens/MainMenu.js";
-import WorkoutScreen from "./screens/WorkOutScreen.js";
+import WorkoutPlanMain from "./screens/WorkoutPlanMain.js";
 import BackWorkoutScreen from "./screens/allWorkouts/BackWorkoutScreen.js";
 import MuscleIndexMain from './screens/MuscleIndex/MuscleIndexMain.js';
 import weekDayMenu from "./screens/allWorkouts/weekDayMenu.js";
@@ -54,7 +54,7 @@ export default function App() {
         <Stack.Screen name="Main Menu" component={MainMenuScreen} />
         <Stack.Screen name="WaterIntake" component={WaterIntakeScreen} />
         <Stack.Screen name="CalorieIntake" component={CalorieIntakeScreen} />
-        <Stack.Screen name="Workout" component={WorkoutScreen} />
+        <Stack.Screen name="WorkoutPlanMain" component={WorkoutPlanMain} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
         <Stack.Screen name="BackWorkoutScreen" component={BackWorkoutScreen} />
         <Stack.Screen name="MuscleIndexMain" component={MuscleIndexMain} />  
