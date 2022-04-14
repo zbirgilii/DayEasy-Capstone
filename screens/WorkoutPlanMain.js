@@ -16,7 +16,10 @@ export default function WorkoutScreen() {
   const toWeekDayMenu = () => {
     navigation.push("weekDayMenu");    
   }
-  
+  /**
+   * This the function i am talking about. I want the weekDayTitle on line #15 to go in the parameter 
+   * so that then I can use it on line #25 
+   */
   const workoutData = () => {
     const auth = getAuth();
     const user = auth.currentUser;
