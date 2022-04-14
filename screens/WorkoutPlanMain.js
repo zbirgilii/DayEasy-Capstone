@@ -31,7 +31,8 @@ export default function WorkoutScreen() {
           setDoc(doc.ref,{
             userSelect : weekDayTitle,
             Monday: {
-                         
+              workout1: 'workout1',
+              workout2: 'workout2',         
             },
             Tuesday:{
               workout1: 'workout1',
@@ -159,42 +160,42 @@ export default function WorkoutScreen() {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { workoutData(); }}>
+          onPress={() => {weekDayTitle = 'Monday'; workoutData(weekDayTitle); }}>
           <Text style={styles.buttonText}>
              Monday
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { workoutData(); }}>
+          onPress={() => { weekDayTitle = 'Tuesday'; workoutData(weekDayTitle); }}>
           <Text style={styles.buttonText}>
              Tuesday
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { workoutData(); }}>
+          onPress={() => { weekDayTitle = 'Wednesday'; workoutData(weekDayTitle); }}>
           <Text style={styles.buttonText}>
              Wednesday 
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { workoutData(); }}>
+          onPress={() => { weekDayTitle = 'Thursday'; workoutData(weekDayTitle); }}>
           <Text style={styles.buttonText}>
              Thursday 
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { workoutData(); }}>
+          onPress={() => { weekDayTitle = 'Friday'; workoutData(weekDayTitle); }}>
           <Text style={styles.buttonText}>
              Friday
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { workoutData(); }}>
+          onPress={() => { weekDayTitle = 'Saturday'; workoutData(weekDayTitle); }}>
           <Text style={styles.buttonText}>
              Saturday
           </Text>        

@@ -5,8 +5,8 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
-import { addDoc, collection } from 'firebase/firestore';
-import { auth } from '../../firebase';
+import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc} from "firebase/firestore";
+import { auth, db } from '../../firebase';
 import React, { useState, useEffect } from "react";
 //import chestIcon from 'assets/muscleIcons/chestIcon.png'
 import chestIcon from '../../assets/muscleIcons/chestIcon.png';
@@ -14,6 +14,21 @@ import chestIcon from '../../assets/muscleIcons/chestIcon.png';
 export default function weekDayMenu() {
 
   const navigation = useNavigation();
+  const [selectDay, setSelectDay] = useState('');
+
+  const getItems = () =>{
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var docData;
+    const docSnap = getDocs(collection(db, 'userWorkoutSet', user.email)).then((QuerySnapshot =>{
+      if(doc.exists){
+        const pageTitle = doc.data().userSelect;
+      }
+    }))
+  }
+  useEffect(() => {
+    getItems();
+  }, []);
 
   return (
     <>
@@ -26,7 +41,7 @@ export default function weekDayMenu() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}></Text>
+          <Text style={styles.PageTitle} >{ pageTitle }</Text>
         </View>
         <TouchableOpacity
           
