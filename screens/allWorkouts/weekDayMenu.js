@@ -26,7 +26,7 @@ export default function weekDayMenu() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}>weekDayTitle</Text>
+          <Text style={styles.PageTitle}></Text>
         </View>
         <TouchableOpacity
           

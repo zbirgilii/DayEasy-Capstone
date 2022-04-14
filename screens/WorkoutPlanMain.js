@@ -20,7 +20,7 @@ export default function WorkoutScreen() {
    * This the function i am talking about. I want the weekDayTitle on line #15 to go in the parameter 
    * so that then I can use it on line #25 
    */
-  const workoutData = () => {
+  const workoutData = (weekDayTitle) => {
     const auth = getAuth();
     const user = auth.currentUser;
     const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup))
@@ -29,9 +29,9 @@ export default function WorkoutScreen() {
         console.log('Document exists, id: '+doc.id);
         if(doc.data() == null){
           setDoc(doc.ref,{
+            userSelect : weekDayTitle,
             Monday: {
-              workout1: 'workout1',
-              workout2: 'workout2',            
+                         
             },
             Tuesday:{
               workout1: 'workout1',
@@ -61,6 +61,7 @@ export default function WorkoutScreen() {
         }
         else{
           updateDoc(doc.ref,{
+            userSelect : weekDayTitle,
             Monday: {
               workout1: 'workout1',
               workout2: 'workout2',            
@@ -145,8 +146,9 @@ export default function WorkoutScreen() {
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={ 
-            () => { weekDayTitle = 'Sunday'; workoutData(); }
+          onPress={
+            () => { weekDayTitle = 'Sunday'; workoutData(weekDayTitle); } 
+            //() => { weekDayTitle = 'Sunday'; workoutData(); }
             //() =>  workoutData('Chest')
             //() => {(text) => setSelectGroup(text); workoutData();}
           }
