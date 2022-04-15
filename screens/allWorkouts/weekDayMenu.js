@@ -14,6 +14,7 @@ import chestIcon from '../../assets/muscleIcons/chestIcon.png';
 export default function weekDayMenu() {
 
   const navigation = useNavigation();
+  /*
   const [selectDay, setSelectDay] = useState('');
 
   const getItems = () =>{
@@ -26,10 +27,11 @@ export default function weekDayMenu() {
       }
     }))
   }
+  
   useEffect(() => {
     getItems();
   }, []);
-
+  */
   return (
     <>
       <View style={styles.mainView}>        
@@ -41,7 +43,7 @@ export default function weekDayMenu() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle} >{ pageTitle }</Text>
+          <Text style={styles.PageTitle} >page title here</Text>
         </View>
         <TouchableOpacity
           

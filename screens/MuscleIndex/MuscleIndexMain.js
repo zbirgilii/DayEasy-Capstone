@@ -25,10 +25,7 @@ export default function BackWorkoutScreen() {
             </Text>        
           </TouchableOpacity>
           <Text style={styles.PageTitle}> suggested workouts:</Text>
-        </View>
-        <div>
-            <img src='./assests/Gifs/pullUp.gif'></img>
-        </div>
+        </View>        
         <TouchableOpacity
           style={styles.buttonStyle} 
           onPress={sayHello}>
