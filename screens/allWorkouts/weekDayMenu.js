@@ -14,20 +14,71 @@ import chestIcon from '../../assets/muscleIcons/chestIcon.png';
 export default function weekDayMenu() {
 
   const navigation = useNavigation();
-  /*
+  
   const [selectDay, setSelectDay] = useState('');
 
   const getItems = () =>{
     const auth = getAuth();
     const user = auth.currentUser;
     var docData;
-    const docSnap = getDocs(collection(db, 'userWorkoutSet', user.email)).then((QuerySnapshot =>{
-      if(doc.exists){
-        const pageTitle = doc.data().userSelect;
+    const docSnap = getDoc(doc(db, "userWorkoutSet", user.email))
+    docSnap.then(doc => {
+      if (doc.exists) {
+        console.log('Document retrieved successfully. ' + doc.id);
+        if (doc.data() == null ){
+
+        }
+      else{
+        setSelectDay(doc.get('userSelect')); 
       }
-    }))
+      }
+      return;
+    });
   }
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      getItems()
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
+  /*
+  8888
   
+  8888
+  const getItems = () => {
+    console.log("Get Items");
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var docdata;
+    getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
+      querySnapshot.forEach((doc) => {
+          console.log("Doc id: " + doc.id + " data:" + doc.data().itemcount + "\n")
+          var temparray = []
+          if (doc.data().itemcount != null){
+            docdata = doc.data()
+            for(let i = 1; i <= doc.data().itemcount; i++){
+              var tempobj= {time: null, description: null, location: null, marked: null};
+              tempobj.time = docdata[i].time
+              tempobj.description = docdata[i].description
+              tempobj.location = docdata[i].location
+
+              temparray.push(tempobj)
+            }
+            temparray.sort((a, b) => {
+              return a.time > b.time ? 1:-1
+            })
+            useritems[doc.id.toString()] = temparray;
+          }
+      });
+      return;
+    })
+
+    setModalVisible(false);
+  }
+
   useEffect(() => {
     getItems();
   }, []);
@@ -43,7 +94,7 @@ export default function weekDayMenu() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle} >page title here</Text>
+          <Text style={styles.PageTitle} >{selectDay}</Text>
         </View>
         <TouchableOpacity
           
