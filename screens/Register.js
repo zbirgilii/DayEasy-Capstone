@@ -6,8 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import { getAuth,
   createUserWithEmailAndPassword } from "firebase/auth";
 import {db} from '../firebase.js'
-import { collection, addDoc } from 'firebase/firestore'; 
-import { doc, setDoc } from "firebase/firestore"; 
+import { collection, addDoc, getDoc } from 'firebase/firestore'; 
+import { doc, setDoc, fetchProvidersForEmail } from "firebase/firestore"; 
 
 
 WebBrowser.maybeCompleteAuthSession();
@@ -25,39 +25,19 @@ export default function App() {
     navigation.goBack();
   }
 
-  const Confirmpassword = () => {
-    if (password == password2)
-    {
-      return true 
-    }
-    else 
-    {
-      return false
-    }
-  }
-
-  const handleSignUp = () => {
-    // setDoc(doc(db, "Workout", "Arms"), {
-    //   Workout: "Test2",
-    //   country: "USA"
-    // });
-    const temp = Confirmpassword()
-    if (temp == true)
-    {
-      console.log('Sign up called')
-      CreateUser();
-      return;
-    }
-    else 
-    {
-      Alert("Passwords do not match!")
-      return 
-    }
-  }
-
   const CreateUser = () => {
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
+
+    createUserWithEmailAndPassword(auth, email, password).catch((error)=>{
+      console.log("No  user created " + error.code)
+      var temp = error.code
+      
+      temp = temp.split('auth/').join('');
+      temp = temp.split('-').join(' ');
+      console.log("String: " + temp)
+      Alert.alert(temp)
+    });
+
     const user = auth.currentUser;
     if (user != null){
       console.log("User ID: " + user.uid)
@@ -71,8 +51,35 @@ export default function App() {
     else((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log("No  user created ")
+      console.log("No  user created " + errorMessage)
     });
+  }
+
+
+  const confirmPassword = () => {
+    if (password == password2 && password.length > 5 && password2.length > 5) 
+    {
+      return true 
+    }
+    else 
+    {
+      Alert.alert("Issue with passwords!")
+      return
+    }
+  }
+
+  const handleSignUp = () => {
+
+    var temp = confirmPassword()
+    if (temp == true)
+    {
+      // temp = emailExist()
+      // if (temp = true){
+      //   return;
+      // }
+        console.log('Sign up called')
+        CreateUser(); 
+    }
   }
 
   return ( 
@@ -95,9 +102,9 @@ export default function App() {
           <TextInput placeholder="Confirm Password" placeholderColor = "#c4c3cb" defaultValue = {password2}
            onChangeText={(text) => setPassword2(text)} style={styles.loginFormTextInput} secureTextEntry={true} />
           <Pressable
-              style={styles.  menuButton}
+              style={styles.loginbutton}
               onPress={() => handleSignUp()}>
-              <Text style={styles.buttonText}>Submit Regisstration</Text>
+              <Text style={styles.buttonText}>Submit Registration</Text>
             </Pressable>
         </View>
         <Pressable
@@ -146,7 +153,7 @@ const styles = StyleSheet.create({
     padding:10,
     color: 'white',
   },
-  menuButton: {
+  loginbutton: {
     backgroundColor: "#3897f1",
     borderRadius: 3,
     height: 45,
