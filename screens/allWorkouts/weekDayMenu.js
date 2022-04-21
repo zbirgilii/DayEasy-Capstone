@@ -10,6 +10,12 @@ import { auth, db } from '../../firebase';
 import React, { useState, useEffect } from "react";
 //import chestIcon from 'assets/muscleIcons/chestIcon.png'
 import chestIcon from '../../assets/muscleIcons/chestIconbackground.jpg';
+import absIcon from '../../assets/muscleIcons/absIcon.jpg';
+import backIcon from '../../assets/muscleIcons/backIcon.jpg';
+import legIcon from '../../assets/muscleIcons/legIcon.jpg';
+import shoulderIcon from '../../assets/muscleIcons/shouldersIcon.jpg';
+import armIcon from '../../assets/muscleIcons/armIcon.jpg';
+
 
 export default function weekDayMenu() {
 
@@ -70,7 +76,7 @@ export default function weekDayMenu() {
               style={styles.iconStyle}
               onPress={() => navigation.push("WorkoutPlanMain")}
             >
-              <img src={chestIcon} />
+              <img src={absIcon} />
             </TouchableOpacity>
             <TouchableOpacity 
               style={styles.iconStyle}
