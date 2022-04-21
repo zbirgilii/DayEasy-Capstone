@@ -9,7 +9,7 @@ import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateD
 import { auth, db } from '../../firebase';
 import React, { useState, useEffect } from "react";
 //import chestIcon from 'assets/muscleIcons/chestIcon.png'
-import chestIcon from '../../assets/muscleIcons/chestIcon.png';
+import chestIcon from '../../assets/muscleIcons/chestIconbackground.jpg';
 
 export default function weekDayMenu() {
 
@@ -44,45 +44,7 @@ export default function weekDayMenu() {
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
-  /*
-  8888
   
-  8888
-  const getItems = () => {
-    console.log("Get Items");
-    const auth = getAuth();
-    const user = auth.currentUser;
-    var docdata;
-    getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
-      querySnapshot.forEach((doc) => {
-          console.log("Doc id: " + doc.id + " data:" + doc.data().itemcount + "\n")
-          var temparray = []
-          if (doc.data().itemcount != null){
-            docdata = doc.data()
-            for(let i = 1; i <= doc.data().itemcount; i++){
-              var tempobj= {time: null, description: null, location: null, marked: null};
-              tempobj.time = docdata[i].time
-              tempobj.description = docdata[i].description
-              tempobj.location = docdata[i].location
-
-              temparray.push(tempobj)
-            }
-            temparray.sort((a, b) => {
-              return a.time > b.time ? 1:-1
-            })
-            useritems[doc.id.toString()] = temparray;
-          }
-      });
-      return;
-    })
-
-    setModalVisible(false);
-  }
-  test git
-  useEffect(() => {
-    getItems();
-  }, []);
-  */
   return (
     <>
       <View style={styles.mainView}>        
@@ -98,10 +60,9 @@ export default function weekDayMenu() {
         </View>
         <TouchableOpacity 
           style={styles.iconStyle}
+          onPress={() => navigation.push("WorkoutPlanMain")}
         >
-           <Text>asdf</Text>
           <img src={chestIcon} />
-          <Text>asdf</Text>
         </TouchableOpacity>              
                  
       </View></>
@@ -188,7 +149,11 @@ export default function weekDayMenu() {
         color: 'red'
       },
       iconStyle:{
-        height: 500,
-        width: 500
-      }
+        height: 200,
+        width: 200,
+        "&:hover": {
+          backgroundColor: "#15e577",
+          borderColor:"#564345"
+        },
+      },
 })
