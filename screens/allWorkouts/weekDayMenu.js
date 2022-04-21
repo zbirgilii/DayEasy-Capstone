@@ -1,6 +1,6 @@
 //import * as React from 'react';
 //import pageTitle from './screens/WorkOutScreen';
-import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
@@ -96,10 +96,12 @@ export default function weekDayMenu() {
           </TouchableOpacity>
           <Text style={styles.PageTitle} >{selectDay}</Text>
         </View>
-        <TouchableOpacity
-          
+        <TouchableOpacity 
+          style={styles.iconStyle}
         >
-          <img scr={chestIcon} />
+           <Text>asdf</Text>
+          <img src={chestIcon} />
+          <Text>asdf</Text>
         </TouchableOpacity>              
                  
       </View></>
@@ -186,6 +188,7 @@ export default function weekDayMenu() {
         color: 'red'
       },
       iconStyle:{
-        zIndex: 1
+        height: 500,
+        width: 500
       }
 })
