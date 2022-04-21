@@ -42,7 +42,7 @@ export default function weekDayMenu() {
       return;
     });
   }
-  
+
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
@@ -79,53 +79,45 @@ export default function weekDayMenu() {
             </Text>        
           </TouchableOpacity>
           <Text style={styles.PageTitle} >{selectDay}</Text>
-        </View>
-        <div className='row'>
-          <div className='column' >
-            <TouchableOpacity 
-              style={styles.iconStyle}
-              onPress={
-                () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
-              }
-            >
-              <img src={chestIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.iconStyle}
-              onPress={() => navigation.push("WorkoutPlanMain")}
-            >
-              <img src={absIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.iconStyle}
-              onPress={() => navigation.push("WorkoutPlanMain")}
-            >
-              <img src={chestIcon} />
-            </TouchableOpacity>
-          </div>
-          <div className='column'>
-            <TouchableOpacity 
-              style={styles.iconStyle}
-              onPress={() => navigation.push("WorkoutPlanMain")}
-            >
-              <img src={chestIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.iconStyle}
-              onPress={() => navigation.push("WorkoutPlanMain")}
-            >
-              <img src={chestIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.iconStyle}
-              onPress={() => navigation.push("WorkoutPlanMain")}
-            >
-              <img src={chestIcon} />
-            </TouchableOpacity>
-          </div>
-        </div>
-                      
-                 
+        </View>        
+        <TouchableOpacity 
+          style={styles.iconStyle}
+          onPress={
+            () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
+          }
+        >
+          <img src={chestIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.iconStyle}
+          onPress={() => navigation.push("WorkoutPlanMain")}
+        >
+          <img src={absIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.iconStyle}
+          onPress={() => navigation.push("WorkoutPlanMain")}
+        >
+          <img src={chestIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.iconStyle}
+          onPress={() => navigation.push("WorkoutPlanMain")}
+        >
+          <img src={chestIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.iconStyle}
+          onPress={() => navigation.push("WorkoutPlanMain")}
+        >
+          <img src={chestIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.iconStyle}
+          onPress={() => navigation.push("WorkoutPlanMain")}
+        >
+          <img src={chestIcon} />
+        </TouchableOpacity>    
       </View></>
        
   )}
