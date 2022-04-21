@@ -34,9 +34,9 @@ export default function weekDayMenu() {
         if (doc.data() == null ){
 
         }
-      else{
+        else{
         setSelectDay(doc.get('userSelect')); 
-      }
+        }
       }
       return;
     });
