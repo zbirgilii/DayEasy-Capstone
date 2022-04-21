@@ -10,16 +10,14 @@ import { collection,collectionGroup, query,setDoc, where, getDocs, getDoc, doc ,
 
 export default function WorkoutScreen() {
   const navigation = useNavigation();
-  //const [selectDay, setSelectDay] = useState('');
   const [selectGroup, setSelectGroup] = useState('');
   let weekDayTitle = '';
+
   const toWeekDayMenu = () => {
     navigation.push("weekDayMenu");    
   }
-  /**
-   * This the function i am talking about. I want the weekDayTitle on line #15 to go in the parameter 
-   * so that then I can use it on line #25 
-   */
+  
+  
   const workoutData = (weekDayTitle) => {
     const auth = getAuth();
     const user = auth.currentUser;

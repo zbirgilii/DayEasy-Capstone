@@ -10,7 +10,34 @@ export default function BackWorkoutScreen() {
 
     const sayHello = () => {
         Alert('create me');
-      }
+    }
+    const getItems = () =>{
+      const auth = getAuth();
+      const user = auth.currentUser;
+      var docData;
+      const docSnap = getDoc(doc(db, "userWorkoutSet", user.email))
+      docSnap.then(doc => {
+        if (doc.exists) {
+          console.log('Document retrieved successfully. ' + doc.id);
+          if (doc.data() == null ){
+  
+          }
+        else{
+          setSelectDay(doc.get('userSelect')); 
+        }
+        }
+        return;
+      });
+    }
+    React.useEffect(() => {
+      const unsubscribe = navigation.addListener('focus', () => {
+        // The screen is focused
+        getItems()
+      });
+  
+      // Return the function to unsubscribe from the event so it gets removed on unmount
+      return unsubscribe;
+    }, [navigation]);
 
   return (
     <>

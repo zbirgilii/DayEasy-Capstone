@@ -58,12 +58,49 @@ export default function weekDayMenu() {
           </TouchableOpacity>
           <Text style={styles.PageTitle} >{selectDay}</Text>
         </View>
-        <TouchableOpacity 
-          style={styles.iconStyle}
-          onPress={() => navigation.push("WorkoutPlanMain")}
-        >
-          <img src={chestIcon} />
-        </TouchableOpacity>              
+        <div className='row'>
+          <div className='column' >
+            <TouchableOpacity 
+              style={styles.iconStyle}
+              onPress={() => navigation.push("WorkoutPlanMain")}
+            >
+              <img src={chestIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.iconStyle}
+              onPress={() => navigation.push("WorkoutPlanMain")}
+            >
+              <img src={chestIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.iconStyle}
+              onPress={() => navigation.push("WorkoutPlanMain")}
+            >
+              <img src={chestIcon} />
+            </TouchableOpacity>
+          </div>
+          <div className='column'>
+            <TouchableOpacity 
+              style={styles.iconStyle}
+              onPress={() => navigation.push("WorkoutPlanMain")}
+            >
+              <img src={chestIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.iconStyle}
+              onPress={() => navigation.push("WorkoutPlanMain")}
+            >
+              <img src={chestIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.iconStyle}
+              onPress={() => navigation.push("WorkoutPlanMain")}
+            >
+              <img src={chestIcon} />
+            </TouchableOpacity>
+          </div>
+        </div>
+                      
                  
       </View></>
        
@@ -147,6 +184,13 @@ export default function weekDayMenu() {
         marginLeft: 5,
         backgroundColor:'red',
         color: 'red'
+      }, 
+      iconRow:{
+        width: '50%',
+        alignItems: 'center',
+      },
+      iconColumn:{
+        width: 200,
       },
       iconStyle:{
         height: 200,
