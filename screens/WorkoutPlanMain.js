@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 import {db} from '../firebase.js'
@@ -94,6 +92,7 @@ export default function WorkoutScreen() {
       }
       else{
         setDoc(doc(db, 'userWorkoutSet', user.email, selectGroup), {
+          userSelect : weekDayTitle,
           Monday: {
             workout1: 'workout1',
             workout2: 'workout2',            
@@ -147,9 +146,6 @@ export default function WorkoutScreen() {
           style={styles.buttonStyle} 
           onPress={
             () => { weekDayTitle = 'Sunday'; workoutData(weekDayTitle); } 
-            //() => { weekDayTitle = 'Sunday'; workoutData(); }
-            //() =>  workoutData('Chest')
-            //() => {(text) => setSelectGroup(text); workoutData();}
           }
           >
           <Text style={styles.buttonText}>

@@ -1,12 +1,10 @@
 //import * as React from 'react';
 //import pageTitle from './screens/WorkOutScreen';
 import {StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc} from "firebase/firestore";
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import React, { useState, useEffect } from "react";
 //import chestIcon from 'assets/muscleIcons/chestIcon.png'
 import chestIcon from '../../assets/muscleIcons/chestIconbackground.jpg';
@@ -22,11 +20,14 @@ export default function weekDayMenu() {
   const navigation = useNavigation();
   
   const [selectDay, setSelectDay] = useState('');
+  const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
+  let muscleGroup = '';
 
   const getItems = () =>{
     const auth = getAuth();
     const user = auth.currentUser;
     var docData;
+
     const docSnap = getDoc(doc(db, "userWorkoutSet", user.email))
     docSnap.then(doc => {
       if (doc.exists) {
@@ -41,6 +42,7 @@ export default function weekDayMenu() {
       return;
     });
   }
+  
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
@@ -50,7 +52,21 @@ export default function weekDayMenu() {
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
-  
+
+  const workoutData = (muscleGroup) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup))
+    docSnap.then(doc => {
+      if(doc.exists){
+        console.log('Document exists, id: '+doc.id);        
+        updateDoc(doc.ref,{
+          userMuscle : muscleGroup,           
+        })        
+      }
+      navigation.push("WorkoutSelect");      
+    })    
+  }
   return (
     <>
       <View style={styles.mainView}>        
@@ -68,7 +84,9 @@ export default function weekDayMenu() {
           <div className='column' >
             <TouchableOpacity 
               style={styles.iconStyle}
-              onPress={() => navigation.push("WorkoutPlanMain")}
+              onPress={
+                () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
+              }
             >
               <img src={chestIcon} />
             </TouchableOpacity>
