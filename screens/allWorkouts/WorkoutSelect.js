@@ -7,37 +7,52 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function BackWorkoutScreen() {
   const navigation = useNavigation();
+  const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
 
-    const sayHello = () => {
-        Alert('create me');
-    }
-    const getItems = () =>{
-      const auth = getAuth();
-      const user = auth.currentUser;
-      var docData;
-      const docSnap = getDoc(doc(db, "userWorkoutSet", user.email))
-      docSnap.then(doc => {
-        if (doc.exists) {
-          console.log('Document retrieved successfully. ' + doc.id);
-          if (doc.data() == null ){
-  
-          }
+  const sayHello = () => {
+      Alert('create me');
+  }
+
+  const getItems = () =>{
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var docData;
+    const docSnap = getDoc(doc(db, "userWorkoutSet", user.email))
+    docSnap.then(doc => {
+      if (doc.exists) {
+        console.log('Document retrieved successfully. ' + doc.id);
+        if (doc.data() == null ){
+
+        }
         else{
-          setSelectDay(doc.get('userSelect')); 
+          setSelectmuscleGroup(doc.get('userMuscle')); 
         }
-        }
-        return;
-      });
-    }
-    React.useEffect(() => {
-      const unsubscribe = navigation.addListener('focus', () => {
-        // The screen is focused
-        getItems()
-      });
+      }
+      return;
+    });
+  }
+
+  const workoutList = () =>{
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const docSnap = getDoc(doc(db, 'Workouts', selectmuscleGroup))
+    docSnap.then(doc => {
+      if(doc.exists){
+        
+      }
+      navigation.push("WorkoutSelect");      
+    })
+  }
   
-      // Return the function to unsubscribe from the event so it gets removed on unmount
-      return unsubscribe;
-    }, [navigation]);
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      getItems()
+    });
+  
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <>
@@ -50,7 +65,7 @@ export default function BackWorkoutScreen() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}>Suggested Workout:</Text>
+          <Text style={styles.PageTitle}>{selectmuscleGroup}}</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
@@ -104,5 +119,3 @@ const styles = StyleSheet.create({
         color: 'black'
       }
 })
-
-// export default App;

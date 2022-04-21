@@ -73,7 +73,7 @@ export default function weekDayMenu() {
         <View style={styles.basicView}>
           <TouchableOpacity
             style={styles.backButton} 
-            onPress={() => navigation.push("WorkoutPlanMain")}>
+            onPress={() => navigation.push("WorkoutPlanMain")}>            
             <Text style={styles.basicText}>
              &lt;Back 
             </Text>        
