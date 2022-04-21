@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, Image, Dimensions } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CalendarScreen from './screens/Calendar.js';
@@ -31,13 +31,17 @@ export default function App() {
   React.useEffect(() => {
     setTimeout(()=> {
       setIsLoading(false);
-    }, 1000);
+    }, 2000);
 
   }, []);
 
   if (isLoading) {
     return ( <View style={styles.mainView}>
       <ActivityIndicator size="large" />
+      <Image
+        source={require('./assets/icon.png')}
+        style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height/2 }}
+      />
     </View>
     )
   }
