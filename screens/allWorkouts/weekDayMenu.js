@@ -9,7 +9,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { auth } from '../../firebase';
 import React, { useState, useEffect } from "react";
 
-export default function weekDayMenu() {
+export default function WeekDayMenu() {
 
   const navigation = useNavigation();
   //const [userName, setUserName ] = useState();

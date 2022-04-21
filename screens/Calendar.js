@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Modal,Pressable, Alert,
-  TextInput,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+  TextInput,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Picker } from 'react-native';
 import { Agenda, Calendar, AgendaList, LocaleConfig } from 'react-native-calendars';
 import { TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 import { getAuth } from "firebase/auth";
 import {db} from '../firebase.js'
 import { setDoc} from "firebase/firestore"; 
-import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc} from "firebase/firestore";
+import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, deleteField } from "firebase/firestore";
+
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer']);
+
+import { useNavigation  } from '@react-navigation/native';
 
 // LocaleConfig.locales['pt-br'] = {
 //   monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
@@ -19,31 +26,76 @@ import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateD
 // LocaleConfig.defaultLocale = 'pt-br';
 
 const App = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  
-  const [calendarOpened, setCalendarOpened] = useState(false);
-  const [selectedday, setSelectedday] = useState('')
-  const [usertime, setUsertime] = useState('Test Time')
-  const [useritems, setuseritems] = useState({}
-    // {
-    // '2022-04-06': [{text: 'any js object', time: "6:30",marked: true}],
-    // '2022-04-10': [{text: 'any js object', marked: true}],
-    // '2022-04-12': [{text: 'item 1 - any js object'}],
-    // '2022-04-13': [{text: 'item 2 - any js object'}, {text: 'item 3 - any js object'}],
-    // }
-  );
+  const navigation = useNavigation();
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [useritems, setItems] = useState({})
+  const [newMarked, setNewMarked]  = useState({})
+  const [calendarOpened, setCalendarOpened] = useState(false);
+
+  const [selectedday, setSelectedday] = useState('')
+  const [hr, sethr] = useState()
+  const [min, setmin] = useState('00')
+  const [description, setdescription] = useState()
+  const [location, setlocation] = useState()
+
+  const [ampm, setampm] = useState("");
+
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      getItems()
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+    setModalVisible(!modalVisible);
   };
 
+  const DeleteItem = (daydate, time) =>{
+    console.log("Date Deleted");
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var count = 1;
+    const docSnap  = getDoc(doc(db, "agenda", user.email, "dates", daydate))
+    docSnap.then(doc => {
+      if (doc.exists) {
+        console.log('Document retrieved successfully. ' + doc.id);
+        if (doc.data() == null ){
+          console.log("doc is null");
+        }
+        else{
+          if (doc.data().itemcount != null){
+            const docdata = doc.data()
+            for(let i = 1; i <= doc.data().itemcount; i++){
+              if(time == docdata[i].time){
+                updateDoc(doc.ref, {
+                  [i]: deleteField()
+              });
+              getItems()
+              }
+            }
+            
+          }
+        }
+      }
+      else{
+        console.log("doc does not exist");
+      }
+      return;
+    });
+  }
 
   const getItems = () => {
     console.log("Get Items");
     const auth = getAuth();
     const user = auth.currentUser;
     var docdata;
+    const newMarks = {};
     getDocs(collection(db, "agenda", user.email, "dates")).then((querySnapshot) => { 
       querySnapshot.forEach((doc) => {
           console.log("Doc id: " + doc.id + " data:" + doc.data().itemcount + "\n")
@@ -51,23 +103,28 @@ const App = () => {
           if (doc.data().itemcount != null){
             docdata = doc.data()
             for(let i = 1; i <= doc.data().itemcount; i++){
-              var tempobj= {time: null, description: null, location: null, marked: null};
-              tempobj.time = docdata[i].time
-              tempobj.description = docdata[i].description
-              tempobj.location = docdata[i].location
-
-              temparray.push(tempobj)
+              var tempobj= {time: null, description: null, location: null, marked: true, day: null};
+              if (docdata[i] == null || undefined){
+                continue;
+              }else{
+                tempobj.time = docdata[i].time
+                tempobj.description = docdata[i].description
+                tempobj.location = docdata[i].location
+                tempobj.day = doc.id.toString();
+                temparray.push(tempobj)
+              }
+              
             }
             temparray.sort((a, b) => {
               return a.time > b.time ? 1:-1
             })
             useritems[doc.id.toString()] = temparray;
+            newMarked[doc.id.toString()] = {marked: true};
           }
       });
-      return;
     })
-
-    setModalVisible(false);
+    return ;
+    // setModalVisible(false);
   }
 
 
@@ -76,6 +133,7 @@ const App = () => {
     const auth = getAuth();
     const user = auth.currentUser;
     var count = 1;
+
     const docSnap  = getDoc(doc(db, "agenda", user.email, "dates",selectedday))
     docSnap.then(doc => {
       if (doc.exists) {
@@ -84,7 +142,7 @@ const App = () => {
           setDoc(doc.ref,{
             itemcount: count,
             [count]: {
-              time: usertime,
+              time: hr+ ":" + min ,
               description: "Test description",
               location: "location",
             },
@@ -121,6 +179,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <Text  style={{textAlign: "center", fontSize: 10, fontWeight: '100'}}> Hold day for menu </Text>
       <View style={{ flex: 1 }}>
             <Modal
               animationType="slide"
@@ -132,67 +191,87 @@ const App = () => {
               }}
             >
               <View style={styles.centeredView}>
-                <View>
                 <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+                <View>
                   <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Hello World!</Text>
-                    <TextInput placeholder="Set Time"
-                      onChangeText={(text) => setUsertime(text)} />
-                    <Pressable
+                    <Text style={styles.modalText}>Enter information to create an appointment!</Text>
+                      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <TextInput placeholder="Hr" keyboardType="number-pad" maxLength={1}
+                        onChangeText={(text) => { sethr(text); setCalendarOpened(false); } } style={styles.TimeTextInput} />
+                      <Text> : </Text>
+                      <TextInput placeholder="Min" keyboardType="number-pad" maxLength={2}
+                      onChangeText={(text) => {setmin(text); setCalendarOpened(false); }} style={styles.TimeTextInput} />
+                      <Picker
+                        selectedValue={ampm}
+                        style={{ height: 40, width: "35%" }}
+                        onValueChange={(itemValue, itemIndex) => setampm(itemValue)}
+                      >
+                        <Picker.Item label="AM" value="AM" />
+                        <Picker.Item label="PM" value="PM" />
+                      </Picker>
+                      </View>
+                    <TextInput placeholder="description" maxLength={45}
+                      onChangeText={(text) => { setdescription(text); setCalendarOpened(false); } } style={styles.longerTextInput} />
+                    <TextInput placeholder="location" maxLength={25}
+                    onChangeText={(text) => { setlocation(text); setCalendarOpened(false); } } style={styles.longerTextInput} />
+                    <TouchableOpacity
                       style={[styles.button]}
                       onPress={() => {CreateDate()}}
                     >
                       <Text style={styles.textStyle}>Date</Text>
-                    </Pressable>
-                    <Pressable
+                    </TouchableOpacity>
+                    <TouchableOpacity
                       style={[styles.button]}
                       onPress={() => {getItems()}}
                     >
                       <Text style={styles.textStyle}>items</Text>
-                    </Pressable>
-                    <Pressable
+                    </TouchableOpacity>
+                    <TouchableOpacity
                       style={[styles.button]}
-                      onPress={() => setModalVisible(!modalVisible)}
+                      onPress={() => {setModalVisible(!modalVisible), setCalendarOpened(false)}}
                     >
                       <Text style={styles.textStyle}>Hide Modal</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                   </View>
-                  </TouchableWithoutFeedback>
-                  </KeyboardAvoidingView> 
                 </View>
-                  
+                </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
               </View>
             </Modal>
       <Agenda
+          loadItemsForMonth={(month) => {console.log('trigger items loading'); console.log("Modal " + modalVisible); if(modalVisible==true){setCalendarOpened(false); }}}
           displayLoadingIndicator = {true}
-          directionalLockEnabled = {true}
-          loadItemsForMonth={(month) => {getItems(), console.log('trigger items loading'),month}}
+          
+          
           items = {useritems}
 
-          markedDates={useritems}
+          markedDates={newMarked}
           
           firstDay={7}
           onDayPress={(day)=>{console.log('day pressed')}}
           onDayChange={(day)=>{console.log('day changed')}}
           onDayLongPress={day => {console.log("long press " + day.dateString),
-            setSelectedday(day.dateString), setModalVisible(true)}}
+            setSelectedday(day.dateString), toggleModal()}}
             
           minDate={'2021-01-01'}
           maxDate={'2030-12-31'}
-          current={new Date().toISOString()}          
+          current={new Date().toString()}          
           
           disableAllTouchEventsForDisabledDays={true}
+          hideArrows={true}
           // Do not show days of other months in month page. Default = false
           hideExtraDays={true}
           // If hideArrows = false and hideExtraDays = false do not switch month when tapping on greyed out
           // day from another month that is visible in calendar page. Default = false
           disableMonthChange={false}
-          hideArrows={false}
-          onCalendarToggled={(calendarOpened) => setCalendarOpened(calendarOpened)}
+         
+          onCalendarToggled={(calendarOpened) => {
+            if(modalVisible==true){
+              setCalendarOpened(false)}}
+          }
           rowHasChanged={(r1, r2) => {return r1.time != r2.time}}
-          
-          pagingEnabled={false}
+
 
           onRefresh={() => {console.log('refreshing...'), getItems()}}
           refreshing={false}
@@ -223,11 +302,12 @@ const App = () => {
               <View style={styles.contentContainerStyle}>
                 <TouchableOpacity
                   style={styles.itembuttons}
-                  onPress={(item) => {console.log('selected item')}}
+                  onPress={() => {DeleteItem( item.day.toString(), item.time),
+                    console.log('selected item ' + item.day.toString() + item.time )}}
                 >
-                  <Text>Press Here</Text>
+                  <Text>Delete</Text>
                 </TouchableOpacity>
-            </View>
+              </View>
               <Text>{item.time}</Text>
               <Text>{item.location}</Text>
               <Text>{item.description}</Text>
@@ -247,13 +327,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 1,
   },
   modalView:{
-    margin: 20,
+    margin: 1,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 30,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -265,7 +345,7 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: 5,
     textAlign: "center"
   },
   contentContainerStyle:{
@@ -280,6 +360,30 @@ const styles = StyleSheet.create({
     right:-10,
     top: -10,
     padding: 4,
+  },
+  longerTextInput: {
+    height: 40,
+    fontSize: 14,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#3897f1",
+    backgroundColor: "white",
+    width: '100%',
+    paddingLeft: 10,
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  TimeTextInput: {
+    height: 40,
+    fontSize: 14,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#3897f1",
+    backgroundColor: "white",
+    width: '25%',
+    paddingLeft: 10,
+    marginTop: 5,
+    marginBottom: 5,
   },
   button: {
     alignItems: 'center',

@@ -8,7 +8,7 @@ import LoginScreen from "./screens/Login.js";
 import MainMenuScreen from "./screens/MainMenu.js";
 import WorkoutScreen from "./screens/WorkOutScreen.js";
 import BackWorkoutScreen from "./screens/allWorkouts/BackWorkoutScreen.js";
-import weekDayMenu from "./screens/allWorkouts/weekDayMenu.js";
+import WeekDayMenu from "./screens/allWorkouts/WeekDayMenu.js";
 import WaterIntakeScreen from "./screens/WaterIntake.js";
 import CalorieIntakeScreen from "./screens/CalorieIntake.js";
 import PedometerScreen from "./screens/Pedometer.js";
@@ -45,7 +45,7 @@ export default function App() {
   return (
   <AuthContextProvider>
   <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false}}>
       {currentUser == null || "" ?
       (
         <>
@@ -60,9 +60,9 @@ export default function App() {
         <Stack.Screen name="Workout" component={WorkoutScreen} />
         <Stack.Screen name="Pedometer" component={PedometerScreen} />
         <Stack.Screen name="Fasting Timer" component={FastingScreen}/>
-        <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true}}/>
         <Stack.Screen name="BackWorkoutScreen" component={BackWorkoutScreen} /> 
-        <Stack.Screen name="weekDayMenu" component={weekDayMenu} />
+        <Stack.Screen name="WeekDayMenu" component={WeekDayMenu} />
         </>
       )}
     </Stack.Navigator>
