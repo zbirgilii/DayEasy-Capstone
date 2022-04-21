@@ -78,7 +78,7 @@ export default function weekDayMenu() {
 
     setModalVisible(false);
   }
-
+  test git
   useEffect(() => {
     getItems();
   }, []);
@@ -91,7 +91,7 @@ export default function weekDayMenu() {
             style={styles.backButton} 
             onPress={() => navigation.push("Workout")}>
             <Text style={styles.basicText}>
-             &lt;Back 
+             &lt;Back d
             </Text>        
           </TouchableOpacity>
           <Text style={styles.PageTitle} >{selectDay}</Text>
