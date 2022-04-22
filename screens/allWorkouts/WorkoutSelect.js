@@ -1,13 +1,14 @@
 import {StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
-import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc} from "firebase/firestore";
+import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc, QuerySnapshot} from "firebase/firestore";
 import { db } from '../../firebase';
 import React, { useState, useEffect } from "react";
 
 export default function WorkoutSelect() {
   const navigation = useNavigation();
   const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
+  const [userWorkoutSet, setUserWorkoutSet] = useState({});
 
   const sayHello = () => {
       Alert('create me');
@@ -31,40 +32,34 @@ export default function WorkoutSelect() {
       return;
     });
   }
-
+//this is the one causing issues
   const workoutList = () =>{
-    let {buttonCount, currentButton} = this.state;
-
+    //let {buttonCount, currentButton} = this.state;
     const workoutSet = [];
 
     const auth = getAuth();
     const user = auth.currentUser;
-    const docSnap = getDoc(doc(db, 'Workouts', selectmuscleGroup))
-    docSnap.then(doc => {
-      /*This is where my issue is, hopefully this will work */
-      if(doc.exists){
-        for( let i =0; i<buttonCount; i++){
-          workoutSet.push(
-            <TouchableOpacity
-              style={styles.buttonStyle} 
-              onPress={sayHello}
-            >
-              <Text style={styles.basicText}>
-                  Chest
-              </Text>
-            </TouchableOpacity>
-          )
+    var docData;
+    getDocs(doc(db, 'Workouts', selectmuscleGroup.toString())).then((querySnapshot) => {
+      querySnapshot.forEach((doc) =>{
+        var temparray = []
+        if(doc.data() != null){
+          docData = doc.data()
+          for(let i=0; i < 3; i++){
+            temparray.push(docData[i])
+          }
+          userWorkoutSet[doc.id.toString()] = temparray;
         }
-        return workoutSet
-      }
-      //navigation.push("WorkoutSelect");      
+      });
+      return;
     })
   }
   
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
-      getItems()
+      getItems();
+      workoutList();
     });
   
     // Return the function to unsubscribe from the event so it gets removed on unmount
@@ -74,6 +69,11 @@ export default function WorkoutSelect() {
 
   }
 
+  /**
+   * <Text style={styles.basicText}>
+                  {userWorkoutSet[0]}
+              </Text>
+   */
   return (
     <>
       <View style={styles.mainView}>        
@@ -87,14 +87,14 @@ export default function WorkoutSelect() {
           </TouchableOpacity>
           <Text style={styles.PageTitle}>Suggested Workouts for: <br></br>{selectmuscleGroup}</Text>
         </View>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={sayHello}
-          >
-          <Text style={styles.basicText}>
-             Chest
-          </Text>        
-        </TouchableOpacity>       
+        
+            <TouchableOpacity
+              style={styles.buttonStyle} 
+              onPress={sayHello}
+            >
+              
+              
+            </TouchableOpacity>    
                  
       </View></>
        
