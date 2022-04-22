@@ -1,11 +1,11 @@
-import * as React from 'react';
-import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
+import {StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
+import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc} from "firebase/firestore";
+import { db } from '../../firebase';
+import React, { useState, useEffect } from "react";
 
-export default function BackWorkoutScreen() {
+export default function WorkoutSelect() {
   const navigation = useNavigation();
   const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
 
@@ -65,7 +65,7 @@ export default function BackWorkoutScreen() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}>{selectmuscleGroup}}</Text>
+          <Text style={styles.PageTitle}>{selectmuscleGroup}</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 

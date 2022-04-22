@@ -20,6 +20,7 @@ export default function weekDayMenu() {
   const navigation = useNavigation();
   
   const [selectDay, setSelectDay] = useState('');
+  const [selectGroup, setSelectGroup] = useState('');
   const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
   let muscleGroup = '';
 
@@ -64,7 +65,7 @@ export default function weekDayMenu() {
           userMuscle : muscleGroup,           
         })        
       }
-      navigation.push("WorkoutSelect");      
+      //navigation.push("WorkoutSelect");      
     })    
   }
   return (
@@ -73,7 +74,9 @@ export default function weekDayMenu() {
         <View style={styles.basicView}>
           <TouchableOpacity
             style={styles.backButton} 
-            onPress={() => navigation.push("WorkoutPlanMain")}>            
+            onPress={() => navigation.push("WorkoutPlanMain")}
+            //onPress={() => navigation.push("WorkoutSelect")}
+            >            
             <Text style={styles.basicText}>
              &lt;Back 
             </Text>        
