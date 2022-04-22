@@ -33,12 +33,29 @@ export default function WorkoutSelect() {
   }
 
   const workoutList = () =>{
+    let {buttonCount, currentButton} = this.state;
+
+    const workoutSet = [];
+
     const auth = getAuth();
     const user = auth.currentUser;
     const docSnap = getDoc(doc(db, 'Workouts', selectmuscleGroup))
     docSnap.then(doc => {
+      /*This is where my issue is, hopefully this will work */
       if(doc.exists){
-        
+        for( let i =0; i<buttonCount; i++){
+          workoutSet.push(
+            <TouchableOpacity
+              style={styles.buttonStyle} 
+              onPress={sayHello}
+            >
+              <Text style={styles.basicText}>
+                  Chest
+              </Text>
+            </TouchableOpacity>
+          )
+        }
+        return workoutSet
       }
       //navigation.push("WorkoutSelect");      
     })
@@ -53,6 +70,9 @@ export default function WorkoutSelect() {
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
+  const renderWorkouts = () => {
+
+  }
 
   return (
     <>
