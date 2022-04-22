@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
  import { StyleSheet,Keyboard, Text, TouchableWithoutFeedback, Pressable, View } from "react-native";
  import { Button, SocialIcon } from "react-native";
  import * as WebBrowser from 'expo-web-browser';
@@ -11,57 +11,57 @@ import React from "react";
  
  export default function CalorieIntakeScreen() {
      const navigation = useNavigation();
- 
-     const [request, response, promptAsync] = Google.useAuthRequest({
-         expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-       });
- 
-     const Goback = () => {
-      navigation.goBack();
-   }
-   React.useEffect(() => {
-     if (response?.type === 'success') {
-       const { authentication } = response;
-       }
-   }, [response]);
- 
-   return (
-     <>
-     <>
-   
-     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-       <View style={styles.mainView}>
-         <View style={styles.basicView}>
-           <Text style={styles.PageTitle}>Calorie Intake</Text>
-         </View>
-         <View style={styles.container}>
-            <View style={styles.sideInfo}>
-            
-                <Text style={styles.currentCups}>0/10</Text>
-            </View>
-            <View style={styles.percentageContainer}>
-                <Text style={styles.currentPercentage}>0%</Text>
-                <View style={styles.progress}></View>
-            </View>
-            <View style={styles.sideInfo}>
+     const [TotalCal, setTotalCal] = useState(2000)
+     const [currentCal, setcurrentCal] = useState(0)
 
-                <Text style={styles.currentLiters}>0 kCal/ 2.000 kCal</Text>
-            </View>
-         </View>
-         <View>
-            <button class="remove">-</button>
-            <button class="add">+</button>
-         </View>
+ 
+    const Goback = () => {
+    navigation.goBack();
+    }
 
-        </View>
-     </TouchableWithoutFeedback>
-     <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />
-      </>
-      </>
-   )
+    var addCalorie = () => {
+      currentCal = currentCal + 1;
+    }
+
+    return (
+      <>
+      <>
+    
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.mainView}>
+          <View style={styles.basicView}>
+            <Text style={styles.PageTitle}>Calorie Intake</Text>
+          </View>
+          <View style={styles.container}>
+              <View style={styles.sideInfo}>
+              
+                  <Text style={styles.currentCups}></Text>
+              </View>
+              <View style={styles.percentageContainer}>
+                  <Text style={styles.currentPercentage}>0%</Text>
+                  <View style={styles.progress}></View>
+              </View>
+              <View style={styles.sideInfo}>
+
+                  <Text style={styles.currentLiters}>{currentCal} kCal/{TotalCal} kCal</Text>
+              </View>
+          </View>
+          <View>
+              <Button onClick={addCalorie()} title="Add">
+                <Text style={styles.basicText}>
+                  Add
+                </Text>        
+              </Button>
+              <button class="remove">-</button>
+              <button class="add">+</button>
+          </View>
+
+          </View>
+      </TouchableWithoutFeedback>
+      <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />
+        </>
+        </>
+    )
  }
  
  const styles = StyleSheet.create({
@@ -87,7 +87,6 @@ import React from "react";
      fontSize: 40,
      color: 'white',
      paddingTop: 50,
-     paddingTop: 20,
      paddingBottom: 10,
      fontWeight: '400',
      textAlign:'center',
@@ -96,12 +95,10 @@ import React from "react";
  
    },
    container:{
-    display: 'grid',
-   gridTemplateColumns: '2fr 3fr 2fr',
+    display: 'flex',
    width: '100%',
-   maxWidth: '600px',
+   maxWidth: 600,
    margin: 'auto',
-   gap: '10px',
   },
   sideInfo:{
    display: 'flex',
@@ -112,45 +109,32 @@ import React from "react";
  percentageContainer:{
    width: '70%',
    height:'100%',
-   minHeight:'300px',
+   minHeight:300,
    margin: 'auto',
    backgroundColor: '#fff',
-   borderRadius: '5px',
+   borderRadius: 5,
    overflow: 'hidden',
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'center',
-   fontSize: '50',
+   fontSize: 50,
    color: '#fff',
    position: 'relative',
  },
 
  currentPercentage:{
-   zIndex: '1',
+   zIndex: 1,
  },
  progress:{
    backgroundColor: '#2196f3',
    position:'absolute',
    width: '100%',
    bottom: '0',
-   transition: '0.5s ease',
  
  },
  buttons:{
-   gridColumn: -1/1,
-   margin: '10px auto',
+  margin:10,
 
- },
- button:{
-   backgroundColor: '#81B29A',
-   color: '#fff',
-   border: '1px solid #a5d7fe',
-   width: '60px',
-   height: '60px',
-   fontSize: '45px',
-   borderRadius: '50%',
-   outlineStyle: 'none',
-   cursor: 'pointer',
  },
    Title2:{
      fontSize: 20,
