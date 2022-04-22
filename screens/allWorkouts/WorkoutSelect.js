@@ -40,7 +40,7 @@ export default function WorkoutSelect() {
       if(doc.exists){
         
       }
-      navigation.push("WorkoutSelect");      
+      //navigation.push("WorkoutSelect");      
     })
   }
   
@@ -69,7 +69,8 @@ export default function WorkoutSelect() {
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={sayHello}>
+          onPress={sayHello}
+          >
           <Text style={styles.basicText}>
              Chest
           </Text>        

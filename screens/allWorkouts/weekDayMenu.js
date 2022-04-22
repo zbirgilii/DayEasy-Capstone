@@ -93,33 +93,43 @@ export default function weekDayMenu() {
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.iconStyle}
-          onPress={() => navigation.push("WorkoutPlanMain")}
+          onPress={
+            () => { muscleGroup = 'Abs'; workoutData(muscleGroup); }
+          }
         >
           <img src={absIcon} />
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.iconStyle}
-          onPress={() => navigation.push("WorkoutPlanMain")}
+          onPress={
+            () => { muscleGroup = 'Back'; workoutData(muscleGroup); }
+          }
         >
-          <img src={chestIcon} />
+          <img src={backIcon} />
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.iconStyle}
-          onPress={() => navigation.push("WorkoutPlanMain")}
+          onPress={
+            () => { muscleGroup = 'Legs'; workoutData(muscleGroup); }
+          }
         >
-          <img src={chestIcon} />
+          <img src={legIcon} />
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.iconStyle}
-          onPress={() => navigation.push("WorkoutPlanMain")}
+          onPress={
+            () => { muscleGroup = 'Shoulders'; workoutData(muscleGroup); }
+          }
         >
-          <img src={chestIcon} />
+          <img src={shoulderIcon} />
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.iconStyle}
-          onPress={() => navigation.push("WorkoutPlanMain")}
+          onPress={
+            () => { muscleGroup = 'Arms'; workoutData(muscleGroup); }
+          }
         >
-          <img src={chestIcon} />
+          <img src={armIcon} />
         </TouchableOpacity>    
       </View></>
        
@@ -218,5 +228,6 @@ export default function weekDayMenu() {
           backgroundColor: "#15e577",
           borderColor:"#564345"
         },
+        padding: 20
       },
 })
