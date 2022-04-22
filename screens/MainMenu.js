@@ -2,39 +2,33 @@ import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import {StyleSheet, Text, View, Button } from 'react-native';
-
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigation } from '@react-navigation/native';
+   
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-  
-  
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-    webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-  });
+  const navigation = useNavigation();
 
-  React.useEffect(() => {
-    if (response?.type === 'success') {
-      const { authentication } = response;
+  const LogOut = () => {
+    const auth = getAuth();
+      signOut(auth).then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+          });
       }
-  }, [response]);
 
-  return (
-    <>
+  return ( 
     <>
       <View style={styles.mainView}>
         <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
         </View>
-        <Button onClick={sayHello} title="Calendar">
-          <Text style={styles.basicText}>
-             The  calendar
-          </Text>        
+        <Button onPress={() => navigation.push("Calendar")} title="Calendar">
         </Button>
-        <Button onClick={sayHello} title="Workout Plan">
+        <Button onPress={() => navigation.push("Workout")} title="Workout Plan">
           <Text style={styles.basicText}>
             workout plan
           </Text>        
@@ -46,49 +40,31 @@ export default function App() {
         </Button>
         <Button onClick={sayHello} title="Meal Plan">
           <Text style={styles.basicText}>
-            Th Meal plan
+            Meal plan
           </Text>        
         </Button>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        <Button onClick={sayHello} title="Water Intake">
-=======
         <Button onPress={() => navigation.push("WaterIntake")} title="Water Intake">
->>>>>>> Stashed changes
-=======
-        <Button onPress={() => navigation.push("WaterIntake")} title="Water Intake">
->>>>>>> Stashed changes
           <Text style={styles.basicText}>
              Water Intake
           </Text>        
         </Button>
-        <Button onClick={sayHello} title="Fasting Timer">
+        <Button onPress={() => navigation.push("FastingTimer")} title="Fasting Timer">
           <Text style={styles.basicText}>
             Fasting timer
           </Text>        
         </Button>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        <Button onClick={sayHello} title="Calorie Intake">
-=======
         <Button onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
->>>>>>> Stashed changes
-=======
-        <Button onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
->>>>>>> Stashed changes
           <Text style={styles.basicText}>
             Calorie Intake
           </Text>        
         </Button>
-        <Button onClick={sayHello} title="Pedometer">
+        <Button onPress={() => navigation.push("Pedometer")} title="Pedometer">
           <Text style={styles.basicText}>
-            Pedomter
+            Step Counter
           </Text>        
-        </Button>         
+        </Button>
+        <Button buttonStyle={styles.loginButton} onPress={() => LogOut()} title="Log Out" />        
       </View></>
-    <>
-    </>
-    </>  
   )}
 
 const styles = StyleSheet.create({
@@ -115,7 +91,7 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingTop: 50,
     paddingBottom: 10,
-    fontWeight: "400",
+    fontWeight: '400',
     textAlign:'center',
     alignItems:'center' //center x axis
     //justifyContent:'flex-start' //center y axis

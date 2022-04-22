@@ -1,4 +1,6 @@
 # DayEasy-Capstone
+The purpose of this project is to build a phone application that promotes healthy living and regular exercise by providing services such as user-tailored calendar, pedometer, water tracker, calorie tracker, meal planner, and a workout guide. 
+
 
 To get started:
 https://docs.expo.dev/get-started/installation/
@@ -19,13 +21,3 @@ https://docs.expo.dev/get-started/installation/
 Expo fundementals:
 	1. Uploaded PDF's on Teams
 	2. Templates on Teams
-
-Screen layout designs:
-Flexbox: https://reactnative.dev/docs/flexbox
-
-API Search:
-https://docs.expo.dev/versions/latest/sdk/webbrowser/
-
-
-Pedometer:
-https://docs.expo.dev/versions/v44.0.0/sdk/pedometer/

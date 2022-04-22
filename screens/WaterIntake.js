@@ -3,6 +3,7 @@
  import { StyleSheet,Keyboard, Text, TouchableWithoutFeedback, Pressable, View } from "react-native";
  import { Button, SocialIcon } from "react-native";
  import * as WebBrowser from 'expo-web-browser';
+ import * as Google from 'expo-auth-session/providers/google';
  import { auth } from '../firebase.js';
  import { useNavigation } from '@react-navigation/native';
  
@@ -15,7 +16,7 @@
 //elements for update
   const currentCupsEl = document.querySelector(".current-cups"),
   currentLitersEl = document.querySelector(".current-liters"),
-  currentPercentageEl = document.querySelector(".currentPercentage"),
+  currentPercentageEl = document.querySelector(".current-percentage"),
   progressArea = document.querySelector(".progress");
 
 
@@ -65,9 +66,20 @@
 
      const navigation = useNavigation();
  
+     const [request, response, promptAsync] = Google.useAuthRequest({
+         expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+         iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+         androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+         webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
+       });
      const Goback = () => {
       navigation.goBack();
    }
+   React.useEffect(() => {
+     if (response?.type === 'success') {
+       const { authentication } = response;
+       }
+   }, [response]);
  
    return (
      <>
