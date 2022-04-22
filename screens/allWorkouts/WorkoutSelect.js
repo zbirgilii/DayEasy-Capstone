@@ -65,7 +65,7 @@ export default function WorkoutSelect() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle}>{selectmuscleGroup}</Text>
+          <Text style={styles.PageTitle}>Suggested Workouts for: <br></br>{selectmuscleGroup}</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 

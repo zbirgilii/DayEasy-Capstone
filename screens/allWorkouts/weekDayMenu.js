@@ -81,7 +81,7 @@ export default function weekDayMenu() {
              &lt;Back 
             </Text>        
           </TouchableOpacity>
-          <Text style={styles.PageTitle} >{selectDay}</Text>
+          <Text style={styles.PageTitle} >Add Workout Plan for: {selectDay}</Text>
         </View>        
         <TouchableOpacity 
           style={styles.iconStyle}
