@@ -65,7 +65,7 @@ export default function weekDayMenu() {
           userMuscle : muscleGroup,           
         })        
       }
-      //navigation.push("WorkoutSelect");      
+      navigation.push("WorkoutSelect");      
     })    
   }
   return (
