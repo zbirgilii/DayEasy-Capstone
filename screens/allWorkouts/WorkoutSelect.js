@@ -110,28 +110,37 @@ export default function WorkoutSelect() {
         
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={sayHello}
+              onPress={() => navigation.push("weekDayMenu")}
             >
-              <Text>
+              <Text style={styles.buttonText}>
               {userWorkout1}
               </Text>
               
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={sayHello}
+              onPress={() => navigation.push("weekDayMenu")}
             >
-              <Text>
+              <Text style={styles.buttonText}>
               {userWorkout2}
               </Text>
               
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={sayHello}
+              onPress={() => navigation.push("weekDayMenu")}
             >
-              <Text>
+              <Text style={styles.buttonText}>
               {userWorkout3}
+              </Text>
+              
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle} 
+              onPress={() => navigation.push("CurrentPlan")}
+            >
+              <Text style={styles.buttonText}>
+              View Workout Set
               </Text>
               
             </TouchableOpacity>    
@@ -170,13 +179,32 @@ const styles = StyleSheet.create({
         //justifyContent:'flex-start' //center y axis
     
       },
+      buttonText:{
+        fontSize: '300%',
+        fontWeight: 700,
+        marginTop: 10,
+        marginBottom: 10,
+        //borderColor: 'black',
+        //textShadowColor: 'red',
+        color: 'white'
+      },
       buttonStyle:{
         textAlign:'center',
         alignItems:'center',
-        borderRadius: 100,
+        borderRadius: 1000,
         borderWidth: 1,
+        width: '70%',
+        //marginBottom: 10,
+        //padding: '100, 7px 10px 7px',
+        //paddingRight: '50%',
+        //paddingLeft: 70,
+        //flex: 1,
+        alignSelf: 'center',
         marginTop: 10,
-        backgroundColor: 'white',
-        color: 'black'
+        marginBottom: 10,
+        marginRight: 10,
+        marginLeft: 5,
+        backgroundColor:'#3D405B',
+        color: 'white'
       }
 })
