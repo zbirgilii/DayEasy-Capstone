@@ -40,7 +40,7 @@ export default function App() {
       <ActivityIndicator size="large" />
       <Image
         source={require('./assets/icon.png')}
-        style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height/2 }}
+        style={{ width: '100%', height: '75%' }}
       />
     </View>
     )
