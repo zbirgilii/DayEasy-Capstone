@@ -6,14 +6,14 @@ import { useNavigation } from '@react-navigation/native';
 import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc} from "firebase/firestore";
 import { db } from '../../firebase';
 import React, { useState, useEffect } from "react";
-//import chestIcon from 'assets/muscleIcons/chestIcon.png'
+/*import chestIcon from 'assets/muscleIcons/chestIcon.png'
 import chestIcon from '../../assets/muscleIcons/chestIconbackground.jpg';
 import absIcon from '../../assets/muscleIcons/absIcon.jpg';
 import backIcon from '../../assets/muscleIcons/backIcon.jpg';
 import legIcon from '../../assets/muscleIcons/legIcon.jpg';
 import shoulderIcon from '../../assets/muscleIcons/shouldersIcon.jpg';
 import armIcon from '../../assets/muscleIcons/armIcon.jpg';
-
+*/
 
 export default function weekDayMenu() {
 
@@ -76,14 +76,15 @@ export default function weekDayMenu() {
           
           <Text style={styles.PageTitle} >Add Workout Plan for: {selectDay}</Text>
         </View>
-        <View style={styles.iconContainer}>
+        <button style={styles.buttonStyle}> chest</button>
+        
           <TouchableOpacity 
-            style={styles.iconStyle}
+            style={styles.buttonStyle}
             onPress={
               () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
             }
           >
-            <img src={chestIcon} />
+            <Text style={styles.buttonText}>Chest</Text>
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.iconStyle}
@@ -91,7 +92,7 @@ export default function weekDayMenu() {
               () => { muscleGroup = 'Abs'; workoutData(muscleGroup); }
             }
           >
-            <img src={absIcon} />
+            
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.iconStyle}
@@ -99,17 +100,17 @@ export default function weekDayMenu() {
               () => { muscleGroup = 'Back'; workoutData(muscleGroup); }
             }
           >
-            <img src={backIcon} />
+            
           </TouchableOpacity>
-        </View>
-        <View style={styles.iconContainer}>
+        
+        
           <TouchableOpacity 
             style={styles.iconStyle}
             onPress={
               () => { muscleGroup = 'Legs'; workoutData(muscleGroup); }
             }
           >
-            <img src={legIcon} />
+            
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.iconStyle}
@@ -117,17 +118,15 @@ export default function weekDayMenu() {
               () => { muscleGroup = 'Shoulders'; workoutData(muscleGroup); }
             }
           >
-            <img src={shoulderIcon} />
+            
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.iconStyle}
             onPress={
               () => { muscleGroup = 'Arms'; workoutData(muscleGroup); }
             }
-          >
-            <img src={armIcon} />
-          </TouchableOpacity>
-        </View>
+          >            
+          </TouchableOpacity>        
       </View></>
        
   )}
