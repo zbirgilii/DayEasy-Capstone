@@ -172,8 +172,8 @@ export default function weekDayMenu() {
         padding: 5
       },
       buttonText:{
-        fontSize: '300%',
-        fontWeight: 700,
+        fontSize: 40,
+        fontWeight: '700',
         marginTop: 10,
         marginBottom: 10,
         //borderColor: 'black',

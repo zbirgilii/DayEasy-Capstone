@@ -248,8 +248,8 @@ const styles = StyleSheet.create({
     
       },
       buttonText:{
-        fontSize: '300%',
-        fontWeight: 700,
+        fontSize: 40,
+        fontWeight: '700',
         marginTop: 10,
         marginBottom: 10,
         //borderColor: 'black',
