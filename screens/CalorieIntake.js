@@ -12,15 +12,11 @@ import React , {useState} from "react";
  export default function CalorieIntakeScreen() {
      const navigation = useNavigation();
      const [TotalCal, setTotalCal] = useState(2000)
-     const [currentCal, setcurrentCal] = useState(0)
+     const [Cal, setCal] = useState(0)
 
  
     const Goback = () => {
     navigation.goBack();
-    }
-
-    var addCalorie = () => {
-      currentCal = currentCal + 1;
     }
 
     return (
@@ -43,17 +39,11 @@ import React , {useState} from "react";
               </View>
               <View style={styles.sideInfo}>
 
-                  <Text style={styles.currentLiters}>{currentCal} kCal/{TotalCal} kCal</Text>
+                  <Text style={styles.currentLiters}>{Cal} kCal/{TotalCal} kCal</Text>
               </View>
           </View>
           <View>
-              <Button onClick={addCalorie()} title="Add">
-                <Text style={styles.basicText}>
-                  Add
-                </Text>        
-              </Button>
-              <button class="remove">-</button>
-              <button class="add">+</button>
+          <Button buttonStyle={styles.loginButton} onPress={() => {setCal( Cal + 250),console.log("Called" + Cal)}} title="Add" />
           </View>
 
           </View>
@@ -65,7 +55,15 @@ import React , {useState} from "react";
  }
  
  const styles = StyleSheet.create({
-   mainView:{
+  loginbutton: {
+    backgroundColor: "#3897f1",
+    borderRadius: 3,
+    height: 45,
+    width: 200,
+    alignItems: 'center',
+    paddingBottom: 5,
+  }, 
+  mainView:{
      flex:1,
      //paddingTop:50,
      backgroundColor: '#81B29A',
@@ -96,9 +94,10 @@ import React , {useState} from "react";
    },
    container:{
     display: 'flex',
-   width: '100%',
-   maxWidth: 600,
-   margin: 'auto',
+    alignItems: "center",
+    width: '100%',
+    maxWidth: 600,
+    margin: 'auto',
   },
   sideInfo:{
    display: 'flex',
@@ -108,7 +107,7 @@ import React , {useState} from "react";
  },
  percentageContainer:{
    width: '70%',
-   height:'100%',
+   height:'70%',
    minHeight:300,
    margin: 'auto',
    backgroundColor: '#fff',
@@ -129,7 +128,6 @@ import React , {useState} from "react";
    backgroundColor: '#2196f3',
    position:'absolute',
    width: '100%',
-   bottom: '0',
  
  },
  buttons:{
