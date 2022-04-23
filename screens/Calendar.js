@@ -38,7 +38,7 @@ const App = () => {
   const [description, setdescription] = useState("")
   const [location, setlocation] = useState("")
 
-  const [ampm, setampm] = useState("");
+  const [ampm, setampm] = useState("AM");
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -54,7 +54,7 @@ const App = () => {
     setModalVisible(!modalVisible);
   };
 
-  const DeleteItem = (daydate, time) =>{~
+  const DeleteItem = (daydate, time, description) =>{~
     console.log("Date Deleted");
     const auth = getAuth();
     const user = auth.currentUser;
@@ -69,15 +69,26 @@ const App = () => {
         else{
           if (doc.data().itemcount != null){
             const docdata = doc.data()
-            for(let i = 1; i <= doc.data().itemcount; i++){
-              if(time == docdata[i].time){
-                updateDoc(doc.ref, {
-                  [i]: deleteField()
-              });
-              getItems()
+            console.log(time)
+            console.log(description)
+            for(let i = doc.data().itemcount; i > 0; i--){
+              console.log("For Loop " + i + " " + docdata[i].time)
+              const temptime  = docdata[i].time
+              const temp  = docdata[i].description
+              if((temptime == null || undefined) ||  (temp == null || undefined)){
+                continue
+              }
+              else{
+                console.log("Found it " + docdata[i].time + docdata[i].description)
+                if((time == temptime) && (description = temp)){
+                  updateDoc(doc.ref, {
+                    [i]: deleteField()
+                  });
+                  break;
+                }
               }
             }
-            
+            getItems()
           }
         }
       }
@@ -140,9 +151,9 @@ const App = () => {
           setDoc(doc.ref,{
             itemcount: count,
             [count]: {
-              time: hr+ ":" + min ,
-              description: "Test description",
-              location: "location",
+              time: hr+ ":" + min + ampm,
+              description: description,
+              location: location,
             },
           })
         }
@@ -152,9 +163,9 @@ const App = () => {
           updateDoc(doc.ref,{
             itemcount: count,
             [count]: {
-              time: usertime,
-              description: "Test description",
-              location: "location",
+              time: hr+ ":" + min + ampm,
+              description: description,
+              location:location,
             },
           })
         }
@@ -163,9 +174,9 @@ const App = () => {
         setDoc(doc(db, "agenda", user.email, "dates", selectedday), {
           itemcount: count,
           [count]: {
-            time: usertime,
-            description: "Test description",
-            location: "location",
+            time: hr+ ":" + min + ampm,
+            description: description,
+            location: location,
           }
         });
       }
@@ -192,7 +203,7 @@ const App = () => {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
             <View style={styles.modalView}>
               <Text style={styles.modalText}>Enter details to create appointment on {selectedday.slice(6,-3)}/{selectedday.slice(8,11)}!</Text>
-                <View style={{flexDirection: 'row', alignItems: ""}}>
+                <View style={{flexDirection: 'row', alignItems: "center"}}>
                 <TextInput placeholder="Hr" keyboardType="number-pad" maxLength={1}
                   onChangeText={(text) => { sethr(text); setCalendarOpened(false); } } style={styles.TimeTextInput} />
                 <Text> : </Text>
@@ -235,7 +246,7 @@ const App = () => {
         </View>  
         </Modal>
       </View>
-      <Text  style={{textAlign: "center", fontSize: 10, fontWeight: '100',backgroundColor: '#81B29A'}}> Hold day for menu. Click day to start </Text>
+      <Text  style={{textAlign: "center", fontSize: 12, fontWeight: '100',backgroundColor: '#81B29A'}}> Hold day for menu. Click day to refresh items </Text>
       <View style={{ flex: 1 }}>      
         <Agenda
           theme={{     
@@ -308,8 +319,8 @@ const App = () => {
               <View style={styles.contentContainerStyle}>
                 <TouchableOpacity
                   style={styles.itembuttons}
-                  onPress={() => {DeleteItem( item.day.toString(), item.time),
-                    console.log('selected item ' + item.day.toString() + item.time )}}
+                  onPress={() => {DeleteItem( item.day.toString(), item.time, item.description),
+                    console.log('selected item ' + item.day.toString() + item.time + " " + item.description)}}
                 >
                   <Text>Delete</Text>
                 </TouchableOpacity> 
