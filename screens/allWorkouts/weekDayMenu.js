@@ -99,10 +99,10 @@ export default function weekDayMenu() {
               () => { muscleGroup = 'Back'; workoutData(muscleGroup); }
             }
           >
-            
+            <Text>Back</Text>
           </TouchableOpacity>
         
-          <Text>Back</Text>
+          
           <TouchableOpacity 
             style={styles.buttonStyle}
             onPress={
