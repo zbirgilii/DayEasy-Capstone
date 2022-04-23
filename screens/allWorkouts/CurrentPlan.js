@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
-import { getAuth, signOut } from "firebase/auth";
+import {StyleSheet, SectionList, Text, View, TouchableOpacity } from 'react-native';
+import { getAuth } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc, QuerySnapshot} from "firebase/firestore";
 import { db } from '../../firebase';
@@ -79,7 +79,7 @@ export default function WorkoutSelect() {
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
-      getItems();
+      //getItems();
       //workoutList();
     });
   
@@ -94,26 +94,19 @@ export default function WorkoutSelect() {
         <View style={styles.basicView}>          
           <Text style={styles.PageTitle}>Current Workout Plan</Text>
         </View>
-        
-            <TouchableOpacity
-              style={styles.buttonStyle} 
-              onPress={() => navigation.push("WorkoutPlanMain")} title="Workout Plan"
-            >            
-              <Text style={styles.buttonText}>
-               Add To Workout Plan
-              </Text>
-              
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonStyle} 
-              onPress={() => navigation.push("WorkoutPlanMain")} title="Workout Plan"
-            >
-              <Text style={styles.buttonText}>
-                View Current Workout Plan
-              </Text>
-              
-            </TouchableOpacity>
-               
+        <View style={styles.container}>
+        <SectionList
+          sections={[
+            {title: 'Sunday', data: ['Flat Benchpress', 'Decline Benchpress', 'Push-up']},
+            {title: 'Tuesday', data: ['Squat', 'Lunge', 'Calf Raise']},
+            {title: 'Friday', data: ['Curls', 'Dips', 'Kettlebells']},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+          keyExtractor={(item, index) => index}
+        />
+      </View>    
+                      
                  
       </View></>
        
@@ -148,6 +141,24 @@ const styles = StyleSheet.create({
         alignItems:'center' //center x axis
         //justifyContent:'flex-start' //center y axis
     
+      },
+      container: {
+        flex: 1,
+        paddingTop: 22
+       },
+      sectionHeader: {
+        paddingTop: 2,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingBottom: 2,
+        fontSize: 14,
+        fontWeight: 'bold',
+        backgroundColor: 'rgba(247,247,247,1.0)',
+      },
+      item: {
+        padding: 10,
+        fontSize: 18,
+        height: 44,
       },
       buttonText:{
         fontSize: '300%',
