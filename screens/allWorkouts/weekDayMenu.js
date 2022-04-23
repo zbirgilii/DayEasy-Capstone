@@ -41,8 +41,9 @@ export default function weekDayMenu() {
         }
       }
       return;
-    });
+    }); 
   }
+  
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -74,55 +75,59 @@ export default function weekDayMenu() {
         <View style={styles.basicView}>
           
           <Text style={styles.PageTitle} >Add Workout Plan for: {selectDay}</Text>
-        </View>        
-        <TouchableOpacity 
-          style={styles.iconStyle}
-          onPress={
-            () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
-          }
-        >
-          <img src={chestIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.iconStyle}
-          onPress={
-            () => { muscleGroup = 'Abs'; workoutData(muscleGroup); }
-          }
-        >
-          <img src={absIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.iconStyle}
-          onPress={
-            () => { muscleGroup = 'Back'; workoutData(muscleGroup); }
-          }
-        >
-          <img src={backIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.iconStyle}
-          onPress={
-            () => { muscleGroup = 'Legs'; workoutData(muscleGroup); }
-          }
-        >
-          <img src={legIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.iconStyle}
-          onPress={
-            () => { muscleGroup = 'Shoulders'; workoutData(muscleGroup); }
-          }
-        >
-          <img src={shoulderIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.iconStyle}
-          onPress={
-            () => { muscleGroup = 'Arms'; workoutData(muscleGroup); }
-          }
-        >
-          <img src={armIcon} />
-        </TouchableOpacity>    
+        </View>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity 
+            style={styles.iconStyle}
+            onPress={
+              () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
+            }
+          >
+            <img src={chestIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.iconStyle}
+            onPress={
+              () => { muscleGroup = 'Abs'; workoutData(muscleGroup); }
+            }
+          >
+            <img src={absIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.iconStyle}
+            onPress={
+              () => { muscleGroup = 'Back'; workoutData(muscleGroup); }
+            }
+          >
+            <img src={backIcon} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity 
+            style={styles.iconStyle}
+            onPress={
+              () => { muscleGroup = 'Legs'; workoutData(muscleGroup); }
+            }
+          >
+            <img src={legIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.iconStyle}
+            onPress={
+              () => { muscleGroup = 'Shoulders'; workoutData(muscleGroup); }
+            }
+          >
+            <img src={shoulderIcon} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.iconStyle}
+            onPress={
+              () => { muscleGroup = 'Arms'; workoutData(muscleGroup); }
+            }
+          >
+            <img src={armIcon} />
+          </TouchableOpacity>
+        </View>
       </View></>
        
   )}
@@ -158,6 +163,13 @@ export default function weekDayMenu() {
         textAlign:'center',
         alignItems:'center' //center x axis
         //justifyContent:'flex-start' //center y axis    
+      },
+      row: {
+        display: 'flex'
+      },
+      column: {
+        flex: 30,
+        padding: 5
       },
       buttonText:{
         fontSize: '300%',
@@ -213,13 +225,24 @@ export default function weekDayMenu() {
       iconColumn:{
         width: 200,
       },
+      iconContainer:{
+        flex: 1,
+        flexDirection: 'row'
+      },
       iconStyle:{
-        height: 200,
-        width: 200,
-        "&:hover": {
+        height: 350,
+        width: 350,
+        /*"&:hover": {
           backgroundColor: "#15e577",
           borderColor:"#564345"
         },
-        padding: 20
+        */
+        padding: 40,
+        flex: 1,
+        flexDirection: 'row'
       },
+      mouseHover:{
+        backgroundColor: 'red'
+      }
+      
 })
