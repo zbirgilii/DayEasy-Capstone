@@ -1,71 +1,69 @@
-import React from "react";
+import React , {useState} from "react";
  import { StyleSheet,Keyboard, Text, TouchableWithoutFeedback, Pressable, View } from "react-native";
  import { Button, SocialIcon } from "react-native";
  import * as WebBrowser from 'expo-web-browser';
  import * as Google from 'expo-auth-session/providers/google';
  import { auth } from '../firebase.js';
  import { useNavigation } from '@react-navigation/native';
- 
- 
+
+  
  WebBrowser.maybeCompleteAuthSession();
- 
+
  export default function CalorieIntakeScreen() {
      const navigation = useNavigation();
- 
-     const [request, response, promptAsync] = Google.useAuthRequest({
-         expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-       });
- 
-     const Goback = () => {
+     const [TotalCal, setTotalCal] = useState(2500);
+     const [Cal, setCal] = useState(0);
+     const [Percentage, setPercentage] = useState(0);
+
+      const Goback = () => {
       navigation.goBack();
-   }
-   React.useEffect(() => {
-     if (response?.type === 'success') {
-       const { authentication } = response;
-       }
-   }, [response]);
- 
-   return (
-     <>
-     <>
-   
-     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-       <View style={styles.mainView}>
-         <View style={styles.basicView}>
-           <Text style={styles.PageTitle}>Calorie Intake</Text>
-         </View>
-         <View style={styles.container}>
-            <View style={styles.sideInfo}>
-            
-                <Text style={styles.currentCups}>0/10</Text>
-            </View>
-            <View style={styles.percentageContainer}>
-                <Text style={styles.currentPercentage}>0%</Text>
-                <View style={styles.progress}></View>
-            </View>
-            <View style={styles.sideInfo}>
+      }
 
-                <Text style={styles.currentLiters}>0 kCal/ 2.000 kCal</Text>
-            </View>
-         </View>
-         <View>
-            <button class="remove">-</button>
-            <button class="add">+</button>
-         </View>
+    return (
+      <>
+      <>
+    
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.mainView}>
+          <View style={styles.basicView}>
+            <Text style={styles.PageTitle}>Calorie Intake</Text>
+          </View>
+          <View style={styles.container}>
+              <View style={styles.sideInfo}>
+              
+                  <Text style={styles.currentCups}></Text>
+              </View>
+              <View style={styles.percentageContainer}>
+              <Text style={styles.currentPercentage}>{Percentage} % </Text>
+              </View>
+              <View style={styles.sideInfo}>
 
-        </View>
-     </TouchableWithoutFeedback>
-     <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />
-      </>
-      </>
-   )
+                  <Text style={styles.currentLiters}>{Cal} kCal /{TotalCal} kCal</Text>
+              </View>
+          </View>
+          <View>
+          <Button buttonStyle={styles.loginButton} onPress={() => {setCal( Cal + 250),console.log("Called" + Cal);{setPercentage( Percentage + 10),console.log("Called" + Percentage)}}} title="Add(+)" />
+          <Button buttonStyle={styles.loginButton} onPress={() => {setCal( Cal - 250),console.log("Called" + Cal);{setPercentage( Percentage - 10),console.log("Called" + Percentage)}}}  title="Remove(-)" />
+          </View>
+
+          </View>
+      </TouchableWithoutFeedback>
+      <Button buttonStyle={styles.loginButton} onPress={() => Goback()} title="Go Back" />
+        </>
+        </>
+    )
  }
  
  const styles = StyleSheet.create({
-   mainView:{
+  loginbutton: {
+    backgroundColor: "#3897f1",
+    borderRadius: 3,
+    height: 45,
+    width: 200,
+    alignItems: 'center',
+    paddingBottom: 5,
+  }, 
+  mainView:{
      flex:1,
      //paddingTop:50,
      backgroundColor: '#81B29A',
@@ -87,7 +85,6 @@ import React from "react";
      fontSize: 40,
      color: 'white',
      paddingTop: 50,
-     paddingTop: 20,
      paddingBottom: 10,
      fontWeight: '400',
      textAlign:'center',
@@ -96,12 +93,11 @@ import React from "react";
  
    },
    container:{
-    display: 'grid',
-   gridTemplateColumns: '2fr 3fr 2fr',
-   width: '100%',
-   maxWidth: '600px',
-   margin: 'auto',
-   gap: '10px',
+    display: 'flex',
+    alignItems: "center",
+    width: '100%',
+    maxWidth: 600,
+    margin: 'auto',
   },
   sideInfo:{
    display: 'flex',
@@ -110,47 +106,33 @@ import React from "react";
    justifyContent: 'center',
  },
  percentageContainer:{
-   width: '70%',
-   height:'100%',
-   minHeight:'300px',
+   width: '20%',
+   height:'70%',
+   minHeight:10,
    margin: 'auto',
-   backgroundColor: '#fff',
-   borderRadius: '5px',
+   backgroundColor: 'white',
+   borderRadius: 5,
    overflow: 'hidden',
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'center',
-   fontSize: '50',
+   fontSize: 50,
    color: '#fff',
    position: 'relative',
  },
 
  currentPercentage:{
-   zIndex: '1',
+   zIndex: 1,
  },
  progress:{
    backgroundColor: '#2196f3',
    position:'absolute',
    width: '100%',
-   bottom: '0',
-   transition: '0.5s ease',
  
  },
  buttons:{
-   gridColumn: -1/1,
-   margin: '10px auto',
+  margin:10,
 
- },
- button:{
-   backgroundColor: '#81B29A',
-   color: '#fff',
-   border: '1px solid #a5d7fe',
-   width: '60px',
-   height: '60px',
-   fontSize: '45px',
-   borderRadius: '50%',
-   outlineStyle: 'none',
-   cursor: 'pointer',
  },
    Title2:{
      fontSize: 20,
@@ -184,7 +166,9 @@ import React from "react";
 
    }
  })
+
  function sayHello() {
    alert('create me');
  }
+
 
