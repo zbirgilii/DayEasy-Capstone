@@ -153,15 +153,9 @@ export default function WorkoutScreen() {
     <>    
       <View style={styles.mainView}>        
         <View style={styles.basicView}>
-          <TouchableOpacity
-            style={styles.backButton} 
-            onPress={() => navigation.push("Main Menu")}>
-            <Text style={styles.basicText}>
-             &lt;Back 
-            </Text>        
-          </TouchableOpacity>
-          <Text style={styles.PageTitle}>Workout Plan</Text>
-          <Text style={styles.PageTitle}>Select weekday:</Text>
+          
+          <Text style={styles.PageTitle}>Add To Plan</Text>
+          <Text style={styles.PageTitle}>Select Day:</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
