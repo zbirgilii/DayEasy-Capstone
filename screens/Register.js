@@ -27,31 +27,29 @@ export default function App() {
 
   const CreateUser = () => {
     const auth = getAuth();
-
-    createUserWithEmailAndPassword(auth, email, password).catch((error)=>{
+    const user = null
+    createUserWithEmailAndPassword(auth, email, password).then((user = auth.currentUser) =>{
+      console.log("User ID: " + auth.currentUser.email)
+      if (auth.currentUser.email != null || "undefined"){
+        setDoc(doc(db, "users", auth.currentUser.email), {
+          Fname: Fname,
+          Lname: Lname,
+          userID:  auth.currentUser.uid,
+        });
+        console.log("after creation")
+      }   
+    }
+    ).catch((error)=>{
       console.log("No  user created " + error.code)
+      if (error== null || "undefined"){
+        return
+      }
       var temp = error.code
       
-      temp = temp.split('auth/').join('');
-      temp = temp.split('-').join(' ');
-      console.log("String: " + temp)
-      Alert.alert(temp)
-    });
-
-    const user = auth.currentUser;
-    if (user != null){
-      console.log("User ID: " + user.uid)
-      setDoc(doc(db, "users", user.email), {
-        Fname: Fname,
-        Lname: Lname,
-        userID: user.uid,
-      });
-      console.log("after creation")
-    }
-    else((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("No  user created " + errorMessage)
+        temp = temp.split('auth/').join('');
+        temp = temp.split('-').join(' ');
+        console.log("String: " + temp)
+        Alert.alert(temp)
     });
   }
 
@@ -136,6 +134,7 @@ const styles = StyleSheet.create({
   },
   menuContainer:{
     flex: 1,
+    alignItems: 'center'
   },
   PageTitle:{
     fontSize: 40,
@@ -176,7 +175,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3897f1",
     backgroundColor: "white",
-    width: 200,
+    width: 300,
     paddingLeft: 10,
     marginTop: 5,
     marginBottom: 5,

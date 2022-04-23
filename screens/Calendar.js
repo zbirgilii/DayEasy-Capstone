@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Modal,Pressable, Alert,
-  TextInput,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Picker } from 'react-native';
+  TextInput,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { Agenda, Calendar, AgendaList, LocaleConfig } from 'react-native-calendars';
 import { TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
@@ -9,8 +9,7 @@ import {db} from '../firebase.js'
 import { setDoc} from "firebase/firestore"; 
 import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, deleteField } from "firebase/firestore";
 
-import DateTimePicker from '@react-native-community/datetimepicker';
-
+import {Picker} from '@react-native-picker/picker'
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -33,14 +32,13 @@ const App = () => {
   const [newMarked, setNewMarked]  = useState({})
   const [calendarOpened, setCalendarOpened] = useState(false);
 
-  const [selectedday, setSelectedday] = useState('')
-  const [hr, sethr] = useState()
+  const [selectedday, setSelectedday] = useState("")
+  const [hr, sethr] = useState(0)
   const [min, setmin] = useState('00')
-  const [description, setdescription] = useState()
-  const [location, setlocation] = useState()
+  const [description, setdescription] = useState("")
+  const [location, setlocation] = useState("")
 
   const [ampm, setampm] = useState("");
-
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -56,7 +54,7 @@ const App = () => {
     setModalVisible(!modalVisible);
   };
 
-  const DeleteItem = (daydate, time) =>{
+  const DeleteItem = (daydate, time) =>{~
     console.log("Date Deleted");
     const auth = getAuth();
     const user = auth.currentUser;
@@ -178,68 +176,78 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-      <Text  style={{textAlign: "center", fontSize: 10, fontWeight: '100'}}> Hold day for menu </Text>
-      <View style={{ flex: 1 }}>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <View style={styles.centeredView}>
-                <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
-                <View>
-                  <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Enter information to create an appointment!</Text>
-                      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                      <TextInput placeholder="Hr" keyboardType="number-pad" maxLength={1}
-                        onChangeText={(text) => { sethr(text); setCalendarOpened(false); } } style={styles.TimeTextInput} />
-                      <Text> : </Text>
-                      <TextInput placeholder="Min" keyboardType="number-pad" maxLength={2}
-                      onChangeText={(text) => {setmin(text); setCalendarOpened(false); }} style={styles.TimeTextInput} />
-                      <Picker
-                        selectedValue={ampm}
-                        style={{ height: 40, width: "35%" }}
-                        onValueChange={(itemValue, itemIndex) => setampm(itemValue)}
-                      >
-                        <Picker.Item label="AM" value="AM" />
-                        <Picker.Item label="PM" value="PM" />
-                      </Picker>
-                      </View>
-                    <TextInput placeholder="description" maxLength={45}
-                      onChangeText={(text) => { setdescription(text); setCalendarOpened(false); } } style={styles.longerTextInput} />
-                    <TextInput placeholder="location" maxLength={25}
-                    onChangeText={(text) => { setlocation(text); setCalendarOpened(false); } } style={styles.longerTextInput} />
-                    <TouchableOpacity
-                      style={[styles.button]}
-                      onPress={() => {CreateDate()}}
-                    >
-                      <Text style={styles.textStyle}>Date</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={[styles.button]}
-                      onPress={() => {getItems()}}
-                    >
-                      <Text style={styles.textStyle}>items</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={[styles.button]}
-                      onPress={() => {setModalVisible(!modalVisible), setCalendarOpened(false)}}
-                    >
-                      <Text style={styles.textStyle}>Hide Modal</Text>
-                    </TouchableOpacity>
-                  </View>
+    <>
+    <View>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Enter details to create appointment on {selectedday.slice(6,-3)}/{selectedday.slice(8,11)}!</Text>
+                <View style={{flexDirection: 'row', alignItems: ""}}>
+                <TextInput placeholder="Hr" keyboardType="number-pad" maxLength={1}
+                  onChangeText={(text) => { sethr(text); setCalendarOpened(false); } } style={styles.TimeTextInput} />
+                <Text> : </Text>
+                <TextInput placeholder="Min" keyboardType="number-pad" maxLength={2}
+                onChangeText={(text) => {setmin(text); setCalendarOpened(false); }} style={styles.TimeTextInput} />
+                <Picker
+                  selectedValue={ampm}
+                  style={{ height: 40, width: "35%" }}
+                  onValueChange={(itemValue, itemIndex) => setampm(itemValue)}
+                >
+                  <Picker.Item label="AM" value="AM" />
+                  <Picker.Item label="PM" value="PM" />
+                </Picker>
                 </View>
-                </TouchableWithoutFeedback>
-                </KeyboardAvoidingView>
-              </View>
-            </Modal>
-      <Agenda
+              <TextInput placeholder="description" maxLength={45} multiline={true}
+                onChangeText={(text) => { setdescription(text); setCalendarOpened(false); } } style={styles.longerTextInput} />
+              <TextInput placeholder="location" maxLength={25}
+              onChangeText={(text) => { setlocation(text); setCalendarOpened(false); } } style={styles.longerTextInput} />
+              <TouchableOpacity
+                style={[styles.button]}
+                onPress={() => {CreateDate()}}
+              >
+                <Text style={styles.textStyle}>Create appointment</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.button]}
+                onPress={() => {getItems()}}
+              >
+                <Text style={styles.textStyle}>Reload Items</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.button]}
+                onPress={() => {setModalVisible(!modalVisible), setCalendarOpened(false)}}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </TouchableOpacity>
+          </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+        </View>  
+        </Modal>
+      </View>
+      <Text  style={{textAlign: "center", fontSize: 10, fontWeight: '100',backgroundColor: '#81B29A'}}> Hold day for menu. Click day to start </Text>
+      <View style={{ flex: 1 }}>      
+        <Agenda
+          theme={{     
+            backgroundColor: '#81B29A', 
+            agendaKnobColor: 'orange',
+            agendaDayNumColor: "#F2CC8F",
+            agendaDayTextColor: '#F2CC8F',
+
+          }}
+          style={{
+            
+          }}
           loadItemsForMonth={(month) => {console.log('trigger items loading'); console.log("Modal " + modalVisible); if(modalVisible==true){setCalendarOpened(false); }}}
           displayLoadingIndicator = {true}
           
@@ -256,8 +264,8 @@ const App = () => {
             
           minDate={'2021-01-01'}
           maxDate={'2030-12-31'}
-          current={new Date().toString()}          
           
+          selected={new Date().toString()}
           disableAllTouchEventsForDisabledDays={true}
           hideArrows={true}
           // Do not show days of other months in month page. Default = false
@@ -265,7 +273,7 @@ const App = () => {
           // If hideArrows = false and hideExtraDays = false do not switch month when tapping on greyed out
           // day from another month that is visible in calendar page. Default = false
           disableMonthChange={false}
-         
+          
           onCalendarToggled={(calendarOpened) => {
             if(modalVisible==true){
               setCalendarOpened(false)}}
@@ -282,9 +290,7 @@ const App = () => {
           hideKnob={false}
           // When `true` and `hideKnob` prop is `false`, the knob will always be visible and the user will be able to drag the knob up and close the calendar. Default = false
           showClosingKnob={true}
-          theme={{
-            
-          }}
+                 
           
           renderEmptyData = {() => {
               return (
@@ -306,7 +312,15 @@ const App = () => {
                     console.log('selected item ' + item.day.toString() + item.time )}}
                 >
                   <Text>Delete</Text>
+                </TouchableOpacity> 
+                <Text> </Text>
+                <TouchableOpacity
+                  style={styles.itembuttons}
+                  onPress={() => {Alert.alert("Coming Soon")}}
+                >
+                  <Text>Edit</Text>
                 </TouchableOpacity>
+                
               </View>
               <Text>{item.time}</Text>
               <Text>{item.location}</Text>
@@ -316,9 +330,9 @@ const App = () => {
           renderEmptyDate={() => (
           <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
           )}
-      />
+        />
       </View>
-    </SafeAreaView>
+    </>
   );
 }
 
@@ -330,7 +344,6 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   modalView:{
-    margin: 1,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 30,
@@ -342,7 +355,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
   },
   modalText: {
     marginBottom: 5,
@@ -350,16 +362,17 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle:{
     flex: 1, 
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     padding: 5,
+    position:'absolute' , 
+    right: -5,
+    justifyContent: 'space-evenly'
   },
   itembuttons:{
     // flexDirection: row,
     backgroundColor: '#DDDDDD',
-    position:'absolute' , 
-    right:-10,
-    top: -10,
-    padding: 4,
+    top: -5,
+    padding: 10,
   },
   longerTextInput: {
     height: 40,
@@ -368,7 +381,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3897f1",
     backgroundColor: "white",
-    width: '100%',
+    width: 300,
     paddingLeft: 10,
     marginTop: 5,
     marginBottom: 5,
@@ -380,7 +393,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3897f1",
     backgroundColor: "white",
-    width: '25%',
+    width: 50,
     paddingLeft: 10,
     marginTop: 5,
     marginBottom: 5,
@@ -400,7 +413,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex: 1,
     borderRadius: 5,
-    padding: 10,
+    paddingTop: 30,
+    padding: 20,
     marginRight: 10,
     marginTop: 10,
     marginBottom: 10,
