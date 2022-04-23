@@ -11,76 +11,65 @@
  WebBrowser.maybeCompleteAuthSession();
  
  export default function WaterIntakeScreen() {
-      const addButton= document.querySelector(".add"),
-      removeButton= document.querySelector(".remove");
-    //elements for update
-      const currentCupsEl = document.querySelector(".current-cups"),
-      currentLitersEl = document.querySelector(".current-liters"),
-      currentPercentageEl = document.querySelector(".currentPercentage"),
-      progressArea = document.querySelector(".progress");
+    //   const addButton= document.querySelector(".add"),
+    //   removeButton= document.querySelector(".remove");
+    // //elements for update
+    //   const currentCupsEl = document.querySelector(".current-cups"),
+    //   currentLitersEl = document.querySelector(".current-liters"),
+    //   currentPercentageEl = document.querySelector(".currentPercentage"),
+    //   progressArea = document.querySelector(".progress");
 
 
-      const MAX_CUPS =10,
-            MIN_CUPS = 0;
+    //   const MAX_CUPS =10,
+    //         MIN_CUPS = 0;
 
-      let cups =0,
-          liters = 0,
-          percentage = 0;
+    //   let cups =0,
+    //       liters = 0,
+    //       percentage = 0;
 
-      addButton.addEventListener("click", addCup);
-      removeButton.addEventListener("click", removeCup);
+    //   addButton.addEventListener("click", addCup);
+    //   removeButton.addEventListener("click", removeCup);
 
-      function addCup(){
-          cups++;
-          liters += 250;
-          percentage= (cups/MAX_CUPS)*100;
-      //update layout
-      currentCupsEl.textContent= `${cups}/10`;
-      currentLitersEl.textContent=`${liters/1000}L / 2.5L`;
-      currentPercentageEl.textContent=`${percentage}%`;
-      progressArea.style.height=`${percentage}%`;
+    //   function addCup(){
+    //       cups++;
+    //       liters += 250;
+    //       percentage= (cups/MAX_CUPS)*100;
+    //   //update layout
+    //   currentCupsEl.textContent= `${cups}/10`;
+    //   currentLitersEl.textContent=`${liters/1000}L / 2.5L`;
+    //   currentPercentageEl.textContent=`${percentage}%`;
+    //   progressArea.style.height=`${percentage}%`;
 
-      if(cups === MAX_CUPS){
-        addButton.disabled = true;
-      } else{
-        removeButton.disabled = false;
-      }
-      }
+    //   if(cups === MAX_CUPS){
+    //     addButton.disabled = true;
+    //   } else{
+    //     removeButton.disabled = false;
+    //   }
+    //   }
 
-      function removeCup(){
-          cups--;
-          liters -= 250;
-          percentage= (cups/MAX_CUPS)*100;
+    //   function removeCup(){
+    //       cups--;
+    //       liters -= 250;
+    //       percentage= (cups/MAX_CUPS)*100;
 
-      currentCupsEl.textContent= `${cups}/10`;
-      currentLitersEl.textContent=`${liters/1000}L / 2.5L`;
-      currentPercentageEl.textContent=`${percentage}%`;
-      progressArea.style.height=`${percentage}%`;
+    //   currentCupsEl.textContent= `${cups}/10`;
+    //   currentLitersEl.textContent=`${liters/1000}L / 2.5L`;
+    //   currentPercentageEl.textContent=`${percentage}%`;
+    //   progressArea.style.height=`${percentage}%`;
 
-      if(cups === MIN_CUPS){
-        removeButton.disabled = true;
-      } else{
-        addButton.disabled = false;
-      }
-    }
+    //   if(cups === MIN_CUPS){
+    //     removeButton.disabled = true;
+    //   } else{
+    //     addButton.disabled = false;
+    //   }
+    // }
 
      const navigation = useNavigation();
  
-     const [request, response, promptAsync] = Google.useAuthRequest({
-         expoClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         iosClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         androidClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-         webClientId: '325201293658-0b5v1iqfstvgbqkh5bdmt76j5n9j3ode.apps.googleusercontent.com',
-       });
      const Goback = () => {
       navigation.goBack();
    }
-   React.useEffect(() => {
-     if (response?.type === 'success') {
-       const { authentication } = response;
-       }
-   }, [response]);
- 
+
    return (
      <>
      <>

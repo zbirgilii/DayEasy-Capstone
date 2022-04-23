@@ -33,48 +33,48 @@ export default function App() {
       <View style={styles.mainView}>
         
         <View style={{flexWrap: "wrap", flexDirection: "row", justifyContent:"center"}}>
-          <TouchableOpacity style={styles.roundButton1}
+          <TouchableOpacity style={styles.roundButton}
           onPress={() => navigation.push("Calendar")} title="Calendar">
           <Text style={styles.basicText}>
             Calendar
             </Text> 
           </TouchableOpacity>
-          <TouchableOpacity style={styles.roundButton1}
+          <TouchableOpacity style={styles.roundButton}
            onPress={() => navigation.push("Workout")} title="Workout Plan">
             <Text style={styles.basicText}>
-              workout plan
+              Workout plan
             </Text>        
           </TouchableOpacity>
-          <TouchableOpacity style={styles.roundButton1}
+          <TouchableOpacity style={styles.roundButton}
             onPress={() => sayHello()} title="Muscle Index">
             <Text style={styles.basicText}>
               Muscle index
             </Text>        
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => sayHello()} style={styles.roundButton1} title="Meal Plan">
+          <TouchableOpacity onPress={() => sayHello()} style={styles.roundButton} title="Meal Plan">
             <Text style={styles.basicText}>
               Meal plan
             </Text>        
           </TouchableOpacity>
-          <TouchableOpacity style={styles.roundButton1}
+          <TouchableOpacity style={styles.roundButton}
           onPress={() => navigation.push("WaterIntake")} title="Water Intake">
             <Text style={styles.basicText}>
               Water Intake
             </Text>        
           </TouchableOpacity>
-          <TouchableOpacity style={styles.roundButton1} 
+          <TouchableOpacity style={styles.roundButton} 
           onPress={() => navigation.push("FastingTimer")} title="Fasting Timer">
             <Text style={styles.basicText}>
               Fasting time
             </Text>        
           </TouchableOpacity>
-          <TouchableOpacity style={styles.roundButton1} 
+          <TouchableOpacity style={styles.roundButton} 
           onPress={() => navigation.push("CalorieIntake")} title="Calorie Intake">
             <Text style={styles.basicText}>
               Calorie Intake
             </Text>        
           </TouchableOpacity>
-          <TouchableOpacity style={styles.roundButton1}
+          <TouchableOpacity style={styles.roundButton}
            onPress={() => navigation.push("Pedometer")} title="Pedometer">
             <Text style={styles.basicText}>
               Step Counter
@@ -98,9 +98,9 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  roundButton1: {
-    width: 130,
-    height: 130,
+  roundButton: {
+    width: 120,
+    height: 120,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
@@ -110,11 +110,10 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: "#3897f1",
     borderRadius: 3,
-    height: 60,
+    height: 50,
     width: 200,
     alignItems: 'center',
-    marginBottom: 5,
-    paddingBottom: 5,
+    paddingTop: 5,
   },
   mainView:{
     flex:1,
@@ -132,13 +131,14 @@ const styles = StyleSheet.create({
   basicText:{
     fontSize:20,
     //color:'#F4F1DE',
+    alignItems: "center",
     textAlign:'center',
-    padding:20
+    padding: 5,
   },
   PageTitle:{
     fontSize: 50,
     color: 'white',
-    paddingTop: 50,
+    paddingTop: 20,
     paddingBottom: 1,
     fontWeight: '500',
     textAlign:'center',
