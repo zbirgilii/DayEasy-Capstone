@@ -5,19 +5,19 @@ import React , {useState} from "react";
  import * as Google from 'expo-auth-session/providers/google';
  import { auth } from '../firebase.js';
  import { useNavigation } from '@react-navigation/native';
- 
- 
+
+  
  WebBrowser.maybeCompleteAuthSession();
- 
+
  export default function CalorieIntakeScreen() {
      const navigation = useNavigation();
-     const [TotalCal, setTotalCal] = useState(2000)
-     const [Cal, setCal] = useState(0)
+     const [TotalCal, setTotalCal] = useState(2500);
+     const [Cal, setCal] = useState(0);
+     const [Percentage, setPercentage] = useState(0);
 
- 
-    const Goback = () => {
-    navigation.goBack();
-    }
+      const Goback = () => {
+      navigation.goBack();
+      }
 
     return (
       <>
@@ -34,16 +34,16 @@ import React , {useState} from "react";
                   <Text style={styles.currentCups}></Text>
               </View>
               <View style={styles.percentageContainer}>
-                  <Text style={styles.currentPercentage}>0%</Text>
-                  <View style={styles.progress}></View>
+              <Text style={styles.currentPercentage}>{Percentage} % </Text>
               </View>
               <View style={styles.sideInfo}>
 
-                  <Text style={styles.currentLiters}>{Cal} kCal/{TotalCal} kCal</Text>
+                  <Text style={styles.currentLiters}>{Cal} kCal /{TotalCal} kCal</Text>
               </View>
           </View>
           <View>
-          <Button buttonStyle={styles.loginButton} onPress={() => {setCal( Cal + 250),console.log("Called" + Cal)}} title="Add" />
+          <Button buttonStyle={styles.loginButton} onPress={() => {setCal( Cal + 250),console.log("Called" + Cal);{setPercentage( Percentage + 10),console.log("Called" + Percentage)}}} title="Add(+)" />
+          <Button buttonStyle={styles.loginButton} onPress={() => {setCal( Cal - 250),console.log("Called" + Cal);{setPercentage( Percentage - 10),console.log("Called" + Percentage)}}}  title="Remove(-)" />
           </View>
 
           </View>
@@ -106,11 +106,11 @@ import React , {useState} from "react";
    justifyContent: 'center',
  },
  percentageContainer:{
-   width: '70%',
+   width: '20%',
    height:'70%',
-   minHeight:300,
+   minHeight:10,
    margin: 'auto',
-   backgroundColor: '#fff',
+   backgroundColor: 'white',
    borderRadius: 5,
    overflow: 'hidden',
    display: 'flex',
@@ -166,7 +166,9 @@ import React , {useState} from "react";
 
    }
  })
+
  function sayHello() {
    alert('create me');
  }
+
 
