@@ -86,7 +86,7 @@ export default function WorkoutSelect() {
     <>
       <View style={styles.mainView}>        
         <View style={styles.basicView}>          
-          <Text style={styles.PageTitle}>Workout Plan</Text>
+          <Text style={styles.PageTitle}>Current Workout Plan</Text>
         </View>
         
             <TouchableOpacity
@@ -100,7 +100,7 @@ export default function WorkoutSelect() {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={() => navigation.push("CurrentPlan")} title="Current Plan"
+              onPress={() => navigation.push("WorkoutPlanMain")} title="Workout Plan"
             >
               <Text style={styles.buttonText}>
                 View Current Workout Plan
