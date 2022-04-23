@@ -103,14 +103,8 @@ export default function WorkoutSelect() {
   return (
     <>
       <View style={styles.mainView}>        
-        <View style={styles.basicView}>
-          <TouchableOpacity
-            style={styles.backButton} 
-            onPress={() => navigation.push("Workout")}>
-            <Text style={styles.basicText}>
-             &lt;Back 
-            </Text>        
-          </TouchableOpacity>
+        <View style={styles.basicView}>               
+          
           <Text style={styles.PageTitle}>Suggested Workouts for: <br></br>{selectmuscleGroup}</Text>
         </View>
         
