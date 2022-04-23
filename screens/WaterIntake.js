@@ -11,58 +11,58 @@
  WebBrowser.maybeCompleteAuthSession();
  
  export default function WaterIntakeScreen() {
-  const addButton= document.querySelector(".add"),
-  removeButton= document.querySelector(".remove");
-//elements for update
-  const currentCupsEl = document.querySelector(".current-cups"),
-  currentLitersEl = document.querySelector(".current-liters"),
-  currentPercentageEl = document.querySelector(".current-percentage"),
-  progressArea = document.querySelector(".progress");
+      const addButton= document.querySelector(".add"),
+      removeButton= document.querySelector(".remove");
+    //elements for update
+      const currentCupsEl = document.querySelector(".current-cups"),
+      currentLitersEl = document.querySelector(".current-liters"),
+      currentPercentageEl = document.querySelector(".currentPercentage"),
+      progressArea = document.querySelector(".progress");
 
 
-  const MAX_CUPS =10,
-        MIN_CUPS = 0;
+      const MAX_CUPS =10,
+            MIN_CUPS = 0;
 
-  let cups =0,
-      liters = 0,
-      percentage = 0;
+      let cups =0,
+          liters = 0,
+          percentage = 0;
 
-  addButton.addEventListener("click", addCup);
-  removeButton.addEventListener("click", removeCup);
+      addButton.addEventListener("click", addCup);
+      removeButton.addEventListener("click", removeCup);
 
-  function addCup(){
-      cups++;
-      liters += 250;
-      percentage= (cups/MAX_CUPS)*100;
-  //update layout
-  currentCupsEl.textContent= `${cups}/10`;
-  currentLitersEl.textContent=`${liters/1000}L / 2.5L`;
-  currentPercentageEl.textContent=`${percentage}%`;
-  progressArea.style.height=`${percentage}%`;
+      function addCup(){
+          cups++;
+          liters += 250;
+          percentage= (cups/MAX_CUPS)*100;
+      //update layout
+      currentCupsEl.textContent= `${cups}/10`;
+      currentLitersEl.textContent=`${liters/1000}L / 2.5L`;
+      currentPercentageEl.textContent=`${percentage}%`;
+      progressArea.style.height=`${percentage}%`;
 
-  if(cups === MAX_CUPS){
-    addButton.disabled = true;
-  } else{
-    removeButton.disabled = false;
-  }
-  }
+      if(cups === MAX_CUPS){
+        addButton.disabled = true;
+      } else{
+        removeButton.disabled = false;
+      }
+      }
 
-  function removeCup(){
-      cups--;
-      liters -= 250;
-      percentage= (cups/MAX_CUPS)*100;
+      function removeCup(){
+          cups--;
+          liters -= 250;
+          percentage= (cups/MAX_CUPS)*100;
 
-  currentCupsEl.textContent= `${cups}/10`;
-  currentLitersEl.textContent=`${liters/1000}L / 2.5L`;
-  currentPercentageEl.textContent=`${percentage}%`;
-  progressArea.style.height=`${percentage}%`;
+      currentCupsEl.textContent= `${cups}/10`;
+      currentLitersEl.textContent=`${liters/1000}L / 2.5L`;
+      currentPercentageEl.textContent=`${percentage}%`;
+      progressArea.style.height=`${percentage}%`;
 
-  if(cups === MIN_CUPS){
-    removeButton.disabled = true;
-  } else{
-    addButton.disabled = false;
-  }
-}
+      if(cups === MIN_CUPS){
+        removeButton.disabled = true;
+      } else{
+        addButton.disabled = false;
+      }
+    }
 
      const navigation = useNavigation();
  
@@ -129,12 +129,10 @@
      marginBottom:5
    },
    container:{
-     display: 'grid',
-    gridTemplateColumns: '2fr 3fr 2fr',
+     display: 'flex',
     width: '100%',
     maxWidth: '600px',
     margin: 'auto',
-    gap: '10px',
    },
    sideInfo:{
     display: 'flex',
@@ -148,42 +146,38 @@
     minHeight:'300px',
     margin: 'auto',
     backgroundColor: '#fff',
-    borderRadius: '5px',
+    borderRadius: 5,
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: '50',
+    fontSize: 50,
     color: '#fff',
     position: 'relative',
   },
 
   currentPercentage:{
-    zIndex: '1',
+    zIndex: 1,
   },
   progress:{
     backgroundColor: '#2196f3',
     position:'absolute',
     width: '100%',
     bottom: '0',
-    transition: '0.5s ease',
   
   },
   buttons:{
-    gridColumn: -1/1,
+
     margin: '10px auto',
 
   },
   button:{
     backgroundColor: '#81B29A',
     color: '#fff',
-    border: '1px solid #a5d7fe',
     width: '60px',
     height: '60px',
-    fontSize: '45px',
-    borderRadius: '50%',
-    outlineStyle: 'none',
-    cursor: 'pointer',
+    fontSize: 45,
+    borderRadius: 50,
   },
    basicText:{
      fontSize:20,
@@ -225,18 +219,18 @@
     //justifyContent:'flex-start' //center y axis
    },
  
-   buttonStyle:{
-    Button:{
-      padding: 15,
-      borderRadius:10,
-      backgroundcolor:'#fff',
-      color:'#81B29A'
-     },
-     textAlign:'center',
-     alignItems:'center',
-     paddingBottom: 30,
-     paddingTop: 50
-   }
+  //  buttonStyle:{
+  //   Button:{
+  //     padding: 15,
+  //     borderRadius:10,
+  //     backgroundcolor:'#fff',
+  //     color:'#81B29A'
+  //    },
+  //    textAlign:'center',
+  //    alignItems:'center',
+  //    paddingBottom: 30,
+  //    paddingTop: 50
+  //  }
    
  })
  
