@@ -8,7 +8,9 @@ import React, { useState, useEffect } from "react";
 export default function WorkoutSelect() {
   const navigation = useNavigation();
   const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
-  const [userWorkoutSet, setUserWorkoutSet] = useState('');
+  const [userWorkout1, setUserWorkout1] = useState('');
+  const [userWorkout2, setUserWorkout2] = useState('');
+  const [userWorkout3, setUserWorkout3] = useState('');
 
   const sayHello = () => {
       Alert('create me');
@@ -26,7 +28,8 @@ export default function WorkoutSelect() {
 
         }
         else{
-          setSelectmuscleGroup(doc.get('userMuscle')); 
+          setSelectmuscleGroup(doc.get('userMuscle'));
+          //workoutList();
         }
       }
       return;
@@ -40,10 +43,13 @@ export default function WorkoutSelect() {
     //const auth = getAuth();
     //const user = auth.currentUser;
     //var docData;
-    const workoutTest = getDoc(doc(db, 'Workouts','Arms'))
+    let group = selectmuscleGroup.toString();
+    const workoutTest = getDoc(doc(db, 'Workouts','Chest')) //How to get this to be what selectmuscleGroup is??
     workoutTest.then(doc => {
       if(doc.exists){
-        setUserWorkoutSet(doc.get('workout1'));
+        setUserWorkout1(doc.get('workout1'));
+        setUserWorkout2(doc.get('workout2'));
+        setUserWorkout3(doc.get('workout3'));
       }
       return;
     });
@@ -74,9 +80,7 @@ export default function WorkoutSelect() {
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
-  const renderWorkouts = () => {
-
-  }
+  
 
   return (
     <>
@@ -97,7 +101,25 @@ export default function WorkoutSelect() {
               onPress={sayHello}
             >
               <Text>
-              {userWorkoutSet}
+              {userWorkout1}
+              </Text>
+              
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle} 
+              onPress={sayHello}
+            >
+              <Text>
+              {userWorkout2}
+              </Text>
+              
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonStyle} 
+              onPress={sayHello}
+            >
+              <Text>
+              {userWorkout3}
               </Text>
               
             </TouchableOpacity>    
