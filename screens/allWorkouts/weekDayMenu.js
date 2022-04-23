@@ -72,11 +72,10 @@ export default function weekDayMenu() {
   return (
     <>
       <View style={styles.mainView}>        
-        <View style={styles.basicView}>
-          
+        <View style={styles.basicView}>          
           <Text style={styles.PageTitle} >Add Workout Plan for: {selectDay}</Text>
         </View>
-        <button style={styles.buttonStyle}> chest</button>
+        
         
           <TouchableOpacity 
             style={styles.buttonStyle}
@@ -84,7 +83,7 @@ export default function weekDayMenu() {
               () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
             }
           >
-            <Text style={styles.buttonText}>Chest</Text>
+            
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.iconStyle}
