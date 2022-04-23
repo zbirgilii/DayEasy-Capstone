@@ -40,7 +40,7 @@ export default function App() {
             </Text> 
           </TouchableOpacity>
           <TouchableOpacity style={styles.roundButton}
-           onPress={() => navigation.push("Workout")} title="Workout Plan">
+           onPress={() => navigation.push("AddViewWorkout")} title="Workout Plan">
             <Text style={styles.basicText}>
               Workout plan
             </Text>        

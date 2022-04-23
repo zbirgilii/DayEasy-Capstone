@@ -1,101 +1,124 @@
 //import * as React from 'react';
 //import pageTitle from './screens/WorkOutScreen';
-import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
+import {StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
-import { addDoc, collection } from 'firebase/firestore';
-import { auth } from '../../firebase';
+import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc} from "firebase/firestore";
+import { db } from '../../firebase';
 import React, { useState, useEffect } from "react";
+/*import chestIcon from 'assets/muscleIcons/chestIcon.png'
+import chestIcon from '../../assets/muscleIcons/chestIconbackground.jpg';
+import absIcon from '../../assets/muscleIcons/absIcon.jpg';
+import backIcon from '../../assets/muscleIcons/backIcon.jpg';
+import legIcon from '../../assets/muscleIcons/legIcon.jpg';
+import shoulderIcon from '../../assets/muscleIcons/shouldersIcon.jpg';
+import armIcon from '../../assets/muscleIcons/armIcon.jpg';
+*/
 
-export default function WeekDayMenu() {
+export default function weekDayMenu() {
 
   const navigation = useNavigation();
-  //const [userName, setUserName ] = useState();
-  //const [dayOfWeek, setDayOfWeek ] = useState('');
-  let dayOfWeek = '';
-  //const [bodyPart, setBodyPart ] = useState();
-  //const workoutCollectionRef = collection(db, 'UserWorkPlan');
   
-  const addToDatabase = async (dayOfWeek) => {
-    await addDoc(workoutCollectionRef, {
-       dayOfWeek,
-       userName: {name: auth.currentUser.displayName, id: auth.currentUser.uid} 
-    });
-    navigation.push('Workout');
-  };
-  
-    const changeStyle = () => {
-        Alert('create me');
-        //style={styles.AddedToWorkout};
-    }
+  const [selectDay, setSelectDay] = useState('');
+  const [selectGroup, setSelectGroup] = useState('');
+  const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
+  let muscleGroup = '';
 
+  const getItems = () =>{
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var docData;
+
+    const docSnap = getDoc(doc(db, "userWorkoutSet", user.email))
+    docSnap.then(doc => {
+      if (doc.exists) {
+        console.log('Document retrieved successfully. ' + doc.id);
+        if (doc.data() == null ){
+
+        }
+        else{
+        setSelectDay(doc.get('userSelect')); 
+        }
+      }
+      return;
+    }); 
+  }
+  
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      getItems()
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
+
+  const workoutData = (muscleGroup) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup))
+    docSnap.then(doc => {
+      if(doc.exists){
+        console.log('Document exists, id: '+doc.id);        
+        updateDoc(doc.ref,{
+          userMuscle : muscleGroup,           
+        })        
+      }
+      navigation.push("WorkoutSelect");      
+    })    
+  }
   return (
     <>
       <View style={styles.mainView}>        
-        <View style={styles.basicView}>
-          <TouchableOpacity
-            style={styles.backButton} 
-            onPress={() => navigation.push("Workout")}>
-            <Text style={styles.basicText}>
-             &lt;Back 
-            </Text>        
-          </TouchableOpacity>
-          <Text style={styles.PageTitle}>_nameHere</Text>
+        <View style={styles.basicView}>          
+          <Text style={styles.PageTitle} >Add Workout Plan for: {selectDay}</Text>
         </View>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          //onPress={(dayOfWeek = 'Sunday')}
-          onPress={(addToDatabase('Sunday'))}
-          >          
-          <Text style={styles.buttonText}>
-             Sunday
-          </Text>        
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Monday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Tuesday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Wednesday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Thursday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Friday
-          </Text>        
-        </TouchableOpacity> 
-        <TouchableOpacity
-          style={styles.buttonStyle} 
-          onPress={changeStyle}>
-          <Text style={styles.buttonText}>
-             Saturday
-          </Text>        
-        </TouchableOpacity>        
-                 
+        
+        
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={
+              () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
+            }
+          >
+            <Text style={styles.basicText}>Chest</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={
+              () => { muscleGroup = 'Abs'; workoutData(muscleGroup); }
+            }
+          >
+            <Text style={styles.basicText}>Abs</Text>
+          </TouchableOpacity>       
+        
+          
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={
+              () => { muscleGroup = 'Legs'; workoutData(muscleGroup); }
+            }
+          >
+            <Text style={styles.basicText}>Legs</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={
+              () => { muscleGroup = 'Shoulders'; workoutData(muscleGroup); }
+            }
+          >
+            <Text style={styles.basicText}>Shoulders</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.buttonStyle}
+            onPress={
+              () => { muscleGroup = 'Arms'; workoutData(muscleGroup); }
+            }
+          >
+            <Text style={styles.basicText}>Arms</Text>            
+          </TouchableOpacity>        
       </View></>
        
   )}
@@ -132,15 +155,22 @@ export default function WeekDayMenu() {
         alignItems:'center' //center x axis
         //justifyContent:'flex-start' //center y axis    
       },
-      // buttonText:{
-      //   fontSize: '300%',
-      //   fontWeight: 700,
-      //   marginTop: 10,
-      //   marginBottom: 10,
-      //   //borderColor: 'black',
-      //   //textShadowColor: 'red',
-      //   color: 'white'
-      // },
+      row: {
+        display: 'flex'
+      },
+      column: {
+        flex: 30,
+        padding: 5
+      },
+      buttonText:{
+        fontSize: 40,
+        fontWeight: '700',
+        marginTop: 10,
+        marginBottom: 10,
+        //borderColor: 'black',
+        //textShadowColor: 'red',
+        color: 'white'
+      },
       buttonStyle:{
         textAlign:'center',
         alignItems:'center',
@@ -178,5 +208,32 @@ export default function WeekDayMenu() {
         marginLeft: 5,
         backgroundColor:'red',
         color: 'red'
+      }, 
+      iconRow:{
+        width: '50%',
+        alignItems: 'center',
+      },
+      iconColumn:{
+        width: 200,
+      },
+      iconContainer:{
+        flex: 1,
+        flexDirection: 'row'
+      },
+      iconStyle:{
+        height: 350,
+        width: 350,
+        /*"&:hover": {
+          backgroundColor: "#15e577",
+          borderColor:"#564345"
+        },
+        */
+        padding: 40,
+        flex: 1,
+        flexDirection: 'row'
+      },
+      mouseHover:{
+        backgroundColor: 'red'
       }
+      
 })
