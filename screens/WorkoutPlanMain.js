@@ -29,7 +29,7 @@ export default function WorkoutScreen() {
             Monday: {
               workout1: 'workout1',
               workout2: 'workout2',
-              workout3: 'workout3'         
+              workout3: 'workout3'        
             },
             Tuesday:{
               workout1: 'workout1',

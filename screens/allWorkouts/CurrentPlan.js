@@ -11,70 +11,76 @@ export default function WorkoutSelect() {
   const [userWorkout1, setUserWorkout1] = useState('');
   const [userWorkout2, setUserWorkout2] = useState('');
   const [userWorkout3, setUserWorkout3] = useState('');
+  const [mondaySet, setMondaySet] = useState({
+      workout1: 'n/a',
+      workout2: 'n/a',
+      workout3: 'n/a'
+  });
 
-  const sayHello = () => {
-      Alert('create me');
-  }
-
-  const getItems = () =>{
+  const getItems = (weekDayTitle) => {
     const auth = getAuth();
     const user = auth.currentUser;
-    var docData;
-    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email))
+    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup))
     docSnap.then(doc => {
-      if (doc.exists) {
-        console.log('Document retrieved successfully. ' + doc.id);
-        if (doc.data() == null ){
-
-        }
-        else{
-          setSelectmuscleGroup(doc.get('userMuscle'));
-          //workoutList();
-        }
-      }
-      return;
-    });
-  }
-//this is the one causing issues
-  const workoutList = () =>{
-    //let {buttonCount, currentButton} = this.state;
-    //const workoutSet = [];
-
-    //const auth = getAuth();
-    //const user = auth.currentUser;
-    //var docData;
-    let group = selectmuscleGroup.toString();
-    const workoutTest = getDoc(doc(db, 'Workouts','Chest')) //How to get this to be what selectmuscleGroup is??
-    workoutTest.then(doc => {
       if(doc.exists){
-        setUserWorkout1(doc.get('workout1'));
-        setUserWorkout2(doc.get('workout2'));
-        setUserWorkout3(doc.get('workout3'));
+        console.log('Document exists, id: '+doc.id);
+        if(doc.data() == null){
+          
+        } 
+        else{
+          
+        }//here
       }
-      return;
-    });
-    /*
-    getDocs(doc(db, 'Workouts', selectmuscleGroup.toString())).then((querySnapshot) => {
-      querySnapshot.forEach((doc) =>{
-        var temparray = []
-        if(doc.data() != null){
-          docData = doc.data()
-          for(let i=0; i < 3; i++){
-            temparray.push(docData[i])
-          }
-          userWorkoutSet[doc.id.toString()] = temparray;
-        }
-      });
-      return;
-    })
-    */
+      else{
+        setDoc(doc(db, 'userWorkoutSet', user.email, selectGroup), {
+          userSelect : weekDayTitle,
+          Monday: {
+            workout1: 'workout1',
+            workout2: 'workout2',
+            workout3: 'workout3'            
+          },
+          Tuesday:{
+            workout1: 'workout1',
+            workout2: 'workout2',
+            workout3: 'workout3'            
+          },
+          Wednesday: {
+            workout1: 'workout1',
+            workout2: 'workout2',
+            workout3: 'workout3'            
+          },
+          Thursday: {
+            workout1: 'workout1',
+            workout2: 'workout2',
+            workout3: 'workout3'            
+          },
+          Friday:{
+            workout1: 'workout1',
+            workout2: 'workout2',
+            workout3: 'workout3'            
+          },
+          Saturday: {
+            workout1: 'workout1',
+            workout2: 'workout2',
+            workout3: 'workout3'            
+          },
+          Sunday: {
+            workout1: 'workout1',
+            workout2: 'workout2',
+            workout3: 'workout3'            
+          },
+
+        });
+      }
+      navigation.push("weekDayMenu");      
+    })    
   }
   
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
       getItems();
-      workoutList();
+      //workoutList();
     });
   
     // Return the function to unsubscribe from the event so it gets removed on unmount

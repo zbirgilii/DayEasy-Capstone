@@ -43,7 +43,7 @@ export default function WorkoutSelect() {
     //const auth = getAuth();
     //const user = auth.currentUser;
     //var docData;
-    let group = selectmuscleGroup.toString();
+    //let group = selectmuscleGroup.toString();
     const workoutTest = getDoc(doc(db, 'Workouts','Chest')) //How to get this to be what selectmuscleGroup is??
     workoutTest.then(doc => {
       if(doc.exists){
@@ -68,6 +68,24 @@ export default function WorkoutSelect() {
       return;
     })
     */
+  }
+  const setWorkout = () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup))
+    docSnap.then(doc => {
+      if (doc.exists) {        
+        if (doc.data() == null ){
+
+        }
+        else{
+          updateDoc(doc.ref,{
+            
+          })
+        }
+      }
+      return;
+    });
   }
   
   React.useEffect(() => {
