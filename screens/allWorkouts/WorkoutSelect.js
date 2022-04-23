@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 export default function WorkoutSelect() {
   const navigation = useNavigation();
   const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
-  const [userWorkoutSet, setUserWorkoutSet] = useState({});
+  const [userWorkoutSet, setUserWorkoutSet] = useState('');
 
   const sayHello = () => {
       Alert('create me');
@@ -18,7 +18,7 @@ export default function WorkoutSelect() {
     const auth = getAuth();
     const user = auth.currentUser;
     var docData;
-    const docSnap = getDoc(doc(db, "userWorkoutSet", user.email))
+    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email))
     docSnap.then(doc => {
       if (doc.exists) {
         console.log('Document retrieved successfully. ' + doc.id);
@@ -35,11 +35,19 @@ export default function WorkoutSelect() {
 //this is the one causing issues
   const workoutList = () =>{
     //let {buttonCount, currentButton} = this.state;
-    const workoutSet = [];
+    //const workoutSet = [];
 
-    const auth = getAuth();
-    const user = auth.currentUser;
-    var docData;
+    //const auth = getAuth();
+    //const user = auth.currentUser;
+    //var docData;
+    const workoutTest = getDoc(doc(db, 'Workouts','Arms'))
+    workoutTest.then(doc => {
+      if(doc.exists){
+        setUserWorkoutSet(doc.get('workout1'));
+      }
+      return;
+    });
+    /*
     getDocs(doc(db, 'Workouts', selectmuscleGroup.toString())).then((querySnapshot) => {
       querySnapshot.forEach((doc) =>{
         var temparray = []
@@ -53,6 +61,7 @@ export default function WorkoutSelect() {
       });
       return;
     })
+    */
   }
   
   React.useEffect(() => {
@@ -69,11 +78,6 @@ export default function WorkoutSelect() {
 
   }
 
-  /**
-   * <Text style={styles.basicText}>
-                  {userWorkoutSet[0]}
-              </Text>
-   */
   return (
     <>
       <View style={styles.mainView}>        
@@ -92,7 +96,9 @@ export default function WorkoutSelect() {
               style={styles.buttonStyle} 
               onPress={sayHello}
             >
-              
+              <Text>
+              {userWorkoutSet}
+              </Text>
               
             </TouchableOpacity>    
                  
