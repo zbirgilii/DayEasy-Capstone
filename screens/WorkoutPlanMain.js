@@ -28,31 +28,38 @@ export default function WorkoutScreen() {
             userSelect : weekDayTitle,
             Monday: {
               workout1: 'workout1',
-              workout2: 'workout2',         
+              workout2: 'workout2',
+              workout3: 'workout3'         
             },
             Tuesday:{
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Wednesday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Thursday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Friday:{
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2', 
+              workout3: 'workout3'           
             },
             Saturday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Sunday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
           })
         }
@@ -61,31 +68,38 @@ export default function WorkoutScreen() {
             userSelect : weekDayTitle,
             Monday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Tuesday:{
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Wednesday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2', 
+              workout3: 'workout3'           
             },
             Thursday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Friday:{
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Saturday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
             Sunday: {
               workout1: 'workout1',
-              workout2: 'workout2',            
+              workout2: 'workout2',
+              workout3: 'workout3'            
             },
           })
         }
@@ -95,31 +109,38 @@ export default function WorkoutScreen() {
           userSelect : weekDayTitle,
           Monday: {
             workout1: 'workout1',
-            workout2: 'workout2',            
+            workout2: 'workout2',
+            workout3: 'workout3'            
           },
           Tuesday:{
             workout1: 'workout1',
-            workout2: 'workout2',            
+            workout2: 'workout2',
+            workout3: 'workout3'            
           },
           Wednesday: {
             workout1: 'workout1',
-            workout2: 'workout2',            
+            workout2: 'workout2',
+            workout3: 'workout3'            
           },
           Thursday: {
             workout1: 'workout1',
-            workout2: 'workout2',            
+            workout2: 'workout2',
+            workout3: 'workout3'            
           },
           Friday:{
             workout1: 'workout1',
-            workout2: 'workout2',            
+            workout2: 'workout2',
+            workout3: 'workout3'            
           },
           Saturday: {
             workout1: 'workout1',
-            workout2: 'workout2',            
+            workout2: 'workout2',
+            workout3: 'workout3'            
           },
           Sunday: {
             workout1: 'workout1',
-            workout2: 'workout2',            
+            workout2: 'workout2',
+            workout3: 'workout3'            
           },
 
         });
