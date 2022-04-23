@@ -12,7 +12,7 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.2",
     "@expo-google-fonts/nunito": "^0.2.2",
-    "@react-native-community/datetimepicker": "4.0.0",
+    "@react-native-community/datetimepicker": "^4.0.0",
     "@react-native-picker/picker": "2.2.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
@@ -25,6 +25,8 @@
     "expo-sensors": "~11.1.0",
     "expo-status-bar": "~1.2.0",
     "firebase": "^9.6.7",
+    "install": "^0.13.0",
+    "npm": "^8.7.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-freeze": "^1.0.0",
