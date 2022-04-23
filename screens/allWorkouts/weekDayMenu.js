@@ -83,18 +83,18 @@ export default function weekDayMenu() {
               () => { muscleGroup = 'Chest'; workoutData(muscleGroup); }
             }
           >
-            
+            <Text>Chest</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            style={styles.iconStyle}
+            style={styles.buttonStyle}
             onPress={
               () => { muscleGroup = 'Abs'; workoutData(muscleGroup); }
             }
           >
-            
+            <Text>Abs</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            style={styles.iconStyle}
+            style={styles.buttonStyle}
             onPress={
               () => { muscleGroup = 'Back'; workoutData(muscleGroup); }
             }
@@ -102,29 +102,30 @@ export default function weekDayMenu() {
             
           </TouchableOpacity>
         
-        
+          <Text>Back</Text>
           <TouchableOpacity 
-            style={styles.iconStyle}
+            style={styles.buttonStyle}
             onPress={
               () => { muscleGroup = 'Legs'; workoutData(muscleGroup); }
             }
           >
-            
+            <Text>Legs</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            style={styles.iconStyle}
+            style={styles.buttonStyle}
             onPress={
               () => { muscleGroup = 'Shoulders'; workoutData(muscleGroup); }
             }
           >
-            
+            <Text>Shoulders</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            style={styles.iconStyle}
+            style={styles.buttonStyle}
             onPress={
               () => { muscleGroup = 'Arms'; workoutData(muscleGroup); }
             }
-          >            
+          >
+            <Text>Arms</Text>            
           </TouchableOpacity>        
       </View></>
        
