@@ -144,14 +144,15 @@ const styles = StyleSheet.create({
       },
       container: {
         flex: 1,
-        paddingTop: 22
+        //paddingTop: 22,
+        borderWidth: 1,
        },
       sectionHeader: {
-        paddingTop: 2,
+        //paddingTop: 2,
         paddingLeft: 10,
         paddingRight: 10,
         paddingBottom: 2,
-        fontSize: 14,
+        fontSize: 24,
         fontWeight: 'bold',
         backgroundColor: 'rgba(247,247,247,1.0)',
       },
