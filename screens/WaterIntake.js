@@ -11,8 +11,8 @@ import React , {useState} from "react";
  WebBrowser.maybeCompleteAuthSession();
  export default function WaterIntakeScreen() {
   const navigation = useNavigation();
-  const [TotalCal, setTotalCal] = useState(2.5);
-  const [Cal, setCal] = useState(0);
+  const [TotalWater, setTotalWater] = useState(2.5);
+  const [Water, setWater] = useState(0);
   const [Percentage, setPercentage] = useState(0);
 
    const Goback = () => {
@@ -38,12 +38,12 @@ import React , {useState} from "react";
            </View>
            <View style={styles.sideInfo}>
 
-               <Text style={styles.currentLiters}>{Cal} L /{TotalCal} L</Text>
+               <Text style={styles.currentLiters}>{Water} L / {TotalWater} L(Goal)</Text>
            </View>
        </View>
        <View>
-       <Button buttonStyle={styles.loginButton} onPress={() => {setCal( Cal + 0.25),console.log("Called" + Cal);{setPercentage( Percentage + 10),console.log("Called" + Percentage)}}} title="Add(+)" />
-       <Button buttonStyle={styles.loginButton} onPress={() => {setCal( Cal - 0.25),console.log("Called" + Cal);{setPercentage( Percentage - 10),console.log("Called" + Percentage)}}}  title="Remove(-)" />
+       <Button buttonStyle={styles.loginButton} onPress={() => {setWater( Water + 0.25),console.log("Called" + Water);{setPercentage( Percentage + 10),console.log("Called" + Percentage)}}} title="Add(+)" />
+       <Button buttonStyle={styles.loginButton} onPress={() => {setWater( Water - 0.25),console.log("Called" + Water);{setPercentage( Percentage - 10),console.log("Called" + Percentage)}}}  title="Remove(-)" />
        </View>
 
        </View>
