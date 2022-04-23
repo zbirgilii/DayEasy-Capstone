@@ -56,6 +56,7 @@ export default function App() {
 
   return ( 
     <>
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -66,23 +67,27 @@ export default function App() {
         }}
       >
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={{margin: 15}}>Enter Email</Text>
-            <TextInput placeholder="Email" placeholderColor = "#c4c3cb" defaultValue = {email}
-            onChangeText={(text) => setEmail(text)} style={styles.loginFormTextInput} />
-            <Pressable
-              style={({ pressed }) => [pressed ? styles.pressedlogin : styles.loginButton ]}
-              onPress={() => {forgotPassword(email),setModalVisible(!modalVisible)}}
-            >
-              <Text style={styles.buttonText}>Submit</Text>
-            </Pressable>
-            <Pressable
-              style={({ pressed }) => [pressed ? styles.pressedlogin : styles.loginButton ]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.buttonText}>Hide Modal</Text>
-            </Pressable>
-          </View>
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.modalView}>
+              <Text style={{margin: 15}}>Enter Email</Text>
+              <TextInput placeholder="Email" placeholderColor = "#c4c3cb" defaultValue = {email}
+              onChangeText={(text) => setEmail(text)} style={styles.loginFormTextInput} />
+              <Pressable
+                style={({ pressed }) => [pressed ? styles.pressedlogin : styles.loginButton ]}
+                onPress={() => {forgotPassword(email),setModalVisible(!modalVisible)}}
+              >
+                <Text style={styles.buttonText}>Submit</Text>
+              </Pressable>
+              <Pressable
+                style={({ pressed }) => [pressed ? styles.pressedlogin : styles.loginButton ]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.buttonText}>Go Back</Text>
+              </Pressable>
+            </View>
+          </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>   
         </View>
       </Modal>
     <KeyboardAvoidingView style={styles.containerView} behavior={Platform.OS === "ios" ? "padding" : "height"}>
@@ -142,7 +147,7 @@ const styles = StyleSheet.create({
     flex:1,
     //paddingTop:50,
     backgroundColor: '#81B29A',
-    alignItems:'center', //center x axis
+    // alignItems:'center', //center x axis
     //justifyContent:'center', //center y axis
   },
   containerView:{
@@ -154,7 +159,9 @@ const styles = StyleSheet.create({
     marginBottom:5
   },
   menuContainer:{
-    flex: 3,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   PageTitle:{
     fontSize: 40,
@@ -182,7 +189,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   loginButton: {
-    backgroundColor: "orange",
+    backgroundColor: "#F2CC8F",
     borderRadius: 3,
     height: 45,
     width: 200,
@@ -205,7 +212,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#3897f1",
     backgroundColor: "white",
-    width: 200,
+    width: 300,
     paddingLeft: 10,
     marginTop: 5,
     marginBottom: 5,

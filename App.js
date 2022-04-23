@@ -40,7 +40,7 @@ export default function App() {
       <ActivityIndicator size="large" />
       <Image
         source={require('./assets/icon.png')}
-        style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height/2 }}
+        style={{ width: '100%', height: '75%' }}
       />
     </View>
     )
@@ -62,7 +62,7 @@ export default function App() {
         <Stack.Screen name="WaterIntake" component={WaterIntakeScreen} />
         <Stack.Screen name="CalorieIntake" component={CalorieIntakeScreen} />
         <Stack.Screen name="Workout" component={WorkoutScreen} />
-        <Stack.Screen name="Pedometer" component={PedometerScreen} />
+        <Stack.Screen name="Pedometer" component={PedometerScreen} options={{ headerShown: true}}/>
         <Stack.Screen name="Fasting Timer" component={FastingScreen}/>
         <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true}}/>
         <Stack.Screen name="BackWorkoutScreen" component={BackWorkoutScreen} /> 
