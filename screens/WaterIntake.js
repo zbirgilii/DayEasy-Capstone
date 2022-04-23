@@ -38,13 +38,14 @@ import React , {useState} from "react";
            </View>
            <View style={styles.sideInfo}>
 
-               <Text style={styles.currentLiters}>{Water} L / {TotalWater} L(Goal)</Text>
+               <Text style={styles.currentLiters}>{Water} L / {TotalWater} L(Daily Goal)</Text>
            </View>
        </View>
        <View>
        <Button buttonStyle={styles.loginButton} onPress={() => {setWater( Water + 0.25),console.log("Called" + Water);{setPercentage( Percentage + 10),console.log("Called" + Percentage)}}} title="Add(+)" />
        <Button buttonStyle={styles.loginButton} onPress={() => {setWater( Water - 0.25),console.log("Called" + Water);{setPercentage( Percentage - 10),console.log("Called" + Percentage)}}}  title="Remove(-)" />
        </View>
+
 
        </View>
    </TouchableWithoutFeedback>
@@ -163,7 +164,6 @@ buttonStyle:{
 },
 loginButton:{
   color: '#81B29A',
-
 }
 })
 
