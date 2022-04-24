@@ -32,7 +32,7 @@ export default function App() {
       </View>
       <View style={styles.mainView}>
         
-        <View style={{flexWrap: "wrap", flexDirection: "row", justifyContent:"center"}}>
+        <View style={{flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent:"center"}}>
           <TouchableOpacity style={styles.roundButton}
           onPress={() => navigation.push("Calendar")} title="Calendar">
           <Text style={styles.basicText}>
@@ -99,8 +99,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   roundButton: {
-    width: 120,
-    height: 120,
+    width: 130,
+    height: 130,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     width: 200,
     alignItems: 'center',
     paddingTop: 5,
+    bottom: 20,
   },
   mainView:{
     flex:1,
