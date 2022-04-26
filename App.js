@@ -8,6 +8,10 @@ import LoginScreen from "./screens/Login.js";
 import MainMenuScreen from "./screens/MainMenu.js";
 import WorkoutPlanMain from "./screens/WorkoutPlanMain.js";
 import WorkoutSelect from "./screens/allWorkouts/WorkoutSelect.js";
+import AbsMenu from "./screens/allWorkouts/AbsMenu.js";
+import LegsMenu from "./screens/allWorkouts/LegsMenu.js";
+import ShoulderMenu from "./screens/allWorkouts/ShoulderMenu.js";
+import ArmsMenu from "./screens/allWorkouts/ArmsMenu.js";
 import AddViewWorkout from "./screens/allWorkouts/AddViewWorkout.js"; 
 import CurrentPlan from "./screens/allWorkouts/CurrentPlan.js";
 import MuscleIndexMain from './screens/MuscleIndex/MuscleIndexMain.js';
@@ -59,6 +63,10 @@ export default function App() {
         <Stack.Screen name="WorkoutPlanMain" component={WorkoutPlanMain} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
         <Stack.Screen name="WorkoutSelect" component={WorkoutSelect} /> 
+        <Stack.Screen name="AbsMenu" component={AbsMenu} />
+        <Stack.Screen name="ShouldersMenu" component={ShouldersMenu} />
+        <Stack.Screen name="LegsMenu" component={LegsMenu} />
+        <Stack.Screen name="ArmsMenu" component={ArmsMenu} />
         <Stack.Screen name="AddViewWorkout" component={AddViewWorkout} />  
         <Stack.Screen name="CurrentPlan" component={CurrentPlan} />
         <Stack.Screen name="MuscleIndexMain" component={MuscleIndexMain} />  

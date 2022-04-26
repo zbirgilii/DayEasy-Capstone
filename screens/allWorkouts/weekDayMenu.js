@@ -66,7 +66,22 @@ export default function weekDayMenu() {
           userMuscle : muscleGroup,           
         })        
       }
-      navigation.push("WorkoutSelect");      
+      if(muscleGroup == 'Chest'){
+        navigation.push("WorkoutSelect");
+      }
+      if(muscleGroup == 'Abs'){
+        navigation.push("AbsMenu");
+      }
+      if(muscleGroup == 'Legs'){
+        navigation.push("LegsMenu");
+      }
+      if(muscleGroup == 'Shoulders'){
+        navigation.push("ShouldersMenu");
+      }
+      if(muscleGroup == 'Arms'){
+        navigation.push("ArmsMenu");
+      }
+            
     })    
   }
   return (
