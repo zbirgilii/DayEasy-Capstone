@@ -10,7 +10,7 @@ import WorkoutPlanMain from "./screens/WorkoutPlanMain.js";
 import WorkoutSelect from "./screens/allWorkouts/WorkoutSelect.js";
 import AbsMenu from "./screens/allWorkouts/AbsMenu.js";
 import LegsMenu from "./screens/allWorkouts/LegsMenu.js";
-import ShoulderMenu from "./screens/allWorkouts/ShoulderMenu.js";
+import ShouldersMenu from "./screens/allWorkouts/ShouldersMenu.js";
 import ArmsMenu from "./screens/allWorkouts/ArmsMenu.js";
 import AddViewWorkout from "./screens/allWorkouts/AddViewWorkout.js"; 
 import CurrentPlan from "./screens/allWorkouts/CurrentPlan.js";

@@ -41,7 +41,7 @@ export default function WorkoutSelect() {
     //const user = auth.currentUser;
     //var docData;
     //let group = selectmuscleGroup.toString();
-    const workoutTest = getDoc(doc(db, 'Workouts','Abs')) //How to get this to be what selectmuscleGroup is??
+    const workoutTest = getDoc(doc(db, 'Workouts','Shoulders')) //How to get this to be what selectmuscleGroup is??
     workoutTest.then(doc => {
       if(doc.exists){
         setUserWorkout1(doc.get('workout1'));
@@ -76,8 +76,11 @@ export default function WorkoutSelect() {
 
         }
         else{
+          let userChoice = doc.data().userSelect;
           updateDoc(doc.ref,{
-            
+            //userChoice {
+
+            //}
           })
         }
       }
