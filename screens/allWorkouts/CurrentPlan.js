@@ -72,7 +72,7 @@ export default function WorkoutSelect() {
 
         });
       }
-      navigation.push("weekDayMenu");      
+      navigation.push("WeekDayMenu");      
     })    
   }
   

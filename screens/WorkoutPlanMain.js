@@ -3,7 +3,7 @@ import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 import {db} from '../firebase.js'
-import weekDayMenu from './allWorkouts/weekDayMenu';
+import WeekDayMenu from './allWorkouts/WeekDayMenu';
 import { collection,collectionGroup, query,setDoc, where, getDocs, getDoc, doc ,updateDoc} from "firebase/firestore";
 
 export default function WorkoutScreen() {
@@ -12,7 +12,7 @@ export default function WorkoutScreen() {
   let weekDayTitle = '';
 
   const toWeekDayMenu = () => {
-    navigation.push("weekDayMenu");    
+    navigation.push("WeekDayMenu");    
   }
   
   
@@ -145,7 +145,7 @@ export default function WorkoutScreen() {
 
         });
       }
-      navigation.push("weekDayMenu");      
+      navigation.push("WeekDayMenu");      
     })    
   }
   

@@ -15,7 +15,7 @@ import ArmsMenu from "./screens/allWorkouts/ArmsMenu.js";
 import AddViewWorkout from "./screens/allWorkouts/AddViewWorkout.js"; 
 import CurrentPlan from "./screens/allWorkouts/CurrentPlan.js";
 import MuscleIndexMain from './screens/MuscleIndex/MuscleIndexMain.js';
-import weekDayMenu from "./screens/allWorkouts/weekDayMenu.js";
+import WeekDayMenu from "./screens/allWorkouts/WeekDayMenu.js";
 import WaterIntakeScreen from "./screens/WaterIntake.js";
 import CalorieIntakeScreen from "./screens/CalorieIntake.js";
 import styles from "./screens/style";
@@ -70,7 +70,7 @@ export default function App() {
         <Stack.Screen name="AddViewWorkout" component={AddViewWorkout} />  
         <Stack.Screen name="CurrentPlan" component={CurrentPlan} />
         <Stack.Screen name="MuscleIndexMain" component={MuscleIndexMain} />  
-        <Stack.Screen name="weekDayMenu" component={weekDayMenu} /> 
+        <Stack.Screen name="WeekDayMenu" component={WeekDayMenu} /> 
         </>
       )}
     </Stack.Navigator>
