@@ -23,6 +23,11 @@ import { signup, login, logout } from "./firebase.js";
 import AuthContextProvider from './contexts/AuthContext.js';
 import { useAuth } from './contexts/AuthContext.js';
 // import { useAuth } from './firebase.js';
+import AbsIndex from "./screens/MuscleIndex/AbsIndex.js";
+import ArmsIndex from "./screens/MuscleIndex/ArmsIndex.js";
+import ChestIndex from "./screens/MuscleIndex/ChestIndex.js";
+import LegsIndex from "./screens/MuscleIndex/LegsIndex.js";
+import ShouldersIndex from "./screens/MuscleIndex/ShouldersIndex.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -69,9 +74,16 @@ export default function App() {
         <Stack.Screen name="ArmsMenu" component={ArmsMenu} />
         <Stack.Screen name="AddViewWorkout" component={AddViewWorkout} />  
         <Stack.Screen name="CurrentPlan" component={CurrentPlan} />
-        <Stack.Screen name="MuscleIndexMain" component={MuscleIndexMain} />  
-        <Stack.Screen name="WeekDayMenu" component={WeekDayMenu} /> 
+        <Stack.Screen name="MuscleIndexMain" component={MuscleIndexMain} />
+        <Stack.Screen name="AbsIndex" component={AbsIndex} />
+        <Stack.Screen name="ArmsIndex" component={ArmsIndex} />
+        <Stack.Screen name="ChestIndex" component={ChestIndex} />
+        <Stack.Screen name="LegsIndex" component={LegsIndex} />
+        <Stack.Screen name="ShouldersIndex" component={ShouldersIndex} /> 
+        <Stack.Screen name="WeekDayMenu" component={WeekDayMenu} />
+         
         </>
+
       )}
     </Stack.Navigator>
   </NavigationContainer>
