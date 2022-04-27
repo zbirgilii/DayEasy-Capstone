@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import {StyleSheet, Text, View, Button,TouchableOpacity,Pressable, Alert } from 'react-native';
+import {StyleSheet, Text, View, Button,TouchableOpacity,Pressable, Alert, SafeAreaView } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 import { logout } from '../firebase';
@@ -27,11 +27,11 @@ export default function App() {
 
   return ( 
     <>
+      <SafeAreaView style={styles.mainView}>
       <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
       </View>
       <View style={styles.mainView}>
-        
         <View style={{flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent:"center"}}>
           <TouchableOpacity style={styles.roundButton}
           onPress={() => navigation.push("Calendar")} title="Calendar">
@@ -51,7 +51,7 @@ export default function App() {
               Muscle index
             </Text>        
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => sayHello()} style={styles.roundButton} title="Meal Plan">
+          <TouchableOpacity onPress={() =>  navigation.push("MealPlanner")} style={styles.roundButton} title="Meal Plan">
             <Text style={styles.basicText}>
               Meal plan
             </Text>        
@@ -80,18 +80,16 @@ export default function App() {
               Step Counter
             </Text>        
           </TouchableOpacity>    
-          </View> 
-          <Text>
-               
-          </Text> 
-          <TouchableOpacity style={styles.loginButton}
+          </View>  
+          <TouchableOpacity style={styles.Return}
            onPress={() => LogOut()} title="Pedometer">
             <Text style={styles.basicText}>
               Log Out
             </Text>        
           </TouchableOpacity>    
       </View>
-      </>
+      </SafeAreaView >
+    </>
   )
 
 
@@ -99,22 +97,21 @@ export default function App() {
 
 const styles = StyleSheet.create({
   roundButton: {
-    width: 130,
-    height: 130,
+    width: 100,
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
     borderRadius: 100,
     backgroundColor: 'orange',
   },
-  loginButton: {
+  Return: {
     backgroundColor: "#3897f1",
     borderRadius: 3,
-    height: 50,
-    width: 200,
+    height: 45,
+    width: 100,
     alignItems: 'center',
-    paddingTop: 5,
-    bottom: 20,
+    paddingTop: 5,    
   },
   mainView:{
     flex:1,
@@ -124,10 +121,9 @@ const styles = StyleSheet.create({
     justifyContent:'center', //center y axis
   },
   basicView:{
+    flex:.35,
     backgroundColor:'#3D405B',
     width:'100%',
-    marginBottom:0,
-    padding: 10,
   },
   basicText:{
     fontSize:20,
@@ -137,7 +133,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   PageTitle:{
-    fontSize: 50,
+    fontSize: 45,
     color: 'white',
     paddingTop: 20,
     paddingBottom: 1,

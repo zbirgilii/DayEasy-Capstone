@@ -15,6 +15,7 @@ import FastingScreen from "./screens/FastingTimer.js";
 import WorkoutSelect from "./screens/allWorkouts/WorkoutSelect.js";
 import AddViewWorkout from "./screens/allWorkouts/AddViewWorkout.js"; 
 import CurrentPlan from "./screens/allWorkouts/CurrentPlan.js";
+import MealPlannerScreen from "./screens/Mealplanner.js"
 import styles from "./screens/style";
 import { signup, login, logout } from "./firebase.js";
 import AuthContextProvider from './contexts/AuthContext.js';
@@ -58,7 +59,7 @@ export default function App() {
         </>
       ) : (
         <>
-        <Stack.Screen name="Main Menu" component={MainMenuScreen} />
+        <Stack.Screen name="Main Menu" component={MainMenuScreen}  options={{ headerShown: false}}/>
         <Stack.Screen name="WaterIntake" component={WaterIntakeScreen} />
         <Stack.Screen name="CalorieIntake" component={CalorieIntakeScreen} />
         <Stack.Screen name="WorkoutPlanMain" component={WorkoutPlanMain} />
@@ -69,6 +70,7 @@ export default function App() {
         <Stack.Screen name="WorkoutSelect" component={WorkoutSelect} />
         <Stack.Screen name="AddViewWorkout" component={AddViewWorkout} />  
         <Stack.Screen name="CurrentPlan" component={CurrentPlan} />
+        <Stack.Screen name="MealPlanner" component={MealPlannerScreen} />
         </>
       )}
     </Stack.Navigator>
