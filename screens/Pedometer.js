@@ -1,54 +1,90 @@
-import React from "react";
-import { View, Text, Image, ScrollView, StyleSheet, Dimensions } from "react-native";
-import { Pedometer } from "expo-sensors";
-import { useEffect, useState } from "react";
+import React from 'react';
+import { StyleSheet, Button, Text, View, Dimensions, ScrollView, Image } from 'react-native';
+import { Pedometer } from 'expo-sensors';
 import { LinearGradient } from 'expo-linear-gradient';
 import CircularProgress from "react-native-circular-progress-indicator";
+import { useNavigation } from '@react-navigation/native';
 
-export default function App (){
- const [PedomaterAvailability, SetPedomaterAvailability] = useState("");
- const [StepCount, SetStepCount] = useState(3331);
- 
- var WindowHeight = Dimensions.get("window").height;
+export default class App extends React.Component {
+  state = {
+    isPedometerAvailable: 'checking',
+    pastStepCount: 0,
+    currentStepCount: 0,
+  };
 
- var Dist = StepCount / 1300;
- var DistanceCovered = Dist.toFixed(4);
+  componentDidMount() {
+    this._subscribe();
+  }
 
- var cal = DistanceCovered * 60;
- var caloriesBurnt = cal.toFixed(4);
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
 
- React.useEffect(() => {
-   subscribe();
- }, []);
+  _subscribe = () => {
+    this._subscription = Pedometer.watchStepCount(result => {
+      this.setState({
+        currentStepCount: result.steps,
+      });
+    });
 
- subscribe = () => {
+    Pedometer.isAvailableAsync().then(
+      result => {
+        this.setState({
+          isPedometerAvailable: String(result),
+        });
+      },
+      error => {
+        this.setState({
+          isPedometerAvailable: 'Pedometer unavailable' + error,
+        });
+      }
+    );
+  
+    const end = new Date();
+    const start = new Date();
+    start.setDate(end.getDate() - 1);
+    Pedometer.getStepCountAsync(start, end).then(
+      result => {
+        this.setState({ pastStepCount: result.steps });
+      },
+      error => {
+        this.setState({
+          pastStepCount: 'Could not get stepCount: ' + error,
+        });
+      }
+    );
+  };
 
-   const subscription = Pedometer.watchStepCount((result) => {
-     SetStepCount(result.steps);
-   });
+  _unsubscribe = () => {
+    this._subscription && this._subscription.remove();
+    this._subscription = null;
+  };
 
-   Pedometer.isAvailableAsync().then(
-     (result) => {
-       SetPedomaterAvailability(String(result));
-     },
-     (error) => {
-       PedomaterAvailability(error);
-
-     }
-   );
- };
-
-	return (
-		<ScrollView bounces={false} showsVerticalScrollIndicator={false} style={{height: Dimensions.get("window").height}}>
+  render() {
+    return (
+    <ScrollView bounces={false} showsVerticalScrollIndicator={false} style={{height: Dimensions.get("window").height, width: Dimensions.get("window").width}}>
 		<View style = {stylesheet.PhoneSize}>
-    <LinearGradient
+		<LinearGradient
         colors={['#D3E3E6', '#F4F1DE']}
         style={stylesheet.PhoneSize} />
-			<View style={stylesheet.circlePosition}>         
-			<CircularProgress
-				value={StepCount}
-				maxValue={10000}
-				radius={210}
+        <View style = {stylesheet._Header}>
+				<View style = {stylesheet._Rectangle_21}>
+				</View>
+				<View style = {stylesheet._Rectangle_22}>
+				</View>                                                                                                   
+				<Image style = {stylesheet._icon_removebg_preview_2} source = {{uri: imageUrl_icon_removebg_preview_2}}>
+				</Image>
+			</View>
+			<View style = {stylesheet._Pedometer}>
+			<Text style = {stylesheet._Pedometer}>
+				Pedometer
+			</Text>
+			</View>
+      	<View style={[stylesheet.circlePosition, { flex: 3 }]}>
+				<CircularProgress
+				value={this.state.pastStepCount}
+				maxValue={20000}
+				radius={190}
 				textColor={"#ecf0f1"}
 				activeStrokeColor={"#7DA993"}
 				inActiveStrokeColor={"#A9CCBB"}
@@ -58,36 +94,22 @@ export default function App (){
 				titleColor={"#ecf0f1"}
 				titleStyle={{ fontWeight: "bold" }}
 				/>
-				</View>
-			<View style = {stylesheet._Steps_Text}>
-				<View style = {[stylesheet._, {display: "flex", flexDirection: "row", alignItems: "center"}]}>
-				<Text style = {[stylesheet._Steps_Taken, {position: "relative", flexGrow: 1, left: 0, top: 0, height: "auto", transform: [{translateX: 0}, {translateY: 0}],}]}>
-					Steps Taken
-				</Text>
-				</View>
-			</View>
-			<View style = {stylesheet._Header}>
-				<View style = {stylesheet._Rectangle_21}>
-				</View>
-				<View style = {stylesheet._Rectangle_22}>
-				</View>
-				<Image style = {stylesheet._icon_removebg_preview_2} source = {{uri: imageUrl_icon_removebg_preview_2}}>
-				</Image>
-			</View>
-			<View style = {[stylesheet._Pedometer, {display: "flex", flexDirection: "row", alignItems: "center"}]}>
-			<Text style = {[stylesheet._Pedometer, {position: "relative", flexGrow: 1, left: 0, top: 0, height: "auto", transform: [{translateX: 0}, {translateY: 0}],}]}>
-				Pedometer
-			</Text>
-      		<Text style = {stylesheet._calories_Burnt}>Calories burnt: {[(StepCount) /1300*60]}</Text>  
-			</View>
-			</View>
-		</ScrollView>
-	)
+        <View > 
+        <Text style = {stylesheet.steps_Taken}>Steps taken</Text> 
+        </View>    
+      </View>        
+      <Text style = {stylesheet._calories_Burnt}>Calories burnt: {[(this.state.pastStepCount) /1300*60]}</Text>   
+      </View>
+      </ScrollView>
+    );
+  }
 }
 
-const stylesheet = StyleSheet.create({
-	PhoneSize: {
-		position: "relative",
+
+const stylesheet = StyleSheet.create({ 	
+  PhoneSize: {
+		flex: 1,
+		position: "absolute",
 		width: Dimensions.get("window").width,
 		height: Dimensions.get("window").height,
 		borderRadius: 0,
@@ -101,42 +123,9 @@ const stylesheet = StyleSheet.create({
 		left: 0,
 		top: 0,
 	},
-	_Steps_Text: {
-		position: "absolute",
-		width: 147,
-		height: 32,
-		transform: [
-			{translateX: 125},
-			{translateY: 450},
-			{rotate: "0deg"},
-		],
-		overflow: "hidden",
-		backgroundColor: "rgba(0,0,0,0)",
-	},
-	_Steps_Taken: {
-		position: "absolute",
-		width: 147,
-		height: 32,
-		left: 0,
-		right: "auto",
-		top: 0,
-		bottom: "auto",
-		transform: [
-			{translateX: 125},
-			{translateY: 450},
-			{rotate: "0deg"},
-		],
-		fontWeight: '400',
-		textDecorationLine: "none",
-		fontSize: 24,
-		color: "rgba(61, 64, 91, 1)",
-		textAlign: "left",
-		textAlignVertical: "top",
-		letterSpacing: 0.1,
-	},
 	_Header: {
 		position: "absolute",
-		width: 500,
+		width: Dimensions.get("window").width,
 		height: 200,
 		transform: [
 			{translateX: 0},
@@ -148,13 +137,13 @@ const stylesheet = StyleSheet.create({
 	},
 	_Rectangle_21: {
 		position: "absolute",
-		width: 500,
-		height: 50,
+		width: 400,
+		height: 25,
 		borderRadius: 0,
 		opacity: 1,
 		left: 0,
 		right: "auto",
-		top: 96,
+		top: 65,
 		bottom: "auto",
 		transform: [
 			{translateX: 0},
@@ -165,8 +154,8 @@ const stylesheet = StyleSheet.create({
 	},
 	_Rectangle_22: {
 		position: "absolute",
-		width: 500,
-		height: 100,
+		width: 400,
+		height: 65,
 		borderRadius: 0,
 		opacity: 1,
 		left: 0,
@@ -182,13 +171,13 @@ const stylesheet = StyleSheet.create({
 	},
 	_icon_removebg_preview_2: {
 		position: "absolute",
-		width: 83,
-		height: 69,
+		width: 55,
+		height: 60,
 		borderRadius: 0,
 		opacity: 1,
-		left: 307,
+		left: 310,
 		right: "auto",
-		top: 27,
+		top: 1,
 		bottom: "auto",
 		transform: [
 			{translateX: 0},
@@ -199,11 +188,11 @@ const stylesheet = StyleSheet.create({
 	},
 	_Pedometer: {
 		position: "absolute",
-		width: 201,
+		width: 251,
 		height: 48,
-		left: 120,
+		left: 75,
 		right: "auto",
-		top: 95,
+		top: 32,
 		bottom: "auto",
 		transform: [
 			{translateX: 0},
@@ -212,23 +201,23 @@ const stylesheet = StyleSheet.create({
 		],
 		fontWeight: '400',
 		textDecorationLine: "none",
-		fontSize: 32,
+		fontSize: 18,
 		color: "rgba(255, 255, 255, 1)",
-		textAlign: "left",
 		textAlignVertical: "top",
 		letterSpacing: 0.1,
 	},
+
   		circlePosition: {
  		position: 'absolute',
   		alignSelf: 'center',
-  		bottom: 235
+  		bottom: 285
   },
-  _calories_Burnt:{
+  steps_Taken:{
 	position: "absolute",
 	fontWeight: '400',
-	left: -100,
+	left: 125,
 	right: "auto",
-	top: 570,
+	top: -125,
 	bottom: "auto",
 	textDecorationLine: "none",
 	fontSize: 25,
@@ -236,7 +225,21 @@ const stylesheet = StyleSheet.create({
 	textAlign: "left",
 	textAlignVertical: "top",
 	letterSpacing: 0.1,
-  }
+  },
+  _calories_Burnt:{
+	position: "absolute",
+	fontWeight: '400',
+	left: 85,
+	right: "auto",
+	top: 625,
+	bottom: "auto",
+	textDecorationLine: "none",
+	fontSize: 25,
+	color: "rgba(99, 103, 140, 1)",
+	textAlign: "left",
+	textAlignVertical: "top",
+	letterSpacing: 0.1,
+  },
 });
 
 const imageUrl_icon_removebg_preview_2 = "https://sizze-figma-plugin-images-upload.s3.us-east-2.amazonaws.com/aaf065712facd931efc4e11efca2dd53"
