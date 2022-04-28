@@ -94,7 +94,7 @@ export default function MuscleIndexMain() {
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.buttonStyle} 
+          style={styles.bottomButton} 
           onPress={
             () => navigation.push("ArmsIndex") 
           }>
@@ -149,6 +149,25 @@ const styles = StyleSheet.create({
         //textShadowColor: 'red',
         color: 'white'
       },
+      bottomButton: {
+        textAlign:'center',
+        alignItems:'center',
+        borderRadius: 1000,
+        borderWidth: 1,
+        width: '70%',
+        //marginBottom: 10,
+        //padding: '100, 7px 10px 7px',
+        //paddingRight: '50%',
+        //paddingLeft: 70,
+        //flex: 1,
+        alignSelf: 'center',
+        marginTop: 20,
+        marginBottom: 250,
+        marginRight: 10,
+        marginLeft: 10,
+        backgroundColor:'#3D405B',
+        color: 'white'
+      },
       buttonStyle:{
         textAlign:'center',
         alignItems:'center',
@@ -161,8 +180,8 @@ const styles = StyleSheet.create({
         //paddingLeft: 70,
         //flex: 1,
         alignSelf: 'center',
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 20,
+        marginBottom: 20,
         marginRight: 10,
         marginLeft: 10,
         backgroundColor:'#3D405B',
