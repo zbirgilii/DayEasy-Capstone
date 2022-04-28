@@ -1,146 +1,17 @@
 import {StyleSheet, Text, View,TouchableOpacity, Image } from 'react-native';
-import { getAuth, signOut } from "firebase/auth";
-import { useNavigation } from '@react-navigation/native';
-import { collection,collectionGroup, query, where, getDocs, getDoc, doc ,updateDoc, setDoc, QuerySnapshot} from "firebase/firestore";
-import { db } from '../../firebase';
-import React, { useState, useEffect } from "react";
-
-export default function WorkoutSelect() {
-  const navigation = useNavigation();
-  const [selectmuscleGroup, setSelectmuscleGroup] = useState('');
-  const [userWorkout1, setUserWorkout1] = useState('');
-  const [userWorkout2, setUserWorkout2] = useState('');
-  const [userWorkout3, setUserWorkout3] = useState('');
 
 
-  const getItems = () =>{
-    const auth = getAuth();
-    const user = auth.currentUser;
-    var docData;
-    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email))
-    docSnap.then(doc => {
-      if (doc.exists) {
-        console.log('Document retrieved successfully. ' + doc.id);
-        if (doc.data() == null ){
-
-        }
-        else{
-          setSelectmuscleGroup(doc.get('userMuscle'));
-          workoutList();
-        }
-      }
-      return;
-    });
-  }
-//this is the one causing issues
-  const workoutList = () =>{
-    //let {buttonCount, currentButton} = this.state;
-    //const workoutSet = [];
-
-    //const auth = getAuth();
-    //const user = auth.currentUser;
-    //var docData;
-    //let group = selectmuscleGroup.toString();
-    const workoutTest = getDoc(doc(db, 'Workouts','Arms')) //How to get this to be what selectmuscleGroup is??
-    workoutTest.then(doc => {
-      if(doc.exists){
-        setUserWorkout1(doc.get('workout1'));
-        setUserWorkout2(doc.get('workout2'));
-        setUserWorkout3(doc.get('workout3'));
-      }
-      return;
-    });
-    /*
-    getDocs(doc(db, 'Workouts', selectmuscleGroup.toString())).then((querySnapshot) => {
-      querySnapshot.forEach((doc) =>{
-        var temparray = []
-        if(doc.data() != null){
-          docData = doc.data()
-          for(let i=0; i < 3; i++){
-            temparray.push(docData[i])
-          }
-          userWorkoutSet[doc.id.toString()] = temparray;
-        }
-      });
-      return;
-    })
-    */
-  }
-  const setWorkout = () => {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    const docSnap = getDoc(doc(db, 'userWorkoutSet', user.email, selectGroup))
-    docSnap.then(doc => {
-      if (doc.exists) {        
-        if (doc.data() == null ){
-
-        }
-        else{
-          updateDoc(doc.ref,{
-            
-          })
-        }
-      }
-      return;
-    });
-  }
-  
-  React.useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      // The screen is focused
-      getItems();
-      workoutList();
-    });
-  
-    // Return the function to unsubscribe from the event so it gets removed on unmount
-    return unsubscribe;
-  }, [navigation]);
-  
-
+export default function WorkoutSelect() { 
+//<Image source='./assests/muscleIcons/shoulersIcon.jpg' width={250} height={250}></Image>
   return (
     <>
       <View style={styles.mainView}>        
         <View style={styles.basicView}>               
           
-          <Text style={styles.PageTitle}>Arms</Text>
+          <Text style={styles.PageTitle}>Arms Fun Fact:</Text>
         </View>
-        
-            <TouchableOpacity
-              style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
-            >
-              <Text style={styles.buttonText}>
-              {userWorkout1}
-              </Text>
-              
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
-            >
-              <Text style={styles.buttonText}>
-              {userWorkout2}
-              </Text>
-              
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
-            >
-              <Text style={styles.buttonText}>
-              {userWorkout3}
-              </Text>
-              
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonStyle} 
-              onPress={() => navigation.push("CurrentPlan")}
-            >
-              <Text style={styles.buttonText}>
-              View Workout Set
-              </Text>
-              
-            </TouchableOpacity>    
+        <Text style={styles.basicText}>The human arm is made from three long bones. These bones are linked at the elbow by a hinge joint. Two bones in the lower arm are Radius and Ulna.</Text>       
+                
                  
       </View></>
        
@@ -160,7 +31,7 @@ const styles = StyleSheet.create({
         marginBottom:5
       },
       basicText:{
-        fontSize:20,
+        fontSize:40,
         //color:'#F4F1DE',
         textAlign:'center',
         padding:20
@@ -175,6 +46,10 @@ const styles = StyleSheet.create({
         alignItems:'center' //center x axis
         //justifyContent:'flex-start' //center y axis
     
+      },
+      iconStyle: {
+        height: '200',
+        width: '200',
       },
       buttonText:{
         fontSize: 40,
