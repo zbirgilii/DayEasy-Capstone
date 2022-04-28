@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   },
   timerText: {
     color: "#fff",
-    fontSize: 90
+    fontSize: 70
   },
   picker: {
     width: 50,
