@@ -18,6 +18,11 @@ import MuscleIndexMain from './screens/MuscleIndex/MuscleIndexMain.js';
 import WeekDayMenu from "./screens/allWorkouts/WeekDayMenu.js";
 import WaterIntakeScreen from "./screens/WaterIntake.js";
 import CalorieIntakeScreen from "./screens/CalorieIntake.js";
+
+import MealPlannerScreen from "./screens/Mealplanner.js"
+import FastingScreen from "./screens/FastingTimer.js";
+import PedometerScreen from "./screens/Pedometer.js";
+
 import styles from "./screens/style";
 import { signup, login, logout } from "./firebase.js";
 import AuthContextProvider from './contexts/AuthContext.js';
@@ -66,7 +71,10 @@ export default function App() {
         <Stack.Screen name="WaterIntake" component={WaterIntakeScreen} />
         <Stack.Screen name="CalorieIntake" component={CalorieIntakeScreen} />
         <Stack.Screen name="WorkoutPlanMain" component={WorkoutPlanMain} />
-        <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name="Calendar" component={CalendarScreen}/>
+        <Stack.Screen name="Pedometer" component={PedometerScreen} options={{ headerShown: true}}/>
+        <Stack.Screen name="Fasting Timer" component={FastingScreen}/>
+        <Stack.Screen name="MealPlanner" component={MealPlannerScreen} />
         <Stack.Screen name="WorkoutSelect" component={WorkoutSelect} /> 
         <Stack.Screen name="AbsMenu" component={AbsMenu} />
         <Stack.Screen name="ShouldersMenu" component={ShouldersMenu} />
