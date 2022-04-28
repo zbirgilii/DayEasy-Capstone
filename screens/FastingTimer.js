@@ -107,7 +107,7 @@ start = () => {
           <Picker.Item key={value} label={value} value={value} />
         ))}
       </Picker>
-      <Text style={styles.pickerItem}>hours</Text>
+      <Text style={styles.pickerItem}>Hours</Text>
       <Picker
         style={styles.picker}
         itemStyle={styles.pickerItem}
@@ -121,7 +121,7 @@ start = () => {
           <Picker.Item key={value} label={value} value={value} />
         ))}
       </Picker>
-      <Text style={styles.pickerItem}>minutes</Text>
+      <Text style={styles.pickerItem}>Minutes</Text>
        <Picker
         style={styles.picker}
         itemStyle={styles.pickerItem}
@@ -135,7 +135,7 @@ start = () => {
           <Picker.Item key={value} label={value} value={value} />
         ))}
       </Picker>
-      <Text style={styles.pickerItem}>seconds</Text>
+      <Text style={styles.pickerItem}>Seconds</Text>
     </View>
 
   );
@@ -184,7 +184,8 @@ start = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(211, 227, 230, 1)",
+    padding: 10,
+    backgroundColor: "#81B29A",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
 	},
   button: {
     borderWidth: 10,
-    borderColor: "#89AAFF",
+    borderColor: "#3D405B",
     width: screen.width / 2,
     height: screen.width / 2,
     borderRadius: screen.width / 2,
@@ -266,7 +267,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 45,
-    color: "#89AAFF"
+    color: "#3D405B"
   },
   buttonTextStop: {
     color: "#FF851B"
@@ -293,26 +294,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center"
   },
-  	_timer: {
-		position: "absolute",
-		width: 215,
-		height: 40,
-		left: 100,
-		right: "auto",
-		top: 73,
-		bottom: "auto",
-		transform: [
-			{translateX: 0},
-			{translateY: 0},
-			{rotate: "0deg"},
-		],
-		fontWeight: '400',
-		textDecorationLine: "none",
-		fontSize: 32,
-		color: "rgba(255, 255, 255, 1)",
-		textAlign: "left",
-		textAlignVertical: "top",
-		letterSpacing: 0.1,
+  _timer: {
+	fontSize: 40,
+  	color: 'white',
+  	paddingTop: 70,
+  	paddingBottom: 10,
+  	fontWeight: '400',
+  	textAlign:'center',
+  	alignItems:'center'
 	},
 });
 
