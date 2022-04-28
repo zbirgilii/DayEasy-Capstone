@@ -27,10 +27,10 @@ export default function App() {
 
   return ( 
     <>
-      <SafeAreaView style={styles.mainView}>
       <View style={styles.basicView}>
           <Text style={styles.PageTitle}>DayEasy Main Menu</Text>
       </View>
+      <SafeAreaView style={styles.mainView}>
       <View style={styles.mainView}>
         <View style={{flex: 1, flexWrap: "wrap", flexDirection: "row", justifyContent:"center"}}>
           <TouchableOpacity style={styles.roundButton}
@@ -121,9 +121,9 @@ const styles = StyleSheet.create({
     justifyContent:'center', //center y axis
   },
   basicView:{
-    flex:.35,
     backgroundColor:'#3D405B',
-    width:'100%',
+    width: '100%',
+    paddingTop: 25
   },
   basicText:{
     fontSize:20,
@@ -135,12 +135,11 @@ const styles = StyleSheet.create({
   PageTitle:{
     fontSize: 45,
     color: 'white',
-    paddingTop: 20,
     paddingBottom: 1,
     fontWeight: '500',
     textAlign:'center',
-    alignItems:'center' //center x axis
-    //justifyContent:'flex-start' //center y axis
+    alignItems:'center', //center x axis
+    justifyContent:'center' //center y axis
 
   },
   buttonStyle:{

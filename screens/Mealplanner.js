@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
-import {StyleSheet, Text, View, Button, Alert,TextInput,  Pressable, SafeAreaView,
+import {StyleSheet, Text, View, Button, Alert,TextInput,  Pressable, SafeAreaView, TouchableHighlight,
   Platform, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard,Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import { getAuth,
@@ -119,148 +119,292 @@ export default class MealPlan extends React.Component{
         constructor(props) {
             super(props);
             this.state = {
-            arrayOfDivs: [],
-            divID: 0,
+              breafast: [],
+              lunch: [],
+              dinner: [],
+              snacks:[],
+              breakfastID: 0,
+              lunchID: 0,
+              dinnerID: 0,
+              snacksID: 0,
             };
         };
-        handleChange = (text, id, temp) => {
-            this.setState((prevState) => {
-            console.log("handleChange " + id + " " + temp)
-            let newArrOfDivs = prevState.arrayOfDivs;
-            switch(temp) {
-                case 'name':
-                    newArrOfDivs = prevState.arrayOfDivs;
-                    newArrOfDivs.find((item) => {
+
+        handleChange = (tag, text, id, temp) => {
+          switch(tag) {
+            case 'breakfast':              
+              this.setState((prevState) => {
+                console.log("handleChange " + id + " " + temp)
+                let newArrOfDivs = prevState.breafast;
+                switch(text) {
+                    case 'text':
+                        newArrOfDivs.find((item) => {
+                                if (item.id === id)
+                                {
+                                    item.text = text
+                                }
+                            },
+                        )
+                      break;
+      
+                    case 'cal':
+                        newArrOfDivs.find((item) => {
                             if (item.id === id)
                             {
-                                item.name = text
-                            }
-                        },
-                    )
-                break;
-                
-                case 'email':
-                    newArrOfDivs = prevState.arrayOfDivs;
-                    newArrOfDivs.find((item) => {
-                        if (item.id === id)
-                        {
-                            item.email = text
-                        } 
-                    },)
-                break;
-        
-                case 'phone':
-                    
-                    newArrOfDivs.find((item) => {
-                        if (item.id === id)
-                        {
-                            item.phone = text
-                        } 
-                    },)
-                break;
-                default:
-                Alert.alert("NUMBER NOT FOUND");
+                                item.cal = text
+                            } 
+                        },)
+                      break;
+                    default:
+                      console.log("default "+ tag + " " + text);
+                      return
+                    }
+                return { breafast: newArrOfDivs };
+                });
+              break;
+
+            case 'lunch':
+              this.setState((prevState) => {
+                console.log("handleChange " + id + " " + temp)
+                let newArrOfDivs = prevState.lunch;
+                switch(text) {
+                    case 'text':
+                        newArrOfDivs.find((item) => {
+                                if (item.id === id)
+                                {
+                                    item.text = text
+                                }
+                            },
+                        )
+                      break;
+      
+                    case 'cal':
+                        newArrOfDivs.find((item) => {
+                            if (item.id === id)
+                            {
+                                item.cal = text
+                            } 
+                        },)
+                      break;
+                    default:
+                      console.log("default "+ tag + " " + text);
+                      return
+                    }
+                return { lunch: newArrOfDivs };
+                });
+              break;
+
+            case 'dinner':
+              this.setState((prevState) => {
+                console.log("handleChange " + id + " " + temp)
+                let newArrOfDivs = prevState.dinner;
+                switch(text) {
+                    case 'text':
+                        newArrOfDivs.find((item) => {
+                                if (item.id === id)
+                                {
+                                    item.text = text
+                                }
+                            },
+                        )
+                      break;
+      
+                    case 'cal':
+                        newArrOfDivs.find((item) => {
+                            if (item.id === id)
+                            {
+                                item.cal = text
+                            } 
+                        },)
+                      break;
+                    default:
+                      console.log("default "+ tag + " " + text);
+                      return
+                    }
+                return { dinner: newArrOfDivs };
+                });
+              break;
+            default:
+              Alert.alert("NUMBER NOT FOUND");
+            }
             
-                }
-            return { arrayOfDivs: newArrOfDivs };
-            });
         };
+
         componentDidMount() {
             this.setState((prevState) => {
-            console.log("componentDidMount" + prevState.arrayOfDivs + " now ID " + prevState.divID)
+            console.log("componentDidMount" + prevState.breafast + " now ID " + prevState.breakfastID)
             return {
-                arrayOfDivs: [
-                ...prevState.arrayOfDivs,
-                { name: '', id: prevState.divID, email: '', phone: '' },
+              breafast: [
+                ...prevState.breafast,
+                // { name: '', id: prevState.divID, email: '', phone: '' },
                 ],
-                
+              dinner: [
+                ...prevState.dinner,
+                // { name: '', id: prevState.divID, email: '', phone: '' },
+                ],
+              snacks: [
+                ...prevState.snacks,
+                // { name: '', id: prevState.divID, email: '', phone: '' },
+                ],
             };
-            });
+          });
         }
-        removeElement = (e,id) => {
-            console.log("removeElement")
-            this.setState((prevState) => {
-            let newArr = prevState.arrayOfDivs.filter((item) => item.id !== id);
-            return { arrayOfDivs: newArr };
-            });
-        };
-        addElement = () => {
-            this.setState((prevState) => {
-                console.log("addElement"+ prevState.divID)
-                return { divID: prevState.divID + 1 };
-                });
-            this.setState((prevState) => {
-            console.log("addElement"+ prevState.divID)
-            return {
-                arrayOfDivs: [
-                ...prevState.arrayOfDivs,
-                { name: '', id: prevState.divID, email: '', phone: '' },
-                ],
-                
-            };
-            });
+
+        removeElement = (tag,id) => {
+          switch(tag) {
+            case 'breakfast':              
+              console.log("removeElement")
+              this.setState((prevState) => {
+              let newArr = prevState.breafast.filter((item) => item.id !== id);
+              return { breafast: newArr };
+              });
+            break;
             
+            case 'lunch':
+              console.log("removeElement")
+              this.setState((prevState) => {
+              let newArr = prevState.lunch.filter((item) => item.id !== id);
+              return { lunch: newArr };
+              });
+            break;
+
+            case 'dinner':
+              console.log("removeElement")
+              this.setState((prevState) => {
+              let newArr = prevState.dinner.filter((item) => item.id !== id);
+              return { dinner: newArr };
+              });
+              break;
+
+            default:
+              Alert.alert("NUMBER NOT FOUND");
+            }
+            
+        };
+
+        addElement = (tag) => {
+          switch(tag) {
+            case 'breakfast':              
+              this.setState((prevState) => {
+                console.log("addElement breakfast"+ prevState.lunchID)
+                return {
+                    breakfastID: prevState.breakfastID + 1,
+                    breafast: [
+                      ...prevState.breafast,
+                      { text: '', id: prevState.breakfastID, cal: ''},
+                    ],
+                  };
+                })
+            break;
+            
+            case 'lunch':
+              this.setState((prevState) => {
+                console.log("addElement lunch"+ prevState.lunchID)
+                return {
+                    lunchID: prevState.lunchID + 1,
+                    lunch: [
+                      ...prevState.lunch,
+                      { text: '', id: prevState.lunchID, cal: ''},
+                    ],
+                  };
+                })
+              break;
+            case 'dinner':
+              this.setState((prevState) => {
+                console.log("addElement dinner "+ prevState.dinnerID)
+                return {
+                  dinnerID: prevState.dinnerID + 1,
+                    dinner: [
+                      ...prevState.dinner,
+                      { text: '', id: prevState.dinnerID, cal: ''},
+                    ],
+                  };
+                })
+              break;
+
+            default:
+              Alert.alert("NUMBER NOT FOUND");
+            }
         };
 
       render() {
         return (
-            // <ScrollView bounces={false} showsVerticalScrollIndicator={true} style={styles.mainView}>
-            // <TouchableOpacity onPress={(e) =>this.addElement()}>
-            //  <Text>Add</Text>
-            // </TouchableOpacity>
-                // {this.state.arrayOfDivs.map((item) => (
-                // <View key={item.id}>
-                //     <Text>{item.id}</Text>
-                //     <TextInput
-                //     placeholder="name" style = {styles.MainTextInput}
-                //     value={item.name}
-                //     onChangeText={(text) => this.handleChange(text, item.id, "name")}
-                //     />
-                //     <TextInput
-                //     placeholder="email" style = {styles.MainTextInput}
-                //     value={item.email}
-                //     onChangeText={(text) => this.handleChange(text, item.id,"email")}
-                //     />
-                //     <TextInput
-                //     placeholder="phone" style = {styles.MainTextInput}
-                //     value={item.phone}
-                //     onChangeText={(text) => this.handleChange(text, item.id, "phone")}
-                //     />
-                //     <TouchableOpacity onPress={(e) =>this.removeElement(e,item.id)}>
-                //         <Text>remove</Text>
-                //         </TouchableOpacity>
-                // </View>
-                // ))}
-                <SafeAreaView  style = {{flex: 1, backgroundColor: "#81B29A"}}>
-                <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 20}} style = {{height: Dimensions.get("window").height}}>
+                <View  style = {{maxHeight:"100%", backgroundColor: "#81B29A", height: Dimensions.get("window").height}}>
+                <ScrollView contentContainerStyle={{flexGrow: 0, paddingBottom: 15}}>
+
                     <Text style = {styles.MealTitleText}>Breakfast</Text>
-                    <TouchableOpacity onPress={(e) =>this.addElement()}>
-                        <Text>add</Text>
+                    <TouchableHighlight style={styles.add} onPress={() =>this.addElement("breakfast")}>
+                      <Text>add</Text>
+                    </TouchableHighlight>
+                    {this.state.breafast.map((item) => (
+                    <View style = {{flex: .2, backgroundColor: "#81B29A"}} key={item.id}> 
+                        <View style = {styles.textboxes}>
+                          <TextInput
+                          placeholder="Meal" style = {styles.MainTextInput}
+                          value={item.name}
+                          onChangeText={(text) => this.handleChange("breakfast" , text, item.id, "text")}
+                          />
+                          <TextInput
+                          placeholder="Calories" style = {styles.CalTextInput}
+                          value={item.email}
+                          onChangeText={(text) => this.handleChange("breakfast", text, item.id,"cal")}
+                          />
+                        </View>
+                      <TouchableOpacity style={styles.remove} onPress={() =>this.removeElement("breakfast",item.id)}>
+                        <Text>Remove</Text>
+                      </TouchableOpacity>
+                    </View>
+                    ))}
+
+                    <Text style = {styles.MealTitleText}>Lunch</Text>
+                    <TouchableOpacity  style={styles.add} onPress={() =>this.addElement("lunch")}>
+                      <Text>add</Text>
                     </TouchableOpacity>
-                    {this.state.arrayOfDivs.map((item) => (
+                    {this.state.lunch.map((item) => (
                     <View key={item.id}> 
+                        <View style = {styles.textboxes}>
                         <TextInput
-                        placeholder="name" style = {styles.MainTextInput}
+                        placeholder="Meal" style = {styles.MainTextInput}
                         value={item.name}
-                        onChangeText={(text) => this.handleChange(text, item.id, "name")}
+                        onChangeText={(text) => this.handleChange("lunch", text, item.id, "text")}
                         />
                         <TextInput
-                        placeholder="email" style = {styles.MainTextInput}
+                        placeholder="Calories" style = {styles.CalTextInput}
                         value={item.email}
-                        onChangeText={(text) => this.handleChange(text, item.id,"email")}
+                        onChangeText={(text) => this.handleChange("lunch", text, item.id,"cal")}
+                        />
+                        </View>
+                      <TouchableOpacity  style={styles.remove} onPress={() =>this.removeElement("lunch",item.id)}>
+                        <Text>remove</Text>
+                      </TouchableOpacity>
+                    </View>
+                    ))}
+
+                    <Text style = {styles.MealTitleText}>Dinner</Text>
+                    <TouchableOpacity  style={styles.add} onPress={() =>this.addElement("dinner")}>
+                      <Text>add</Text>
+                    </TouchableOpacity>
+                    {this.state.dinner.map((item) => (
+                    <View key={item.id}> 
+                        <View style = {styles.textboxes}>
+                        <TextInput
+                        placeholder="Meal" style = {styles.MainTextInput}
+                        value={item.name}
+                        onChangeText={(text) => this.handleChange("dinner",text, item.id, "text")}
                         />
                         <TextInput
-                        placeholder="phone" style = {styles.MainTextInput}
-                        value={item.phone}
-                        onChangeText={(text) => this.handleChange(text, item.id, "phone")}
+                        placeholder="Calories" style = {styles.CalTextInput}
+                        value={item.email}
+                        onChangeText={(text) => this.handleChange("dinner",text, item.id,"cal")}
                         />
-                        <TouchableOpacity onPress={(e) =>this.removeElement(e,item.id)}>
-                            <Text>remove</Text>
-                            </TouchableOpacity>
+                        </View>
+                      <TouchableOpacity style={styles.remove} onPress={() =>this.removeElement("dinner",item.id)}>
+                        <Text>remove</Text>
+                      </TouchableOpacity>
                     </View>
                     ))}
             </ScrollView>
-            </SafeAreaView >
+            </View >
             
         )
     }
@@ -275,7 +419,7 @@ const styles = StyleSheet.create({
   },
   containerView:{
     height: Dimensions.get("window").height,
-    backgroundColor: 'black',
+    backgroundColor: '#3897f1',
   },
   basicView:{
     backgroundColor:'#3D405B',
@@ -295,8 +439,10 @@ const styles = StyleSheet.create({
   MealTitleText:{
     color:'#F4F1DE',
     textAlign:'center',
-    color: 'white',
-    fontSize: 15,
+    color: 'blue',
+    fontSize: 20,
+    padding: 2,
+    backgroundColor: 'white'
   },
   MainTextInput: {
     height:30,
@@ -325,10 +471,16 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 1,
   },
-  button: {
+  add: {
+    backgroundColor: '#3897f1',
+    borderRadius: 3,
+    height: 25,
+    width: 100,
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    width: '20%',
-    height: '40%'
+  },
+  remove: {
+    backgroundColor: '#3897f1',
+    borderRadius: 3,
+    alignItems: 'center',
   },
 })

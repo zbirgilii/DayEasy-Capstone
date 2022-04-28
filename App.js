@@ -67,12 +67,12 @@ export default function App() {
         </>
       ) : (
         <>
-        <Stack.Screen name="Main Menu" component={MainMenuScreen} />
+        <Stack.Screen name="Main Menu" component={MainMenuScreen} options={{ headerShown: false}}/>
         <Stack.Screen name="WaterIntake" component={WaterIntakeScreen} />
         <Stack.Screen name="CalorieIntake" component={CalorieIntakeScreen} />
         <Stack.Screen name="WorkoutPlanMain" component={WorkoutPlanMain} />
         <Stack.Screen name="Calendar" component={CalendarScreen}/>
-        <Stack.Screen name="Pedometer" component={PedometerScreen} options={{ headerShown: true}}/>
+        <Stack.Screen name="Pedometer" component={PedometerScreen}/>
         <Stack.Screen name="Fasting Timer" component={FastingScreen}/>
         <Stack.Screen name="MealPlanner" component={MealPlannerScreen} />
         <Stack.Screen name="WorkoutSelect" component={WorkoutSelect} /> 
