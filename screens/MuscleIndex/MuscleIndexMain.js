@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
 import {StyleSheet, Text, View,TouchableOpacity } from 'react-native';
-import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
-//import {db} from '../firebase.js';
+//import {db} from '../firebase.js'
 import { db } from '../../firebase';
 //import WeekDayMenu from './allWorkouts/WeekDayMenu.js';
 import { collection,collectionGroup, query,setDoc, where, getDocs, getDoc, doc ,updateDoc} from "firebase/firestore";
 
 export default function MuscleIndexMain() {
   const navigation = useNavigation();
-  const [selectGroup, setSelectGroup] = useState('');
-  let weekDayTitle = '';
-
-  const toWeekDayMenu = () => {
-    navigation.push("WeekDayMenu");    
-  }
+  let userMuscle = '';
   
   
   const workoutData = (muscleGroup) => {
-    const auth = getAuth();
-    const user = auth.currentUser;
     const docSnap = getDoc(doc(db, 'MuscleIndex'))
     docSnap.then(doc => {
       if(doc.exists){
-        console.log('Document exists, id: '+doc.id);        
-        updateDoc(doc.ref,{
-          userMuscle : muscleGroup,           
-        })        
+        if(doc.data() == null){
+          setDoc(doc.ref, {
+            userMuscle : muscleGroup
+          })
+        }
+        else{
+          updateDoc(doc.ref,{
+            userMuscle : muscleGroup,           
+          })
+        }                
+      }
+      else{
+        setDoc(doc(db, 'MuscleIndex'), {
+          userMuscle : muscleGroup
+        })
       }
       if(muscleGroup == 'Chest'){
         navigation.push("ChestIndex");
@@ -58,37 +61,45 @@ export default function MuscleIndexMain() {
         <TouchableOpacity
           style={styles.buttonStyle} 
           onPress={
-            () => { weekDayTitle = 'Abs'; workoutData(weekDayTitle); } 
+            () => navigation.push("AbsIndex") 
           }
           >
           <Text style={styles.buttonText}>
             Abs
           </Text>        
-        </TouchableOpacity>
+        </TouchableOpacity>        
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => {weekDayTitle = 'Chest'; workoutData(weekDayTitle); }}>
+          onPress={
+            () => navigation.push("ChestIndex") 
+          }>
           <Text style={styles.buttonText}>
              Chest
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { weekDayTitle = 'Legs'; workoutData(weekDayTitle); }}>
+          onPress={
+            () => navigation.push("LegsIndex") 
+          }>
           <Text style={styles.buttonText}>
             Legs
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { weekDayTitle = 'Shoulders'; workoutData(weekDayTitle); }}>
+          onPress={
+            () => navigation.push("ShouldersIndex") 
+          }>
           <Text style={styles.buttonText}>
              Shoulders 
           </Text>        
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonStyle} 
-          onPress={() => { weekDayTitle = 'Arms'; workoutData(weekDayTitle); }}>
+          onPress={
+            () => navigation.push("ArmsIndex") 
+          }>
           <Text style={styles.buttonText}>
              Arms 
           </Text>        
