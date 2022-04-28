@@ -86,8 +86,16 @@ export default function WeekDayMenu() {
   }
   return (
     <>
-      <View style={styles.mainView}>        
-        <View style={styles.basicView}>          
+      <View style={styles.mainView}>
+        <View style={styles.basicView}>
+          <TouchableOpacity 
+            //style={styles.buttonStyle}
+            onPress={
+               () => navigation.push('Main Menu')
+            }
+          >
+            <Text style={styles.basicText}>Return to MainMenu</Text>
+          </TouchableOpacity>          
           <Text style={styles.PageTitle} >Add Workout Plan for: {selectDay}</Text>
         </View>
         
@@ -127,7 +135,7 @@ export default function WeekDayMenu() {
             <Text style={styles.basicText}>Shoulders</Text>
           </TouchableOpacity>
           <TouchableOpacity 
-            style={styles.buttonStyle}
+            style={styles.bottomButton}
             onPress={
               () => { muscleGroup = 'Arms'; workoutData(muscleGroup); }
             }
@@ -184,6 +192,25 @@ export default function WeekDayMenu() {
         marginBottom: 10,
         //borderColor: 'black',
         //textShadowColor: 'red',
+        color: 'white'
+      },
+      bottomButton: {
+        textAlign:'center',
+        alignItems:'center',
+        borderRadius: 1000,
+        borderWidth: 1,
+        width: '70%',
+        //marginBottom: 10,
+        //padding: '100, 7px 10px 7px',
+        //paddingRight: '50%',
+        //paddingLeft: 70,
+        //flex: 1,
+        alignSelf: 'center',
+        marginTop: 20,
+        marginBottom: 250,
+        marginRight: 10,
+        marginLeft: 10,
+        backgroundColor:'#3D405B',
         color: 'white'
       },
       buttonStyle:{

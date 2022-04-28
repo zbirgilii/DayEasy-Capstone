@@ -90,8 +90,16 @@ export default function WorkoutSelect() {
 
   return (
     <>
-      <View style={styles.mainView}>        
-        <View style={styles.basicView}>          
+      <View style={styles.mainView}>                
+        <View style={styles.basicView}>
+          <TouchableOpacity 
+            //style={styles.buttonStyle}
+            onPress={
+               () => navigation.push('Main Menu')
+            }
+          >
+            <Text style={styles.basicText}>Return to MainMenu</Text>
+          </TouchableOpacity>          
           <Text style={styles.PageTitle}>Current Workout Plan</Text>
         </View>
         <View style={styles.container}>
