@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
 		opacity: 1,
 		left: 0,
 		right: "auto",
-		top: 68,
+		top: 110,
 		bottom: "auto",
 		transform: [
 			{translateX: 0},
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
 	_Rectangle_22: {
 		position: "absolute",
 		width: 500,
-		height: 68,
+		height: 110,
 		borderRadius: 0,
 		opacity: 1,
 		left: 0,
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
 		bottom: "auto",
 		transform: [
 			{translateX: 60},
-			{translateY: 0},
+			{translateY: 40},
 			{rotate: "0deg"},
 		],
 		backgroundColor: "rgba(0,0,0,0)",
