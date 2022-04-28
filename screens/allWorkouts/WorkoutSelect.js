@@ -105,7 +105,7 @@ export default function WorkoutSelect() {
       <View style={styles.mainView}>        
         <View style={styles.basicView}>               
           
-          <Text style={styles.PageTitle}>Suggested Workouts for: <br></br>{selectmuscleGroup}</Text>
+          <Text style={styles.PageTitle}>Suggested Workouts for: {'\n'}{selectmuscleGroup}</Text>
         </View>
         
             <TouchableOpacity
@@ -169,6 +169,18 @@ const styles = StyleSheet.create({
         padding:20
       },
       PageTitle:{
+        fontSize: 40,
+        color: 'white',
+        paddingTop: 50,
+        paddingBottom: 10,
+        fontWeight: '400',
+        textAlign:'center',
+        alignItems:'center' //center x axis
+        //justifyContent:'flex-start' //center y axis
+    
+      },
+      PagePart:{
+        //whiteSpace: 'pre-wrap',
         fontSize: 40,
         color: 'white',
         paddingTop: 50,
