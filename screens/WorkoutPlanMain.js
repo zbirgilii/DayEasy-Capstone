@@ -6,7 +6,7 @@ import {db} from '../firebase.js'
 import WeekDayMenu from './allWorkouts/WeekDayMenu';
 import { collection,collectionGroup, query,setDoc, where, getDocs, getDoc, doc ,updateDoc} from "firebase/firestore";
 
-export default function WorkoutPlanMain() {
+export default function WorkoutScreen() {
   const navigation = useNavigation();
   const [selectGroup, setSelectGroup] = useState('');
   let weekDayTitle = '';
