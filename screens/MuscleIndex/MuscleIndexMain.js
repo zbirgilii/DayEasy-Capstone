@@ -54,9 +54,7 @@ export default function MuscleIndexMain() {
     <>    
       <View style={styles.mainView}>        
         <View style={styles.basicView}>
-          
-          <Text style={styles.PageTitle}>Add To Plan</Text>
-          <Text style={styles.PageTitle}>Select Day:</Text>
+          <Text style={styles.PageTitle}>Select Muscle:</Text>
         </View>
         <TouchableOpacity
           style={styles.buttonStyle} 
