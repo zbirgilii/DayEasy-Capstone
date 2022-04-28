@@ -110,7 +110,7 @@ export default function WorkoutSelect() {
         
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
+              onPress={() => navigation.goBack()}
             >
               <Text style={styles.buttonText}>
               {userWorkout1}
@@ -119,7 +119,7 @@ export default function WorkoutSelect() {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
+              onPress={() => navigation.goBack()}
             >
               <Text style={styles.buttonText}>
               {userWorkout2}
@@ -128,7 +128,7 @@ export default function WorkoutSelect() {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
+              onPress={() => navigation.goBack()}
             >
               <Text style={styles.buttonText}>
               {userWorkout3}
