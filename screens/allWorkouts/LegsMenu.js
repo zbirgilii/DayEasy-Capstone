@@ -102,7 +102,7 @@ export default function WorkoutSelect() {
       <View style={styles.mainView}>        
         <View style={styles.basicView}>               
           
-          <Text style={styles.PageTitle}>Suggested Workouts for: <br></br>{selectmuscleGroup}</Text>
+          <Text style={styles.PageTitle}>Suggested Workouts for: {selectmuscleGroup}</Text>
         </View>
         
             <TouchableOpacity
