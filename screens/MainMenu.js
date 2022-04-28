@@ -63,7 +63,7 @@ export default function App() {
             </Text>        
           </TouchableOpacity>
           <TouchableOpacity style={styles.roundButton} 
-          onPress={() => navigation.push("FastingTimer")} title="Fasting Timer">
+          onPress={() => navigation.push("Fasting Timer")} title="Fasting Timer">
             <Text style={styles.basicText}>
               Fasting time
             </Text>        
