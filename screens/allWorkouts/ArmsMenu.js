@@ -102,12 +102,12 @@ export default function WorkoutSelect() {
       <View style={styles.mainView}>        
         <View style={styles.basicView}>               
           
-          <Text style={styles.PageTitle}>Suggested Workouts for: {selectmuscleGroup}</Text>
+          <Text style={styles.PageTitle}>Suggested Workouts for: {'\n'}{selectmuscleGroup}</Text>
         </View>
         
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
+              onPress={() => navigation.goBack()}
             >
               <Text style={styles.buttonText}>
               {userWorkout1}
@@ -116,7 +116,7 @@ export default function WorkoutSelect() {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
+              onPress={() => navigation.goBack()}
             >
               <Text style={styles.buttonText}>
               {userWorkout2}
@@ -125,7 +125,7 @@ export default function WorkoutSelect() {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.buttonStyle} 
-              onPress={() => navigation.push("WeekDayMenu")}
+              onPress={() => navigation.goBack()}
             >
               <Text style={styles.buttonText}>
               {userWorkout3}
@@ -133,7 +133,7 @@ export default function WorkoutSelect() {
               
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.buttonStyle} 
+              style={styles.buttonStyle}  
               onPress={() => navigation.push("CurrentPlan")}
             >
               <Text style={styles.buttonText}>
