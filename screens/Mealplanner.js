@@ -231,8 +231,8 @@ export default class MealPlan extends React.Component{
                 //         </TouchableOpacity>
                 // </View>
                 // ))}
-                <SafeAreaView  style = {{flex: 1}}>
-                <ScrollView contentContainerStyle={{flexGrow: 1, backgroundColor: "green", paddingBottom: 60}} style = {{backgroundColor: "red", height: Dimensions.get("window").height}}>
+                <SafeAreaView  style = {{flex: 1, backgroundColor: "#81B29A"}}>
+                <ScrollView contentContainerStyle={{flexGrow: 1, paddingBottom: 20}} style = {{height: Dimensions.get("window").height}}>
                     <Text style = {styles.MealTitleText}>Breakfast</Text>
                     <TouchableOpacity onPress={(e) =>this.addElement()}>
                         <Text>add</Text>

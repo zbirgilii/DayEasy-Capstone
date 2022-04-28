@@ -15,7 +15,7 @@ import shoulderIcon from '../../assets/muscleIcons/shouldersIcon.jpg';
 import armIcon from '../../assets/muscleIcons/armIcon.jpg';
 */
 
-export default function weekDayMenu() {
+export default function WeekDayMenu() {
 
   const navigation = useNavigation();
   
